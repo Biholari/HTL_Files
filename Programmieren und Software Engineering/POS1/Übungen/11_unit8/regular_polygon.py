@@ -11,7 +11,6 @@ sides = int(input("Anzahl der Seiten: "))
 
 def regular_polygon2():
     colT = []
-    indx = 0
     for i in range(sides):
         colN = input(f"Farbe {i+1}: ")
         colT.append(colN)

@@ -12,12 +12,12 @@ def quersumme(n):
             indx += 1 
         return val * -1
     elif "." in n:
-        l = list(n)
-        del(l[n.index(".")])
-        n = "".join(l)
         for i in n:
-            val += int(i)
-        return val 
+            if i == ".":
+                pass
+            else:
+                val += int(i)
+        return val
     else:
         for i in n:
             val += int(i)
