@@ -1,6 +1,6 @@
 """
-Schreibe nun ein Programm divide.py, das den Benutzer nach zwei Indizes fragt
-und den Quotienten ausgibt.
+author: Oppermann Fabian
+file_name: divide.py
 """
 
 def divide(tupel, index1, index2):

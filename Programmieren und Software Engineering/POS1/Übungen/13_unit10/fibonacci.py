@@ -1,3 +1,8 @@
+"""
+author: Oppermann Fabian
+file_name: fibonacci.py
+"""
+
 def getFibNth(n):
     if n == 1:
         return 0

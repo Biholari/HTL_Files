@@ -1,3 +1,8 @@
+"""
+author: Oppermann Fabian
+file_name: and2.py
+"""
+
 print(f"""
 a | b | a and b
 --+---+--------""")

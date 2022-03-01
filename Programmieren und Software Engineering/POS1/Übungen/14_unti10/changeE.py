@@ -1,6 +1,6 @@
 """
-Schreibe eine Funktion changeE(s), die einen String als Parameter bekommt und
-einen String zurückliefert, der alle enthaltenen e in Großbuchstaben gewandelt hat.
+author: Oppermann Fabian
+file_name: changeE.py
 """
 
 

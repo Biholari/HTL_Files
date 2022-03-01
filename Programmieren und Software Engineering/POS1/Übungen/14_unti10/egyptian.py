@@ -1,7 +1,10 @@
 """
-Schreibe eine Funktion egyptian_mul(a, b), die den Algorithmus der ägyptischen
-Multiplikation implementiert.
+author: Oppermann Fabian
+file_name: egyptian.py
 """
+
+a = int(input("Gib die erste Zahl ein: "))
+b = int(input("Gib die zweite Zahl ein: "))
 
 
 def egyptian_mul(a, b):
@@ -13,8 +16,5 @@ def egyptian_mul(a, b):
         b *= 2
     return c
 
-
-a = int(input("Gib die erste Zahl ein: "))
-b = int(input("Gib die zweite Zahl ein: "))
 
 print(egyptian_mul(a, b))

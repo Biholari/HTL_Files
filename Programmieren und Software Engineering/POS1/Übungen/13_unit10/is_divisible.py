@@ -1,6 +1,6 @@
 """
 author: Oppermann Fabian
-file_name: triangle.py
+file_name: is_divisible.py
 """
 
 a = int(input("Zahl 1: "))

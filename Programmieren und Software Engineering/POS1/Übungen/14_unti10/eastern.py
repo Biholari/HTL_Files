@@ -1,6 +1,6 @@
 """
-Schreibe eine Funktion easter(year), die sowohl das Monat als auch den Tag des
-Ostersonntags berechnet und zurückliefert.
+author: Oppermann Fabian
+file_name: eastern.py
 """
 
 

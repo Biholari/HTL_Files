@@ -1,3 +1,9 @@
+"""
+author: Oppermann Fabian
+file_name: bit.py
+"""
+
+
 # a) Verschiebe um jeweils 1 Bit nach links: 0, 1, 2, 3, 4, 5
 print(bin(0b1101))
 print(bin(0b1101 << 1))

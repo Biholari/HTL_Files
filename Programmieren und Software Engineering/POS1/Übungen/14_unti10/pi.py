@@ -1,5 +1,6 @@
 """
-Schreibe ein Programm pi.py, das die Zahl pi berechnet
+author: Oppermann Fabian
+file_name: pi.py
 """
 
 import math

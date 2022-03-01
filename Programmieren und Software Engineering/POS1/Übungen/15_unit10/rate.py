@@ -1,5 +1,6 @@
 """
-Schreibe ein Zahlenratespiel!
+author: Oppermann Fabian
+file_name: rate.py
 """
 
 import random

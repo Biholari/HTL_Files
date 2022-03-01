@@ -1,7 +1,6 @@
 """
-Schreibe eine Funktion count_chars(s, c), die die Anzahl der Buchstaben im
-String s zurückliefert, die durch den Buchstaben im Parameter c festgelegt worden
-sind.
+author: Oppermann Fabian
+file_name: count_chars.py
 """
 
 
@@ -10,7 +9,7 @@ def count_chars(s, c):
     for i in s:
         if c in i:
             len += 1
-    print(len)
+    return len
 
 
-count_chars("abcabcabc" ,"a")
+print(count_chars("abcabcabc" ,"a"))
