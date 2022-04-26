@@ -1,3 +1,9 @@
+"""
+autor: Oppermann Fabian
+file_name: game.py
+"""
+
+
 import random as ra
 
 userPoints = {}

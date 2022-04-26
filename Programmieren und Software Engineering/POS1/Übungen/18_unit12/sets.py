@@ -64,7 +64,7 @@ def minimum(liste):
         return min
 
 
-def main():
+def num9():
     liste = []
     while True:
         try:

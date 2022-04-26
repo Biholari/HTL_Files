@@ -12,7 +12,7 @@ def is_subset(a, b):
 
 
 def union(a, b):
-    # return return a + [x for x in b if x not in a]   Währe die Möglichkeit auch OK? 
+    # return a + [x for x in b if x not in a] |  Währe die Möglichkeit auch OK? 
     c = set()
     for e in a:
         c.add(e)

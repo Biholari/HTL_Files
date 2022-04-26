@@ -14,4 +14,4 @@ def divide(tupel, index1, index2):
         print("Ende")
 
 
-print(divide((2, 5, 0, 3, 6, 3, 1, 9, 8, 0, 2, 8), 1, 2))
+print(divide((2, 5, 0, 3, 6, "3", 1, 9, 8, 0, 2, 8), 1, 3))
