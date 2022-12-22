@@ -6,11 +6,10 @@ using namespace std;
 
 int main()
 {
-   /* string input;
+    string input;
     while(true) {
         cout << "Enter a number (either roman or decimal): ";
         cin >> input;
-        cout << endl;
 
         if (!cin.fail())
             break;
@@ -21,20 +20,21 @@ int main()
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    if (isdigit(input[0])) {
+    // Check if input is a number
+    if (isdigit(input[0])) 
+    {
         int number = stoi(input);
-        Roman_Number roman_number(number);
+        Roman_Number roman_number(number, true);
 
-        cout << "You entered the number: " << number << ". Which is in roman system: " << roman_number.get_value() << endl;
+        cout << roman_number.get_number() << endl;
     }
-    else {
+    // Is an string
+    else 
+    {
         Roman_Number roman_number(input);
-        cout << "You entered the roman number: " << input << ". Which is in decimal: " << roman_number.get_number() << endl;
-    }*/
 
-    Roman_Number roman_number(4);
-
-    std::cout << roman_number.get_number() << endl;
+        cout << roman_number.get_value() << endl;
+    }
 
     return 0;
 }

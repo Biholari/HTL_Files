@@ -17,8 +17,8 @@ private:
 
 public:
     static int roman_to_dec(std::string roman);
-    static std::string dec_to_roman(int dec_value);
-    Roman_Number(int value);
+    static std::string dec_to_roman(int dec_value, bool multiplication);
+    Roman_Number(int value, bool multiplication);
     Roman_Number(std::string number);
     std::string get_number();
     int get_value();
