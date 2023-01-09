@@ -35,6 +35,5 @@ int main()
 
         cout << roman_number.get_value() << endl;
     }
-
     return 0;
 }
