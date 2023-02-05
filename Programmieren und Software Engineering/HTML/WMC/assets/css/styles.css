@@ -1,0 +1,569 @@
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+/*
+In der CSS Datei können nicht gebrauchte Teile drinnen sein,
+ich hab nach einer Zeit den Überblick verloren 😅 
+*/
+
+/* Variables */
+:root {
+  --header-height: 2rem;
+  --prime: peachpuff;
+  --body-font: "Poppins", sans-serif;
+  --big-font-size: 1.5rem;
+  --normal-font-size: 0.938rem;
+  --small-font-size: 0.813rem;
+  --z-fixed: 100; 
+}
+
+/* Bigger font-sizes for larger screens */
+@media screen and (min-width: 968px) {
+  :root {
+    --big-font-size: 2rem;
+    --normal-font-size: 1rem;
+    --small-font-size: 0.875rem;
+  }
+}
+
+::selection {
+  background: peachpuff;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Reusable Classes */
+
+.logo_img {
+  width: 30%;
+  margin-right: 1rem;
+}
+
+.container {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.middler {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+span {
+  font-weight: 700;
+}
+
+.big_span {
+  font-size: 90px;
+}
+
+.animated-gradient {
+  background-image: linear-gradient(180deg,rgba(0, 0, 0, 0.8),#000);
+}
+
+p.undertitle {
+  display: flex;
+  font-size: 20px;
+  padding-bottom: 4rem;
+}
+
+.animated-gradient_background::before {
+  content: "Program.";
+  position: absolute;
+  display: block;
+  background: linear-gradient(90deg,#003acd,#0080ff);
+  z-index: 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.animated-gradient_background_preview::before {
+  content: "Preview.";
+  position: absolute;
+  display: block;
+  background: linear-gradient(90deg,#6700cd,#e100ff);
+  z-index: 1;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.animated-gradient_background_ship::before {
+  content: "Ship.";
+  position: absolute;
+  display: block;
+  background: linear-gradient(90deg,var(--prime),#ffa600);
+  z-index: 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.animated-gradient_foreground {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  z-index: 1;
+  position: relative;
+  animation: animation-gradient 8s infinite;
+}
+
+.mini_text {
+  padding-bottom: 3rem;
+  color:rgb(113, 113, 113);
+}
+
+.logo_container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1020px;
+  justify-content: center;
+  align-items: center;
+}
+
+.apple_logo {
+  width: 5%;
+}
+
+.cineplexx_logo {
+  width: 15%;
+  filter: saturate(0);
+}
+
+.google_logo {
+  width: 15%;
+  filter: saturate(0);
+}
+
+.microsoft_logo {
+  width: 20%;
+  filter: saturate(0);
+}
+
+.twp_logo {
+  width: 25%;
+  filter: saturate(0);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.row > * {
+  padding-bottom: 3rem;
+}
+
+
+hr {
+  width: 2px;
+  height: 100px;
+  border: 0;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, rgba(255, 166, 0, 0.08), peachpuff);
+} 
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 60px;
+  background-image: linear-gradient(to right, rgb(255, 156, 51), peachpuff);
+  height: 60px;
+  width: 60px;
+}
+
+.circle > p {
+  color: white;
+  font-size: 25px;
+}
+
+p.section-start {
+  padding-top: 20px;
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.cover {
+  display: inline-block;
+  height: 400px;
+  width: 50vw;
+  margin: 15px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border:rgb(218, 218, 218) solid;
+  box-shadow: 0px 0px 10px peachpuff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+/*=============== ANIMATIONS ===============*/
+@keyframes animation-gradient {
+  0%,
+  16.667%,
+  to {
+    opacity: 1;
+  }
+  33.333%,
+  83.333% {
+    opacity: 0;
+  }
+}
+
+/*=============== HEADER Y NAV ===============*/
+.header {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-fixed);
+}
+
+.header__nav {
+  height: var(--header-height);
+  display: flex;
+  width: 10%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  color: var(--title-color);
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.section_develop {
+  padding-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.show {
+  background: white;
+  border:rgb(79, 79, 79) solid;
+  border-radius: 5px;
+  width: 8rem;
+  height: 3rem;
+  background: white;
+  transition: all .3s ease-in-out;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.show:hover {
+  cursor: pointer;
+  color: white;
+}
+
+.apple-container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px 0px peachpuff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 400px;
+  margin: 20px;
+  margin-right: 10rem;
+  position: relative;
+}
+
+.apple-container pre {
+  overflow-x: auto;
+  text-align: left;
+}
+
+.apple-container pre code {
+  font-size: 20px;
+}
+
+.apple-container .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+}
+
+.apple-container .red {
+  background-color: #c15252;
+  left: 15px;
+}
+
+.apple-container .yellow {
+  background-color: rgb(244, 244, 64);
+  left: 30px;
+}
+
+.apple-container .green {
+  background-color: #49da49;
+  left: 45px;
+}
+
+svg {
+  shape-rendering: crispEdges;
+  fill: none;
+  height: 24px;
+  width: 24px;
+  shape-rendering: geometricPrecision;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.5px;
+  color: currentColor;
+}
+
+.icon-wrapper {
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 4px;
+  align-items: center;
+  box-shadow: 0px 0px 8px 0px peachpuff;
+  margin-bottom: 1rem;
+}
+
+.cover_inside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.logo_img_card {
+  display: flex;
+  width: 10%;
+}
+
+/*============== FOOTER ================*/
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-nav ul {
+  display: flex;
+  margin: 0;
+}
+
+.footer-nav li {
+  margin-right: 1rem;
+}
+
+.footer-nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-copyright {
+  margin: 0;
+}
+
+.nav_2 {
+  margin-left: 60vw;
+}
+
+.nav_2 ul {
+  display: flex;
+  margin: 0;
+}
+
+.nav_2 li {
+  margin-right: 1rem;
+}
+
+.nav_2 a {
+  color: #818181;
+  transition: all .3s ease-in-out;
+}
+
+.nav_2 a:hover, .nav_2 a.is-active {
+  color: black;
+}
+
+/* Change background header */
+.scroll-header {
+  border-bottom: solid rgb(200, 200, 200) 1px;
+}
+
+section.darker {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  border-top: rgb(169, 169, 169) solid;
+  border-bottom: rgb(169, 169, 169) solid;
+}
+
+.container_in_darker {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.container_inner {
+  width: auto; /* Divide the width of the parent container by the number of container_inner elements */
+}
+
+#spreader {
+  margin-right: 10rem;
+  margin-left: 10rem;
+}
+
+.row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+}
+
+.card {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+  background-color: rgb(236, 236, 236);
+  margin: 1rem;
+  border-radius: 1rem;
+  border: rgb(213, 213, 213) solid;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: white;
+  box-shadow: 0 0 10px peachpuff;
+}
+
+.card.smaller  {
+  width: 384px;
+  height: 232px;
+}
+
+.card.bigger {
+  width: 588px;
+  height: 208px;
+}
+
+.img_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: right;
+}
+
+.img_container span {
+  transform: rotate(-20deg);
+}
+
+#clipped-image {
+  -webkit-mask-image: url("../img/mask-image.png");
+  mask-image: url("../img/mask-image.png");
+  -webkit-mask-size: 100%;
+  mask-size: 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  transform: translateX(50px);
+  transform: translateY(-30px);
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 320px) {
+  .container {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+/* For large devices */
+@media screen and (min-width: 1024px) {
+  .container {
+    margin-left: 10rem;
+    margin-right: 10rem;
+  }
+
+  .section {
+    padding: 7rem 0 2rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .section_2 {
+    padding: 7rem 0 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .section_nr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header__nav {
+    height: calc(var(--header-height) + 1.5rem);
+  }
+}
