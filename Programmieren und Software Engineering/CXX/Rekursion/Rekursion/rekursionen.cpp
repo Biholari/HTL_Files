@@ -40,9 +40,11 @@ bool Rekursionen::is_palindrom(std::string s)
 {
     // Remove spaces and punctuation and convert to lowercase
     std::string cleaned;
-    std::copy_if(s.begin(), s.end(), std::back_inserter(cleaned), [](char c)
-                 { return std::isalnum(c); });
-    std::transform(cleaned.begin(), cleaned.end(), cleaned.begin(), ::tolower);
+    for (char c : s)
+    {
+        if (std::isalnum(c))
+            cleaned += std::tolower(c);
+    }
 
     // Base case: if the length of the cleaned string is 0 or 1, it is a palindrome
     if (cleaned.size() <= 1)
