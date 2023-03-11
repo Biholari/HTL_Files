@@ -31,7 +31,7 @@ void Names::printNames(std::string search)
             std::cout << pair.name << " " << pair.count << std::endl;
             found = true;
         }
-        else if (useBegin && stringStartsWith(pair.name, praefix))
+        else if (useBegin && stringStartsWith(pair.name, search))
         {
             std::cout << pair.name << " " << pair.count << std::endl;
             found = true;

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <chrono>
 #include <thread>
 
@@ -26,7 +27,7 @@ void move(Tower &start, Tower &ziel, Tower &zwischenspeicher, int anzahl_der_sch
         counter++;
 
         // wait for 500 milliseconds
-        this_thread::sleep_for(500ms);
+        this_thread::sleep_for(50ms);
 
         // move n-1 disks from "zwischenspeicher" to "ziel"
         move(zwischenspeicher, ziel, start, anzahl_der_scheiben - 1, counter, t1, t2, t3);
@@ -47,9 +48,9 @@ int main(int, char **)
     {
         move(t1, t3, t2, 8, counter, t1, t2, t3);
     }
-    catch (const std::runtime_error &e)
+    catch (const runtime_error &e)
     {
-        std::cerr << e.what() << '\n';
+        cerr << e.what() << '\n';
         return 1;
     }
     t1.print(1, 12);
@@ -57,4 +58,13 @@ int main(int, char **)
     t3.print(25, 12);
 
     cout << "\n\nAnzahl der Bewegungen: " << counter << endl;
+    // Convert the steps into seconds
+    chrono::seconds duration(counter);
+
+    // Calculate the amount of hours, minutes and seconds
+    auto hours = chrono::duration_cast<chrono::hours>(duration);
+    auto minutes = chrono::duration_cast<chrono::minutes>(duration);
+    auto seconds = chrono::duration_cast<chrono::seconds>(duration);
+
+    cout << setfill('0') << setw(1) << "Hours: " << hours.count() << " Minutes: " << minutes.count() % 60 << " Seconds: " << seconds.count() % 60 << endl;
 }
