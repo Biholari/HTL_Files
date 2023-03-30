@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Registrierungsformular</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+
+    <body>
+        <h1>Registrierungsformular</h1>
+        <p>Erforderliche Felder sind mit * gekennzeichnet.</p>
+        <hr />
+        <form action="#" method="post" id="myForm">
+            <label for="gender">Geschlecht *</label><br />
+            <select id="gender" name="gender" required>
+                <option value="" disabled selected>Bitte wählen ...</option>
+                <option value="male">Männlich</option>
+                <option value="female">Weiblich</option>
+                <option value="other">Andere</option></select
+            ><br />
+
+            <label for="firstname">Vorname *</label><br />
+            <input
+                type="text"
+                id="firstname"
+                name="firstname"
+                placeholder="Vorname eingeben"
+                required
+            /><br />
+
+            <label for="lastname">Nachname *</label><br />
+            <input
+                type="text"
+                id="lastname"
+                name="lastname"
+                placeholder="Nachname eingeben"
+                required
+            /><br />
+
+            <label for="email">Email *</label><br />
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email eingeben"
+                required
+            /><br />
+
+            <label for="password">Password *</label><br />
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password eingeben"
+                required
+            /><br />
+
+            <label for="confirm_password">Password wiederholen *</label>
+            <label for="confirm_password" id="smaller"
+                >(mind. 8 Zeichen, muss Groß- und Kleinbuchstaben sowie
+                Sonderzeichen enthalten)</label
+            ><br />
+            <input
+                type="password"
+                id="confirm_password"
+                name="confirm_password"
+                placeholder="Password eingeben"
+                required
+            /><br />
+
+            <label for="notes">Sonstige Anmerkungen</label><br />
+            <textarea id="notes" name="notes"></textarea><br />
+            <hr />
+
+            <input type="checkbox" id="terms" name="terms" />
+            <label for="terms"
+                >Ich akzeptiere hiermit die
+                <a href="https://www.google.com/"
+                    >Allgemeinen Geschäftsbedingungen</a
+                ></label
+            ><br />
+
+            <input type="submit" value="Registrieren" />
+            <input type="reset" value="Zurücksetzen" />
+        </form>
+        <script src="validate.js"></script>
+    </body>
+</html>
