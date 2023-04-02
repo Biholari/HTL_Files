@@ -57,3 +57,8 @@ input[type="reset"] {
     width: 22rem;
     height: 3rem;
 }
+
+.invalid {
+    background-color: rgb(250, 167, 167);
+    border: thin solid red;
+}

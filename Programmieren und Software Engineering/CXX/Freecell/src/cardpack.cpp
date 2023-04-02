@@ -38,3 +38,8 @@ void Cardpack::get_random_cards(Card *array[], int count)
         }
     }
 }
+
+Cardpack::~Cardpack()
+{
+    delete[] pack;
+}

@@ -27,6 +27,9 @@ public:
     Card *remove_last_card();
     Card *get_last_card();
     void add_card(Card *card);
+
+    // Erweiterung
+    ~Card();
 };
 
 #endif

@@ -66,15 +66,15 @@ bool Cardstack::can_place_card(Card *card) //? Does this work?
     if (first)
     {
         if (stack_type == Target &&
-            card->get_suite() == first->get_last_card()->get_suite() &&
-            card->get_value() == first->get_last_card()->get_value())
+            card->get_suite() != first->get_last_card()->get_suite() &&
+            card->get_value() < first->get_last_card()->get_value())
             return true;
 
         else
         {
             if (stack_type == Game)
             {
-                if ((card->get_value() + 1) == first->get_last_card()->get_value() && first->get_last_card()->get_last_card())
+                if (card->get_value() > first->get_last_card()->get_value())
                     return false;
 
                 if (first->get_suite() <= Club && card->get_suite() > Club)
@@ -96,4 +96,10 @@ void Cardstack::add_card(Card *card)
         else
             first = card;
     }
+}
+
+Cardstack::~Cardstack()
+{
+    delete[] last;
+    delete[] first;
 }

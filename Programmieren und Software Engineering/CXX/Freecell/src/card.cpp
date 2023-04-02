@@ -20,7 +20,6 @@ Card *Card::remove_last_card()
 
 Card *Card::get_last_card()
 {
-    Card *prev = nullptr;
     if (this->next)
     {
         // Erweiterung
@@ -146,4 +145,11 @@ void Card::print(int x, int y)
     {
         next->print(x, y + 2);
     }
+}
+
+// Erweiterung
+Card::~Card()
+{
+    delete[] next;
+    delete[] prev;
 }

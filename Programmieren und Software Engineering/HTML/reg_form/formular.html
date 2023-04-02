@@ -12,7 +12,7 @@
         <hr />
         <form action="#" method="post" id="myForm">
             <label for="gender">Geschlecht *</label><br />
-            <select id="gender" name="gender" required>
+            <select id="gender" name="gender">
                 <option value="" disabled selected>Bitte wählen ...</option>
                 <option value="male">Männlich</option>
                 <option value="female">Weiblich</option>
@@ -24,49 +24,40 @@
                 type="text"
                 id="firstname"
                 name="firstname"
-                placeholder="Vorname eingeben"
-                required
-            /><br />
+                placeholder="Vorname eingeben" /><br />
 
             <label for="lastname">Nachname *</label><br />
             <input
                 type="text"
                 id="lastname"
                 name="lastname"
-                placeholder="Nachname eingeben"
-                required
-            /><br />
+                placeholder="Nachname eingeben" /><br />
 
             <label for="email">Email *</label><br />
             <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Email eingeben"
-                required
-            /><br />
+                placeholder="Email eingeben" /><br />
 
-            <label for="password">Password *</label><br />
-            <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Password eingeben"
-                required
-            /><br />
-
-            <label for="confirm_password">Password wiederholen *</label>
-            <label for="confirm_password" id="smaller"
+            <label for="password">Password *</label
+            ><label for="confirm_password" id="smaller"
                 >(mind. 8 Zeichen, muss Groß- und Kleinbuchstaben sowie
                 Sonderzeichen enthalten)</label
             ><br />
             <input
                 type="password"
+                id="password"
+                name="password"
+                placeholder="Password eingeben" /><br />
+
+            <label for="confirm_password">Password wiederholen *</label>
+            <br />
+            <input
+                type="password"
                 id="confirm_password"
                 name="confirm_password"
-                placeholder="Password eingeben"
-                required
-            /><br />
+                placeholder="Password eingeben" /><br />
 
             <label for="notes">Sonstige Anmerkungen</label><br />
             <textarea id="notes" name="notes"></textarea><br />
@@ -80,8 +71,8 @@
                 ></label
             ><br />
 
-            <input type="submit" value="Registrieren" />
-            <input type="reset" value="Zurücksetzen" />
+            <input type="submit" value="Registrieren" id="register" />
+            <input type="reset" value="Zurücksetzen" id="reset" />
         </form>
         <script src="validate.js"></script>
     </body>
