@@ -1,0 +1,102 @@
+#include <iostream>
+
+#include "part.h"
+
+using namespace std;
+
+std::string Part::unicode_letters[26] = {"🅐", "🅑", "🅒", "🅓", "🅔", "🅕", "🅖", "🅗", "🅘", "🅙", "🅚", "🅛", "🅜", "🅝", "🅞", "🅟", "🅠", "🅡", "🅢", "🅣", "🅤", "🅥", "🅦", "🅧", "🅨", "🅩"};
+
+Part::Part(int x, int y, std::string d, int value)
+{
+    this->x = x;
+    this->y = y;
+    this->data = d;
+    this->value = value;
+    if (value < 0 || value > 25)
+    {
+        value = 0;
+    }
+}
+
+void Part::eat()
+{
+    x = 0;
+    y = 0;
+    this->data = unicode_letters[value];
+}
+
+Part::~Part()
+{
+    delete next;
+}
+
+void Part::draw()
+{
+    if (x != 0 && y != 0)
+    {
+        cout << "\033[" << y << ";" << x << "H" << data;
+    }
+    if (next)
+    {
+        next->draw();
+    }
+}
+
+// Das Teil bewegt sich auf die übergebenen x/y-Koordinaten und gibt seine eigenen Koordinaten an das nächsten Teil weiter.
+void Part::move(int x, int y)
+{
+    if (this->next && this->x)
+        this->next->move(this->x, this->y);
+    this->x = x;
+    this->y = y;
+}
+
+// Gibt true zurück wenn ein Teil die übergebenen x/y-Koordinaten hat.
+bool Part::contains(int x, int y)
+{
+    if (x == this->x && y == this->y)
+        return true;
+    if (this->next)
+        return this->next->contains(x, y);
+    return false;
+}
+
+// Fügt einen neuen Teil in die verkettete Liste ein. Wie bei Freecell fügen wir im 1. Teil das neue Teil am Ende ein. (immer return this)
+Part *Part::add(Part *p)
+{
+    if (this->next)
+        this->next->add(p);
+    else
+        this->next = p;
+    return this;
+}
+
+// Gibt den Teil zurück, der die übergebenen x/y-Koordinaten hat.
+Part *Part::get(int x, int y)
+{
+    if (x == this->x && y == this->y)
+        return this;
+    if (this->next)
+        return this->next->get(x, y);
+    return nullptr;
+}
+
+// Entfernt den Teil mit den übergebenen x/y-Koordinaten aus der verketteten List.s
+Part *Part::remove(int x, int y)
+{
+    Part *p;
+
+    if (x == this->x && y == this->y)
+    {
+        p = this->next;
+        this->next = nullptr;
+        return p;
+    }
+    else
+    {
+        if (this->next)
+            this->next = this->next->remove(x, y);
+        return this;
+    }
+    return nullptr;
+}
