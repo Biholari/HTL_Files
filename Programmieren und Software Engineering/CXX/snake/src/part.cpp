@@ -22,7 +22,7 @@ void Part::eat()
 {
     x = 0;
     y = 0;
-    this->data = unicode_letters[value];
+    // this->data = unicode_letters[value];
 }
 
 Part::~Part()
@@ -47,8 +47,11 @@ void Part::move(int x, int y)
 {
     if (this->next && this->x)
         this->next->move(this->x, this->y);
-    this->x = x;
-    this->y = y;
+    if (x != 0 && y != 0)
+    {
+        this->x = x;
+        this->y = y;
+    }
 }
 
 // Gibt true zurück wenn ein Teil die übergebenen x/y-Koordinaten hat.
@@ -64,11 +67,19 @@ bool Part::contains(int x, int y)
 // Fügt einen neuen Teil in die verkettete Liste ein. Wie bei Freecell fügen wir im 1. Teil das neue Teil am Ende ein. (immer return this)
 Part *Part::add(Part *p)
 {
-    if (this->next)
-        this->next->add(p);
+    if (p->value >= this->value)
+    {
+        if (this->next)
+            this->next = this->next->add(p);
+        else
+            this->next = p;
+        return this;
+    }
     else
-        this->next = p;
-    return this;
+    {
+        p->next = this;
+        return p;
+    }
 }
 
 // Gibt den Teil zurück, der die übergebenen x/y-Koordinaten hat.
@@ -81,7 +92,7 @@ Part *Part::get(int x, int y)
     return nullptr;
 }
 
-// Entfernt den Teil mit den übergebenen x/y-Koordinaten aus der verketteten List.s
+// Entfernt den Teil mit den übergebenen x/y-Koordinaten aus der verketteten List.
 Part *Part::remove(int x, int y)
 {
     Part *p;
