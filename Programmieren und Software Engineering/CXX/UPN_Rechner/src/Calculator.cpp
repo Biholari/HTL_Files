@@ -28,25 +28,33 @@ double Calculator::calculate(std::string input)
         { // Addition
             double b = pop();
             double a = pop();
+            double result = a + b;
             push(a + b);
+            std::cout << a << " + " << b << " = " << result << std::endl;
         }
         else if (token == "-")
         { // Subtraktion
             double b = pop();
             double a = pop();
+            double result = a - b;
             push(a - b);
+            std::cout << a << " - " << b << " = " << result << std::endl;
         }
         else if (token == "*")
         { // Multiplikation
             double b = pop();
             double a = pop();
+            double result = a * b;
             push(a * b);
+            std::cout << a << " * " << b << " = " << result << std::endl;
         }
         else if (token == "/")
         { // Division
             double b = pop();
             double a = pop();
+            double result = a / b;
             push(a / b);
+            std::cout << a << " / " << b << " = " << result << std::endl;
         }
         else
         { // Zahl
