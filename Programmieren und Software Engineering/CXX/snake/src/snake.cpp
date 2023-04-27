@@ -86,6 +86,9 @@ int Snake::update()
         Part *p = food->get(x, y);
         food = food->remove(x, y);
         p->eat();
+        // Add a point, because snake ate a letter
+        points++;
+
         if (body)
         {
             body = body->add(p);
@@ -93,6 +96,12 @@ int Snake::update()
         else
         {
             body = p;
+        }
+        if (body->contains_all_letters(0))
+        {
+            this->points += 25;
+            for (int i = 0; i < 25; ++i)
+                body = body->remove_and_move(i);
         }
         for (int i = 0; i < 150; i++)
         {
@@ -139,4 +148,11 @@ void Snake::draw()
     }
     cout << "\033[" << h << ";" << w << "H";
     cout.flush();
+}
+
+void Snake::print_game_over()
+{
+    std::cout << "\033[" << get_terminal_height() / 2 << ";" << get_terminal_width() / 2
+              << "HGame Over! Points: " << this->points << std::endl;
+    std::cout << "\033[999;1H";
 }

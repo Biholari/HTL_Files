@@ -19,6 +19,8 @@ public:
     void draw();
     void move(int x, int y);
     bool contains(int x, int y);
+    bool contains_all_letters(int v); // Erweiterung
+    Part *remove_and_move(int v);
     Part *add(Part *p);
     void eat();
     Part *get(int x, int y);

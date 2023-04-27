@@ -23,6 +23,8 @@ int main(int, char **)
             if (status == -1)
             {
                 // Game over
+                snake.draw();
+                snake.print_game_over();
                 break;
             }
             if (status == 1)
@@ -64,5 +66,4 @@ int main(int, char **)
         }
         sleep(0);
     }
-    snake.draw();
 }

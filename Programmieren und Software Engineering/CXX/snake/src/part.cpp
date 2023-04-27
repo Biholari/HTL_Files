@@ -111,3 +111,45 @@ Part *Part::remove(int x, int y)
     }
     return nullptr;
 }
+
+// Erweiterung
+bool Part::contains_all_letters(int v)
+{
+    int va = v;
+
+    if (v == this->value)
+    {
+        if (this->value == 25)
+            return true;
+        va = v + 1;
+    }
+    else if (v < this->value)
+        return false;
+
+    return this->next && this->next->contains_all_letters(va);
+}
+
+Part *Part::remove_and_move(int v)
+{
+    Part *p = nullptr;
+
+    if (v == this->value)
+    {
+        p = this->next;
+        this->next = nullptr;
+        if (p)
+            p->move(this->x, this->y);
+        if (this)
+        {
+            this->~Part();
+            delete p;
+        }
+        return p;
+    }
+    else
+    {
+        if (this->next)
+            this->next = this->next->remove(this->x, this->y);
+        return this;
+    }
+}

@@ -14,6 +14,7 @@ enum Direction
 class Snake
 {
 private:
+    int points = 0;
     int x = 0;
     int y = 0;
     int w = 0;
@@ -27,6 +28,7 @@ public:
     Snake();
     ~Snake();
     void draw();
+    void print_game_over(); // Erweiterung
     int update();
     inline void set_direction(Direction d) { dir = d; }
 };
