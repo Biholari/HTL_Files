@@ -18,9 +18,36 @@ Calculator::~Calculator()
     }
 }
 
+// Es soll eine Textdatei eingelesen werden, die in jeder Zeile eine Rechnung hat und jede Rechnung ausgegeben werden. Der Pfad zur Datei soll als Befehlszeilenargument angegeben werden.
+void calcu(std::string arg_path, Calculator &calc)
+{
+    std::ifstream file(arg_path);
+    if (file.is_open())
+    {
+        std::string line;
+        while (std::getline(file, line))
+        {
+            calc.calculate(line);
+            // std::cout << line << std::endl;
+        }
+        file.close();
+    }
+    else
+    {
+        std::cerr << "Error: could not open file \"" << arg_path << "\"" << std::endl;
+    }
+}
 double Calculator::calculate(std::string input)
 {
-    std::ofstream file("log.txt");
+    auto size = [&]()
+    {
+        size_t size = 0;
+        for (Node *current = first; current != nullptr; current = current->next)
+        {
+            size++;
+        }
+        return size;
+    };
     std::string token;
     auto printStack = [&]()
     {
@@ -31,86 +58,85 @@ double Calculator::calculate(std::string input)
         }
         std::cout << std::endl;
     };
+
     while (!input.empty())
-    { // solange der Eingabe-String noch nicht leer ist
-        // das nächste Token finden
+    {
         printStack();
         size_t pos = input.find(' ');
         if (pos != std::string::npos)
         {
             token = input.substr(0, pos);
-            input.erase(0, pos + 1); // das Token und das Leerzeichen entfernen
+            input.erase(0, pos + 1);
         }
         else
         {
             token = input;
-            input.clear(); // den gesamten Rest des Eingabe-Strings entfernen
+            input.clear();
         }
         if (token == "+")
-        { // Addition
+        {
+            if (size() < 2)
+            {
+                throw std::logic_error("Not enough operands for addition");
+            }
             double b = pop();
             double a = pop();
             double result = a + b;
             push(result);
             std::cout << a << " + " << b << " = " << result << std::endl;
-            // Write calcuation in file
-            file << a << " + " << b << " = " << result << std::endl;
-            // printStack();
         }
         else if (token == "-")
-        { // Subtraktion
+        {
+            if (size() < 2)
+            {
+                throw std::logic_error("Not enough operands for subtraction");
+            }
             double b = pop();
             double a = pop();
             double result = a - b;
             push(result);
             std::cout << a << " - " << b << " = " << result << std::endl;
-            file << a << " - " << b << " = " << result << std::endl;
-            // printStack();
         }
         else if (token == "*")
-        { // Multiplikation
+        {
+            if (size() < 2)
+            {
+                throw std::logic_error("Not enough operands for multiplication");
+            }
             double b = pop();
             double a = pop();
             double result = a * b;
             push(result);
             std::cout << a << " * " << b << " = " << result << std::endl;
-            file << a << " * " << b << " = " << result << std::endl;
-            // printStack();
         }
         else if (token == "/")
-        { // Division
+        {
+            if (size() < 2)
+            {
+                throw std::logic_error("Not enough operands for division");
+            }
             double b = pop();
             double a = pop();
             double result = a / b;
             push(result);
             std::cout << a << " / " << b << " = " << result << std::endl;
-            file << a << " / " << b << " = " << result << std::endl;
-            // printStack();
         }
         else if (token == "=")
-        { // Rechnung abschließen
-            if (first == nullptr ||
-                first->next !=
-                    nullptr)
-            { // es müssen genau zwei Elemente auf dem Stack sein
-                throw std::logic_error("Ungültige Notation: Es müssen genau zwei "
-                                       "Elemente auf dem Stack sein");
+        {
+            if (size() != 1)
+            {
+                throw std::logic_error("Invalid notation: There should be one operand on the stack");
             }
-            double result = pop(); // das Endergebnis vom Stack nehmen
-            return result;         // gibt das Ergebnis zurück
-            file << result << std::endl;
-            file.close();
+            double result = pop();
+            return result;
         }
         else
-        { // Zahl
+        {
             double d = std::stod(token);
             push(d);
         }
     }
-    // wenn der Eingabe-String leer ist, aber kein "=" am Ende steht, ist die
-    // Notation ungültig
-    throw std::logic_error(
-        "Ungültige Notation: Es wurde kein = am Ende gefunden");
+    throw std::logic_error("Invalid notation: = symbol not found at the end");
 }
 
 void Calculator::push(double d)

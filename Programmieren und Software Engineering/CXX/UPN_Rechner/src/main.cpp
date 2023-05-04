@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Calculator.h"
 
-int main(int, char **)
+int main(int, char **argv)
 {
     std::string line;
     std::cout << "Bitte gib die Rechnungen in der UPN-Schreibweise mit einem = am Ende ein" << std::endl;
@@ -12,6 +12,7 @@ int main(int, char **)
         {
             Calculator calc;
             std::string input = "";
+            calcu(argv[1], calc);
 
             std::cout << "Rechnung: ";
             std::getline(std::cin, input);
