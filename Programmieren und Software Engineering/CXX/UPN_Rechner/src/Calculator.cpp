@@ -3,6 +3,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <fstream>
 
 Calculator::Calculator() { this->first = nullptr; }
 
@@ -19,10 +20,21 @@ Calculator::~Calculator()
 
 double Calculator::calculate(std::string input)
 {
+    std::ofstream file("log.txt");
     std::string token;
+    auto printStack = [&]()
+    {
+        std::cout << "Stack: ";
+        for (Node *current = first; current != nullptr; current = current->next)
+        {
+            std::cout << current->data << " ";
+        }
+        std::cout << std::endl;
+    };
     while (!input.empty())
     { // solange der Eingabe-String noch nicht leer ist
         // das nächste Token finden
+        printStack();
         size_t pos = input.find(' ');
         if (pos != std::string::npos)
         {
@@ -41,6 +53,9 @@ double Calculator::calculate(std::string input)
             double result = a + b;
             push(result);
             std::cout << a << " + " << b << " = " << result << std::endl;
+            // Write calcuation in file
+            file << a << " + " << b << " = " << result << std::endl;
+            // printStack();
         }
         else if (token == "-")
         { // Subtraktion
@@ -49,6 +64,8 @@ double Calculator::calculate(std::string input)
             double result = a - b;
             push(result);
             std::cout << a << " - " << b << " = " << result << std::endl;
+            file << a << " - " << b << " = " << result << std::endl;
+            // printStack();
         }
         else if (token == "*")
         { // Multiplikation
@@ -57,6 +74,8 @@ double Calculator::calculate(std::string input)
             double result = a * b;
             push(result);
             std::cout << a << " * " << b << " = " << result << std::endl;
+            file << a << " * " << b << " = " << result << std::endl;
+            // printStack();
         }
         else if (token == "/")
         { // Division
@@ -65,6 +84,8 @@ double Calculator::calculate(std::string input)
             double result = a / b;
             push(result);
             std::cout << a << " / " << b << " = " << result << std::endl;
+            file << a << " / " << b << " = " << result << std::endl;
+            // printStack();
         }
         else if (token == "=")
         { // Rechnung abschließen
@@ -77,6 +98,8 @@ double Calculator::calculate(std::string input)
             }
             double result = pop(); // das Endergebnis vom Stack nehmen
             return result;         // gibt das Ergebnis zurück
+            file << result << std::endl;
+            file.close();
         }
         else
         { // Zahl
