@@ -3,6 +3,8 @@ project(koffer)
 
 set(CMAKE_CXX_STANDARD 20)
 
+target_compile_definitions(koffer PRIVATE -DUNICODE)
+
 file(GLOB SOURCES
     "src/*.cpp"
 )
