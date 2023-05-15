@@ -4,6 +4,8 @@
 #include "Node.h"
 #include <string>
 
+void calcu(std::string arg_path, Calculator &calc);
+
 class Calculator
 {
 private:

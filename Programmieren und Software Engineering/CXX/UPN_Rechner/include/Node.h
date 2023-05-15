@@ -8,7 +8,7 @@ class Node
     friend Calculator;
 
 public:
-    Node(double d);
+    explicit Node(double d);
     ~Node();
 
 private:
