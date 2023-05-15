@@ -11,7 +11,6 @@ private:
 
 public:
     Cardpack();
-    ~Cardpack();
     void get_random_cards(Card *array[], int count);
     // Erweiterung
     ~Cardpack();

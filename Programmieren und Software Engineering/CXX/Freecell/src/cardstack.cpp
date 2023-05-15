@@ -45,7 +45,9 @@ void Cardstack::print()
 Card *Cardstack::remove_last_card()
 {
     if (!this->first || stack_type == Target)
+    {
         return nullptr;
+    }
     Card *ret = this->first->get_last_card();
     this->first = this->first->remove_last_card();
     return ret;
@@ -54,37 +56,50 @@ Card *Cardstack::remove_last_card()
 Card *Cardstack::get_last_card()
 {
     if (this->first == nullptr)
+    {
         return nullptr;
+    }
     else
+    {
         return this->first->get_last_card();
+    }
 }
 
 bool Cardstack::can_place_card(Card *card) //? Does this work?
 {
     if (!card)
+    {
         return false;
+    }
     if (first)
     {
         if (stack_type == Target &&
             card->get_suite() != first->get_last_card()->get_suite() &&
             card->get_value() < first->get_last_card()->get_value())
+        {
             return true;
-
+        }
         else
         {
             if (stack_type == Game)
             {
                 if (card->get_value() > first->get_last_card()->get_value())
+                {
                     return false;
+                }
 
                 if (first->get_suite() <= Club && card->get_suite() > Club)
+                {
                     return false;
+                }
             }
             return true;
         }
     }
     else
+    {
         return !(stack_type == Target && card->get_value() != false);
+    }
 }
 
 void Cardstack::add_card(Card *card)
@@ -92,9 +107,13 @@ void Cardstack::add_card(Card *card)
     if (card)
     {
         if (first)
+        {
             first->add_card(card);
+        }
         else
+        {
             first = card;
+        }
     }
 }
 

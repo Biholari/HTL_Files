@@ -31,6 +31,7 @@ public:
     Card *get_last_card();
     bool can_place_card(Card *card);
     void add_card(Card *card);
+    ~Cardstack();
 };
 
 #endif
