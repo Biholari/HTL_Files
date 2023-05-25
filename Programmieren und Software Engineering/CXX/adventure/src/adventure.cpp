@@ -26,7 +26,7 @@ Adventure::Adventure()
     ifstream messages_file("../data/messages.txt"); // Open the file
     std::string line;                               // For saving each line
     int number = 0;                                 // For saving number of message
-    bool first = true;
+    bool first = true;                              // For checking if first line
 
     if (!messages_file.is_open())
     {
@@ -143,27 +143,21 @@ Adventure::Adventure()
         if (line.size())
         {
             size_t separator = line.find_first_of(';');
-            std::string str = line.substr(0, separator);
-            number = std::stoi(str);
+            number = std::stoi(line.substr(0, separator));
 
-            str = line.substr(separator + 1);
-            line = str;
+            line = line.substr(separator + 1);
 
             separator = line.find_first_of(';');
-            std::string str2 = line.substr(0, separator);
-            target = std::stoi(str2);
+            target = std::stoi(line.substr(0, separator));
 
-            str2 = line.substr(separator + 1);
-            line = str2;
+            line = line.substr(separator + 1);
 
             separator = line.find_first_of(';');
             while (separator != std::string::npos)
             {
-                std::string str3 = line.substr(0, separator);
-                action = std::stoi(str3);
+                action = std::stoi(line.substr(0, separator));
 
-                str3 = line.substr(separator + 1);
-                line = str3;
+                line = line.substr(separator + 1);
 
                 separator = line.find_first_of(';');
                 locations[number - 1]->add_destination(target, action);
@@ -208,7 +202,6 @@ Adventure::Adventure()
                 }
             }
         }
-        line.clear();
     }
     objects_file.close();
 
@@ -242,8 +235,7 @@ Adventure::Adventure()
             {
                 int position1 = stoi(line.substr(0, seperator));
                 line = line.substr(seperator + 1);
-                seperator = line.find_first_of(';');
-                int position2 = stoi(line.substr(0, seperator));
+                int position2 = stoi(line.substr(0));
 
                 if (position1 > 0)
                 {
@@ -262,7 +254,6 @@ Adventure::Adventure()
                 obj->set_movable(false);
             }
         }
-        line.clear();
     }
     object_locations_file.close();
 }
@@ -407,12 +398,12 @@ int Adventure::visit(int location)
 
 bool Adventure::is_carring(int object)
 {
-    std::list<Object *>::iterator it = inventory.begin();
+    std::list<Object *>::iterator begin = inventory.begin();
     std::list<Object *>::iterator end = inventory.end();
 
-    for (; it != end; ++it)
+    for (; begin != end; ++begin)
     {
-        Object *obj = *it;
+        Object *obj = *begin;
         if (object == obj->get_number())
         {
             return true;
