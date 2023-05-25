@@ -8,7 +8,7 @@ Cardpack::Cardpack()
     srand(time(nullptr));
     for (int i = 0; i < 52; i++)
     {
-        pack[i] = new Card((Suits)(i / 13), i % 13 + 1);
+        pack[i] = new Card(static_cast<Suits>(i / 13), i % 13 + 1);
     }
 }
 
@@ -37,9 +37,4 @@ void Cardpack::get_random_cards(Card *array[], int count)
             array[i] = nullptr;
         }
     }
-}
-
-Cardpack::~Cardpack()
-{
-    delete[] pack;
 }
