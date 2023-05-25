@@ -308,7 +308,12 @@ int Adventure::visit(int location)
 
     int target = -1;
     cout << "Select your action: ";
-    cin >> target;
+    while (!(std::cin >> target) || std::cin.get() != '\n')
+    {
+        std::cout << "Error: Flasche Eingabe! Bitte eine Zahl eingeben!" << endl;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
     if (target >= dest_menu_offset && target < obj_menu_offset)
     {
         target = target - dest_menu_offset;
