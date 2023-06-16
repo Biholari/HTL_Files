@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Music Collection</title>
+    <style>
+        * {
+            font-family: Arial;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        .rounded {
+            border-radius: 5px;
+            border: thin solid black;
+            padding: 2px 2px 2px 2px;
+            background-color: white;
+        }
+
+        .not-rounded {
+            border-radius: 0;
+            border: thin solid black;
+        }
+
+        form {
+            padding: 30px 30px 30px 30px;
+            border: thin solid black;
+            display: inline-block
+        }
+
+        label,
+        input {
+            margin: 5px 30px 15px 0;
+        }
+
+        input[type="text"] {
+            width: 20rem;
+        }
+
+        input[type="date"],
+        select {
+            width: 5rem;
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin-top: 15px;
+            width: 10rem;
+        }
+
+        .text,
+        .inputs {
+            display: inline-flex;
+            flex-direction: column;
+        }
+
+        .text {
+            text-align: right;
+        }
+
+        .enteties {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .enteties>label {
+            font-weight: bold;
+        }
+
+        .inputs {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Music Collection</h1>
+
+    <form action="music.php" method="POST">
+        <div class="first">
+            <div class="text">
+                <label for="artist">Künstler:</label>
+                <label for="album">Album:</label>
+                <label for="published">Veröffentlicht am:</label>
+                <label for="format">Format</label>
+            </div>
+            <div class="inputs">
+                <input type="text" name="artist" id="artist" class="not-rounded" required>
+                <input type="text" name="album" id="album" class="not-rounded" required>
+                <input type="date" name="published" id="published" class="not-rounded" required>
+                <select name="format" id="format" class="not-rounded">
+                    <option value="c">CD</option>
+                    <option value="k">Kassette</option>
+                    <option value="v">Vinyl (Schallplatte)</option>
+                    <option value="d">Digital</option>
+                </select>
+                <input type="submit" name="create" value="Neu erstellen" class="rounded">
+            </div>
+        </div>
+        <div class="enteties">
+            <label>Künstler</label>
+            <label>Album</label>
+            <label>Erscheinungsjahr</label>
+            <label>Format</label>
+        </div>
+    </form>
+</body>
+
+</html>
