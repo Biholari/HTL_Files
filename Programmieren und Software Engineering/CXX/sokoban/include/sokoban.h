@@ -34,6 +34,7 @@ class Sokoban
     Direction player_dir = Direction::RIGHT;
 
     std::string title = "Title here";
+    std::string current_pack = "Boxxle1";
     int current_level = 0;
 
     // Variablen für die Blöcke und Levels anlegen
@@ -49,9 +50,13 @@ class Sokoban
     bool can_move(int x, int y);
     bool is_level_finished();
     void move_player(Direction dir);
+    void reset_level();
+    void switch_pack();
+    void load_progress();
+    void save_progress();
 
   public:
-    Sokoban(sf::RenderWindow &_window);
+    explicit Sokoban(sf::RenderWindow &_window);
     void start();
     void draw();
     void key_pressed(sf::Keyboard::Key k);

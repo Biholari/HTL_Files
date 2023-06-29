@@ -8,7 +8,9 @@
 Sokoban::Sokoban(sf::RenderWindow &_window) : window(_window)
 {
     if (!texture.loadFromFile("../data/Sokoban.png"))
+    {
         throw std::runtime_error("Could not load resource file");
+    }
 
     sprite_wall.setTexture(texture);
     sprite_wall.setTextureRect(sf::IntRect(128, 0, 64, 64));
@@ -30,7 +32,9 @@ Sokoban::Sokoban(sf::RenderWindow &_window) : window(_window)
     sprite_player[Direction::DOWN].setTextureRect(sf::IntRect(64, 128, 64, 64));
 
     if (!font.loadFromFile("../data/GistLight.otf"))
+    {
         throw std::runtime_error("Could not load font file");
+    }
 
     text.setFont(font);
     text.setFillColor(sf::Color::Red);
@@ -122,6 +126,12 @@ void Sokoban::key_released(sf::Keyboard::Key k)
     case sf::Keyboard::S:
         move_player(Direction::DOWN);
         break;
+    case sf::Keyboard::R:
+        reset_level();
+        break;
+    case sf::Keyboard::N:
+        switch_pack();
+        break;
     }
 }
 
@@ -201,7 +211,9 @@ bool Sokoban::is_box(int x, int y)
         if (it.x == x && it.y == y)
         {
             if (it.type == Block_Type::BOX)
+            {
                 return true;
+            }
         }
     }
     return false;
@@ -214,7 +226,9 @@ bool Sokoban::has_target(int x, int y)
         if (it.x == x && it.y == y)
         {
             if (it.type == Block_Type::TARGET)
+            {
                 return true;
+            }
         }
     }
     return false;
@@ -227,9 +241,13 @@ bool Sokoban::can_move(int x, int y)
         if (it.x == x && it.y == y)
         {
             if (it.type == Block_Type::WALL)
+            {
                 return false;
+            }
             if (it.type == Block_Type::BOX)
+            {
                 return false;
+            }
         }
     }
     return true;
@@ -251,40 +269,40 @@ void Sokoban::draw()
     text.setString("Title: " + title);
     text.setPosition(50, 10);
     window.draw(text);
-    text.setString("Level: " + std::to_string(current_level));
+    text.setString("Level: " + std::to_string(current_level + 1));
     text.setPosition(400, 10);
     window.draw(text);
 
-    for (auto it = this->blocks.begin(); it != this->blocks.end(); ++it)
+    for (auto block : blocks)
     {
-        if (it->type == FLOOR || it->type == WALL)
+        if (block.type == FLOOR || block.type == WALL)
         {
-            Sokoban::draw_block(*it);
+            Sokoban::draw_block(block);
         }
     }
 
-    for (auto it = this->blocks.begin(); it != this->blocks.end(); ++it)
+    for (auto block : blocks)
     {
-        if (it->type == TARGET)
+        if (block.type == TARGET)
         {
-            Sokoban::draw_block(*it);
+            Sokoban::draw_block(block);
         }
     }
 
-    for (auto it = this->blocks.begin(); it != this->blocks.end(); ++it)
+    for (auto block : blocks)
     {
-        if (it->type == BOX)
+        if (block.type == BOX)
         {
-            int y = it->y;
-            if (Sokoban::has_target(it->x, y))
+            int y = block.y;
+            if (Sokoban::has_target(block.x, y))
             {
-                it->type = GOAL;
-                Sokoban::draw_block(*it);
-                it->type = BOX;
+                block.type = GOAL;
+                Sokoban::draw_block(block);
+                block.type = BOX;
             }
             else
             {
-                Sokoban::draw_block(*it);
+                Sokoban::draw_block(block);
             }
         }
     }
@@ -297,10 +315,12 @@ void Sokoban::draw()
 
 void Sokoban::start()
 {
+    load_progress();
+
     std::string xml = "";
 
     // Open the XML file for reading
-    std::ifstream level_file("../data/Boxxle1.slc");
+    std::ifstream level_file("../data/" + current_pack + ".slc");
     if (!level_file.is_open())
     {
         throw std::runtime_error("Could not open level file");
@@ -369,9 +389,6 @@ size_t Sokoban::find_first_xml_tag(std::string xml, std::string tag, size_t offs
 void Sokoban::load_level()
 {
     std::string level = this->levels[current_level];
-    this->levels.erase(this->levels.begin());
-
-    ++current_level;
 
     blocks.clear();
 
@@ -443,7 +460,7 @@ void Sokoban::load_level()
 
         ++line;
     }
-
+    save_progress();
     level.clear();
 }
 
@@ -452,14 +469,97 @@ bool Sokoban::is_level_finished()
     // Prüfen ob an der Position jedes Targets eine Box ist
     int y;
 
-    for (auto it = blocks.begin(), end = blocks.end(); it != end; ++it)
+    for (auto block : blocks)
     {
-        if (it->type == BOX)
+        if (block.type == BOX)
         {
-            y = it->y;
-            if (!has_target(it->x, y))
-                return 0;
+            y = block.y;
+            if (!has_target(block.x, y))
+            {
+                return false;
+            }
         }
     }
-    return 1;
+    current_level++;
+    return true;
+}
+
+void Sokoban::reset_level()
+{
+    --current_level; // Verringere den aktuellen Levelindex um 1, um das aktuelle Level erneut zu laden
+    load_level();    // Lade das Level erneut
+}
+
+void Sokoban::save_progress()
+{
+    std::ofstream save_file("save.txt");
+    if (save_file.is_open())
+    {
+        save_file << current_pack << std::endl;
+        save_file << current_level << std::endl;
+        save_file.close();
+    }
+}
+
+void Sokoban::load_progress()
+{
+    std::ifstream save_file("save.txt");
+    if (save_file.is_open())
+    {
+        std::string pack_name;
+        int level_index;
+        save_file >> pack_name >> level_index;
+        save_file.close();
+
+        // Check if the saved pack is the same as the current pack
+        if (pack_name == current_pack)
+        {
+            // Set the current level to the saved level index
+            current_level = level_index--;
+        }
+        else
+        {
+            // If the saved pack is different, start from the beginning
+            current_level = 0;
+        }
+    }
+}
+
+void Sokoban::switch_pack()
+{
+    levels.clear(); // Clear the levels vector
+    blocks.clear(); // Clear the blocks vector
+    // Reset the current level to 0
+    current_level = 0;
+
+    std::vector<std::string> level_packs;
+    std::string data_path = "../data/";
+
+    // Get every file in the data directory that ends with ".slc"
+    for (const auto &entry : std::filesystem::directory_iterator(data_path))
+    {
+        if (entry.path().extension() == ".slc")
+        {
+            level_packs.push_back(entry.path().filename());
+        }
+    }
+
+    // Check the index of the current pack
+    int current_pack_index = -1;
+    for (int i = 0; i < level_packs.size(); ++i)
+    {
+        if (level_packs[i] == current_pack + ".slc")
+        {
+            current_pack_index = i;
+            break;
+        }
+    }
+
+    // Determine the index of the next pack
+    int next_pack_index = (current_pack_index + 1) % level_packs.size();
+
+    // Set the current pack and next pack names
+    current_pack = level_packs[next_pack_index].substr(0, level_packs[next_pack_index].length() - 4);
+
+    start();
 }
