@@ -47,6 +47,7 @@ public class Set {
     /**
      * Gibt eine Kopie der Menge zurück.
      */
+    @Override
     public Set clone() {
         Set res = new Set();
         if (root != null) {
@@ -113,5 +114,68 @@ public class Set {
             root.range(res, a, b);
         }
         return res;
+    }
+
+    /**
+     * Liefert die Summe aller Zahlen in der Menge
+     */
+    public int total() {
+        if (root == null) {
+            return 0;
+        }
+        return root.total();
+    }
+
+    /**
+     * Liefer den Durchschnitt aller Zahlen in der Menge
+     */
+    public double average() {
+        if (root == null) {
+            return 0;
+        }
+        return (double) total() / size();
+    }
+
+    /**
+     * Liefer die kleine Zahl in der Menge
+     */
+    public int min() {
+        if (root == null) {
+            return 0;
+        }
+        return root.min();
+    }
+
+    /**
+     * Liefert die größte Zahl in der Menge
+     */
+    public int max() {
+        if (root == null) {
+            return 0;
+        }
+        return root.max();
+    }
+
+    /**
+     * Liefert true, wenn beide Mengen die gleichen Zahlen beinhalten
+     */
+    boolean equals(Set other) {
+    if (root == null && other.root == null) {
+            return true;
+        }
+        if (root == null || other.root == null) {
+            return false;
+        }
+        return root.equals(other.root);
+    }
+
+    /**
+     * Liefert eine züfällige Zahl aus der Menge
+     */
+    public int randomNumber() {
+        if (root == null) {
+            return 0;
+        }
+        return root.randomNumber();
     }
 }

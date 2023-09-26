@@ -11,18 +11,15 @@ public class Main {
         s1.set(10);
 
         Set s2 = new Set();
+        s2.set(-9);
         s2.set(-5);
+        s2.set(-4);
         s2.set(-3);
         s2.set(0);
-        s2.set(1);
         s2.set(2);
-        s2.set(7);
-        s2.set(9);
+        s2.set(4);
+        s2.set(10);
 
-        s2.remove(0);
-        s2.remove(2);
-
-        Set s3 = s1.diff(s2);
-        s3.print();
+        System.out.println(s1.randomNumber());
     }
 }

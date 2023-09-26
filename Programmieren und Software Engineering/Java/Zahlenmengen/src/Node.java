@@ -153,4 +153,62 @@ public class Node {
             }
         }
     }
+
+    public int total() {
+        int total = num;
+        if (left != null) {
+            total += left.total();
+        }
+        if (right != null) {
+            total += right.total();
+        }
+        return total;
+    }
+
+    public int min() {
+        if (left == null) {
+            return num;
+        }
+        return left.min();
+    }
+
+    public int max() {
+        if (right == null) {
+            return num;
+        }
+        return right.max();
+    }
+
+    public boolean equals(Node other) {
+        if (other.get(num)) {
+            if (left != null) {
+                return left.equals(other);
+            }
+            if (right != null) {
+                return right.equals(other);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public int randomNumber() {
+        int size = size();
+        int rand = (int) (Math.random() * size);
+        if (rand == 0) {
+            return num;
+        }
+        if (left != null) {
+            if (rand <= left.size()) {
+                return left.randomNumber();
+            }
+            rand -= left.size();
+        }
+        if (right != null) {
+            if (rand <= right.size()) {
+                return right.randomNumber();
+            }
+        }
+        return num;
+    }
 }

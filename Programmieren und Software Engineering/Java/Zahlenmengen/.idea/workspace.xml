@@ -5,18 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="964e52dd-729e-498a-8d0b-375e794a00db" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Lernen/BinaryTree/src/BinaryTree.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Lernen/BinaryTree/src/Node.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Stunden/Binary_Tree/Binary_Tree.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Stunden/Binary_Tree/src/Node.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Stunden/Binary_Tree/src/Tree.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Node.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Set.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Kofferpacken/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Kofferpacken/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Set.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Set.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +44,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -70,7 +62,8 @@
       <workItem from="1695576262069" duration="113000" />
       <workItem from="1695576993224" duration="1356000" />
       <workItem from="1695714280357" duration="16000" />
-      <workItem from="1695717654328" duration="1308000" />
+      <workItem from="1695717654328" duration="1553000" />
+      <workItem from="1695719218715" duration="1844000" />
     </task>
     <servers />
   </component>
