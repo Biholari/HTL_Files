@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ab693cc-6e6f-4518-9d77-1a7897a64448" name="Changes" comment="" />
+    <list default="true" id="066e946a-2c23-4649-8d65-cd16d95eab44" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Binary_Tree.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Node.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Tree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Zahlenmengen/src/Node.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Zahlenmengen/src/Set.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Kofferpacken/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Kofferpacken/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,39 +29,48 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
   </component>
-  <component name="ProjectId" id="2VI0bSG8aVwWmCc6MijDPnqVpcR" />
+  <component name="ProjectId" id="2VZXR8juZcHz9gfz7EbKClvcnKZ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/fabian/Developer/HTL_Files/Programmieren und Software Engineering/Java/Stunden/Binary_Tree&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;proofread&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8ab693cc-6e6f-4518-9d77-1a7897a64448" name="Changes" comment="" />
+      <changelist id="066e946a-2c23-4649-8d65-cd16d95eab44" name="Changes" comment="" />
       <created>1689360188494</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1689360188494</updated>
-      <workItem from="1694508361742" duration="4799000" />
-      <workItem from="1694516847634" duration="670000" />
-      <workItem from="1694597508767" duration="107000" />
-      <workItem from="1694695664717" duration="676000" />
+      <workItem from="1695044568734" duration="1457000" />
+      <workItem from="1695046035981" duration="72000" />
+      <workItem from="1695046113592" duration="2719000" />
+      <workItem from="1695112820602" duration="43000" />
+      <workItem from="1695113461145" duration="1840000" />
+      <workItem from="1695575966588" duration="24000" />
+      <workItem from="1695575999433" duration="178000" />
     </task>
     <servers />
   </component>
