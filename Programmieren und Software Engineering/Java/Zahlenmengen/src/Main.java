@@ -11,8 +11,7 @@ public class Main {
         s1.set(10);
 
         Set s2 = new Set();
-        s2.set(-9);
-        s2.set(-5);
+        s2.set(-2);
         s2.set(-4);
         s2.set(-3);
         s2.set(0);
@@ -20,6 +19,8 @@ public class Main {
         s2.set(4);
         s2.set(10);
 
-        System.out.println(s1.randomNumber());
+        Set s3 = s1.union(s2);
+
+        s3.print();
     }
 }

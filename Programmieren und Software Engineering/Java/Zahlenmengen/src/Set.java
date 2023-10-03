@@ -84,12 +84,9 @@ public class Set {
      * Liefert Vereinigungsmenge aus this und s als neue Menge.
      */
     public Set union(Set s) {
-        Set res = new Set();
-        if (root != null) {
-            root.union(res);
-        }
+        Set res = clone();
         if (s.root != null) {
-            s.root.union(res);
+            s.root.fill(res);
         }
         return res;
     }
@@ -170,7 +167,7 @@ public class Set {
     }
 
     /**
-     * Liefert eine züfällige Zahl aus der Menge
+     * Liefert eine zufällige Zahl aus der Menge
      */
     public int randomNumber() {
         if (root == null) {
