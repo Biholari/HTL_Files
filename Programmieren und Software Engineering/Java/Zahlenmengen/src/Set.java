@@ -1,178 +1,74 @@
 public class Set {
-    private Node root;
+    Node root;
 
-    /**
-     * Fügt eine neue Zahl in die Menge ein, wenn diese Zahl noch nicht enthalten
-     * ist.
-     */
     public void set(int val) {
         if (root == null) {
             root = new Node(val);
         } else {
-            root.add(val);
+            root.set(val);
         }
     }
 
-    /**
-     * Prüft, ob eine Zahl in der Menge enthalten ist.
-     */
     public boolean get(int val) {
-        if (root == null) {
-            return false;
-        }
-        return root.get(val);
+        return root != null && root.get(val);
     }
 
-    /**
-     * Gibt die Anzahl der Elemente in der Menge zurück.
-     */
     public int size() {
-        if (root == null) {
-            return 0;
-        }
-        return root.size();
+        return root == null ? 0 : root.size();
     }
 
-    /**
-     * Entfernt eine Zahl aus der Menge, wenn diese enthalten ist.
-     */
     public void remove(int val) {
-        if (root == null) {
-            return;
+        if (root != null) {
+            root = root.remove(val);
         }
-
-        root.remove(root, val);
     }
 
-    /**
-     * Gibt eine Kopie der Menge zurück.
-     */
-    @Override
+
     public Set clone() {
         Set res = new Set();
         if (root != null) {
-            root.fill(res);
+            root.clone(res);
         }
         return res;
     }
 
-    /**
-     * Gibt die Menge auf der Konsole aus.
-     */
     public void print() {
         if (root != null) {
             System.out.print("{ ");
             root.print();
-            System.out.print("}");
-        } else {
-            System.out.println("empty");
+            System.out.println("}");
         }
     }
 
-    /**
-     * Liefert Schnittmenge aus this und s als neue Menge.
-     */
     public Set intersect(Set s) {
-        Set res = new Set();
-        if (root != null && s.root != null) {
-            root.intersect(s, res);
+        Set result = new Set();
+        if (root != null) {
+            root.intersect(s, result);
         }
-        return res;
+        return result;
     }
 
-    /**
-     * Liefert Vereinigungsmenge aus this und s als neue Menge.
-     */
     public Set union(Set s) {
-        Set res = clone();
-        if (s.root != null) {
-            s.root.fill(res);
-        }
-        return res;
-    }
-
-    /**
-     * Liefert Differenzmenge aus this und s als neue Menge.
-     */
-    public Set diff(Set other) {
-        Set res = new Set();
+        Set result = new Set();
         if (root != null) {
-            root.diff(other, res);
+            root.union(s, result);
         }
-        return res;
+        return result;
     }
 
-    /**
-     * Liefert die Menge aller Zahlen zwischen a und b als neue Menge.
-     */
-    public Set range(int a, int b) {
-        Set res = new Set();
+    public Set diff(Set s) {
+        Set result = new Set();
         if (root != null) {
-            root.range(res, a, b);
+            root.diff(s, result);
         }
-        return res;
+        return result;
     }
 
-    /**
-     * Liefert die Summe aller Zahlen in der Menge
-     */
-    public int total() {
-        if (root == null) {
-            return 0;
+    public Set range(int from, int to) {
+        Set result = new Set();
+        if (root != null) {
+            root.range(from, to, result);
         }
-        return root.total();
-    }
-
-    /**
-     * Liefer den Durchschnitt aller Zahlen in der Menge
-     */
-    public double average() {
-        if (root == null) {
-            return 0;
-        }
-        return (double) total() / size();
-    }
-
-    /**
-     * Liefer die kleine Zahl in der Menge
-     */
-    public int min() {
-        if (root == null) {
-            return 0;
-        }
-        return root.min();
-    }
-
-    /**
-     * Liefert die größte Zahl in der Menge
-     */
-    public int max() {
-        if (root == null) {
-            return 0;
-        }
-        return root.max();
-    }
-
-    /**
-     * Liefert true, wenn beide Mengen die gleichen Zahlen beinhalten
-     */
-    boolean equals(Set other) {
-    if (root == null && other.root == null) {
-            return true;
-        }
-        if (root == null || other.root == null) {
-            return false;
-        }
-        return root.equals(other.root);
-    }
-
-    /**
-     * Liefert eine zufällige Zahl aus der Menge
-     */
-    public int randomNumber() {
-        if (root == null) {
-            return 0;
-        }
-        return root.randomNumber();
+        return result;
     }
 }

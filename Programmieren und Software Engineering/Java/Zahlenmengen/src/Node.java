@@ -1,50 +1,39 @@
 public class Node {
-    private int num;
-    private Node right;
-    private Node left;
+    Node left;
+    Node right;
+    int data;
 
-    public Node(int num) {
-        this.num = num;
+    public Node(int data) {
+        this.data = data;
     }
 
-    public void add(int val) {
-        // Break if the number already exists.
-        if (get(val)) {
-            return;
-        }
-        if (this.num > val) {
+    void set(int val) {
+        if (val < data) {
             if (left == null) {
                 left = new Node(val);
             } else {
-                left.add(val);
+                left.set(val);
             }
-        } else {
+        } else if (val > data) {
             if (right == null) {
                 right = new Node(val);
             } else {
-                right.add(val);
+                right.set(val);
             }
         }
     }
 
-    public boolean get(int val) {
-        if (num == val) {
+    boolean get(int val) {
+        if (val == this.data) {
             return true;
-        }
-        if (num > val) {
-            if (left == null) {
-                return false;
-            }
-            return left.get(val);
+        } else if (val < this.data) {
+            return this.left != null && this.left.get(val);
         } else {
-            if (right == null) {
-                return false;
-            }
-            return right.get(val);
+            return this.right != null && this.right.get(val);
         }
     }
 
-    public int size() {
+    int size() {
         int size = 1;
         if (left != null) {
             size += left.size();
@@ -55,160 +44,101 @@ public class Node {
         return size;
     }
 
-    public void fill(Set res) {
-        res.set(num);
+    Node remove(int value) {
+        if (value < data) {
+            if (left != null) {
+                left = left.remove(value);
+            }
+        } else if (value > data) {
+            if (right != null) {
+                right = right.remove(value);
+            }
+        } else {
+            if (left == null && right == null) {
+                return null;
+            } else if (left == null) {
+                return right;
+            } else if (right == null) {
+                return left;
+            }
+
+            data = right.getMin();
+            right = right.remove(data);
+        }
+        return this;
+    }
+
+    private int getMin() {
+        return this.left == null ? this.data : this.left.getMin();
+    }
+
+    private int getMax() {
+        return this.right == null ? this.data : this.right.getMax();
+    }
+
+    public void clone(Set result) {
+        result.set(data);
         if (left != null) {
-            left.fill(res);
+            left.clone(result);
         }
         if (right != null) {
-            right.fill(res);
+            right.clone(result);
         }
     }
 
-    public Node remove(Node root, int key) {
-        if (root == null) {
-            return null;
-        }
-
-        if (root.right == null && root.left == null) {
-            return null;
-        }
-
-        if (key > root.num) {
-            root.right = remove(root.right, key);
-        } else if (key < root.num) {
-            root.left = remove(root.left, key);
-        } else { // else if(key == root.num)
-            if (root.left == null) {
-                return root.right;
-            } else if (root.right == null) {
-                return root.left;
-            }
-
-            // Find the min from right subtree
-            Node cur = root.right;
-            while (cur.left != null) {
-                cur = cur.left;
-            }
-            root.num = cur.num;
-            root.right = remove(root.right, root.num);
-        }
-        return root;
-    }
-
-    public void print() {
-        System.out.print(num + " ");
+    void print() {
         if (left != null) {
             left.print();
         }
+        System.out.print(data + " ");
         if (right != null) {
             right.print();
         }
     }
 
-    public void diff(Set other, Set result) {
-        if (!other.get(num)) {
-            result.set(num);
+    public void intersect(Set s, Set result) {
+        if (s.get(data)) {
+            result.set(data);
         }
         if (left != null) {
-            left.diff(other, result);
+            left.intersect(s, result);
         }
         if (right != null) {
-            right.diff(other, result);
+            right.intersect(s, result);
         }
     }
 
-    public void intersect(Set other, Set result) {
-        if (other.get(num)) {
-            result.set(num);
+    public void union(Set s, Set result) {
+        result.set(data);
+        if (left != null) {
+            left.union(s, result);
+        }
+        if (right != null) {
+            right.union(s, result);
+        }
+    }
+
+    public void diff(Set s, Set result) {
+        if (!s.get(data)) {
+            result.set(data);
         }
         if (left != null) {
-            left.intersect(other, result);
+            left.diff(s, result);
         }
         if (right != null) {
-            right.intersect(other, result);
+            right.diff(s, result);
         }
     }
 
-    public void range(Set result, int a, int b) {
-        if (num >= a && num <= b) {
-            result.set(num);
-        }
-        if (left != null && num > a) {
-            left.range(result, a, b);
-        }
-        if (right != null && num < b) {
-            right.range(result, a, b);
-        }
-    }
-
-    public void union(Set res) {
-        if (res != null) {
-            res.set(num);
-            if (left != null) {
-                left.union(res);
-            }
-            if (right != null) {
-                right.union(res);
-            }
-        }
-    }
-
-    public int total() {
-        int total = num;
-        if (left != null) {
-            total += left.total();
-        }
-        if (right != null) {
-            total += right.total();
-        }
-        return total;
-    }
-
-    public int min() {
-        if (left == null) {
-            return num;
-        }
-        return left.min();
-    }
-
-    public int max() {
-        if (right == null) {
-            return num;
-        }
-        return right.max();
-    }
-
-    public boolean equals(Node other) {
-        if (other.get(num)) {
-            if (left != null) {
-                return left.equals(other);
-            }
-            if (right != null) {
-                return right.equals(other);
-            }
-            return true;
-        }
-        return false;
-    }
-
-    public int randomNumber() {
-        int size = size();
-        int rand = (int) (Math.random() * size);
-        if (rand == 0) {
-            return num;
+    public void range(int from, int to, Set result) {
+        if (from <= data && data <= to) {
+            result.set(data);
         }
         if (left != null) {
-            if (rand <= left.size()) {
-                return left.randomNumber();
-            }
-            rand -= left.size();
+            left.range(from, to, result);
         }
         if (right != null) {
-            if (rand <= right.size()) {
-                return right.randomNumber();
-            }
+            right.range(from, to, result);
         }
-        return num;
     }
 }

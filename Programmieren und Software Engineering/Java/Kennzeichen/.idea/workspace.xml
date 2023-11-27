@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bc0b6b3-6219-4c54-9b12-3764a66effc0" name="Changes" comment="">
+    <list default="true" id="8a74c46e-ded9-4ec8-9386-21b3eb102ff8" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/../../../DBI/Fahrzeugverwaltung/.idea/Fahrzeugverwaltung.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../../DBI/Fahrzeugverwaltung/Oppermann_Fahrzeuge.sql" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/.idea/Mitarbeiter.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/Oppermann_Mitarbeiter.sql" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/identifier.sqlite" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CSVReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/dictionaries/fabsi.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/misc.xml" afterDir="false" />
@@ -23,8 +26,25 @@
       <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Numeric.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Zahlenmenge.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Zahlenmengen/Zahlenmengen Generics.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/Binary_Tree.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/src/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/src/Tree.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/GUI.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/data/add-square.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/src/MainWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicTacToe/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TicTacToe/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicTacToe/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TicTacToe/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Zahlenmengen/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Zahlenmengen/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Zahlenmengen/Zahlenmengen.iml" beforeDir="false" />
@@ -37,13 +57,20 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
+  &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="2WFKrPNLvTUmJweTSRzE0BYjBOx" />
+  <component name="ProjectId" id="2YTq5ZuLvoAHFtebjRkbZGuNxMh" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -53,41 +80,57 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/fabsi/Developer/HTL/HTL_Files/Programmieren und Software Engineering/Java/TicTacToe&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI" />
+      <module name="Kennzeichen" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Kennzeichen" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.GUI" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7bc0b6b3-6219-4c54-9b12-3764a66effc0" name="Changes" comment="" />
-      <created>1689360188494</created>
+      <changelist id="8a74c46e-ded9-4ec8-9386-21b3eb102ff8" name="Changes" comment="" />
+      <created>1700559735693</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1689360188494</updated>
-      <workItem from="1696323088663" duration="4639000" />
-      <workItem from="1696327755559" duration="1736000" />
-      <workItem from="1699982986968" duration="386000" />
-      <workItem from="1699983415617" duration="13000" />
+      <updated>1700559735693</updated>
+      <workItem from="1700559736702" duration="3468000" />
+      <workItem from="1701109324540" duration="422000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

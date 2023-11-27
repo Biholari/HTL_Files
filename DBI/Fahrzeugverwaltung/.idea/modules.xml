@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Zahlenmengen Generics.iml" filepath="$PROJECT_DIR$/Zahlenmengen Generics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Fahrzeugverwaltung.iml" filepath="$PROJECT_DIR$/.idea/Fahrzeugverwaltung.iml" />
     </modules>
   </component>
 </project>

@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="964e52dd-729e-498a-8d0b-375e794a00db" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Set.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Set.java" afterDir="false" />
+    <list default="true" id="52ca525c-6ef6-4263-96cf-3738c9ab6773" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../DBI/Fahrzeugverwaltung/.idea/Fahrzeugverwaltung.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../DBI/Fahrzeugverwaltung/Oppermann_Fahrzeuge.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/.idea/Mitarbeiter.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/Oppermann_Mitarbeiter.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/identifier.sqlite" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Zahlenmengen Generics.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Node.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Set.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +33,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
-  <component name="ProjectId" id="2Vblrm73nSVmz5t6nxUU0MhhP2G" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2Y9cZzcuw9guFvAkNmOb5T1w27Q" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -37,6 +49,7 @@
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -50,48 +63,18 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="964e52dd-729e-498a-8d0b-375e794a00db" name="Changes" comment="" />
-      <created>1689360188494</created>
+      <changelist id="52ca525c-6ef6-4263-96cf-3738c9ab6773" name="Changes" comment="" />
+      <created>1699941297163</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1689360188494</updated>
-      <workItem from="1695112865100" duration="7318000" />
-      <workItem from="1695576178989" duration="60000" />
-      <workItem from="1695576244831" duration="10000" />
-      <workItem from="1695576262069" duration="113000" />
-      <workItem from="1695576993224" duration="1356000" />
-      <workItem from="1695714280357" duration="16000" />
-      <workItem from="1695717654328" duration="1553000" />
-      <workItem from="1695719218715" duration="4626000" />
-      <workItem from="1695753361300" duration="4000" />
-      <workItem from="1696248402518" duration="19000" />
-      <workItem from="1696252847219" duration="20000" />
+      <updated>1699941297163</updated>
+      <workItem from="1699941298218" duration="825000" />
+      <workItem from="1699949606123" duration="462000" />
+      <workItem from="1699950081960" duration="741000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
