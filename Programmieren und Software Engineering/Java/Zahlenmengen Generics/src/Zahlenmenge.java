@@ -40,9 +40,7 @@ public class Zahlenmenge<T extends Number & Comparable<T>> {
 
     Zahlenmenge<T> union(Zahlenmenge<T> s) {
         Zahlenmenge<T> result = (Zahlenmenge<T>) numbers.clone();
-        for (T number : s.numbers) {
-            result.set(number);
-        }
+        result.numbers.addAll(s.numbers);
         return result;
     }
 
@@ -54,7 +52,9 @@ public class Zahlenmenge<T extends Number & Comparable<T>> {
 
     Zahlenmenge<T> range(T from, T to) {
         Zahlenmenge<T> result = (Zahlenmenge<T>) numbers.clone();
-        result.numbers.subSet(from, true, to, true);
+
+        result.numbers = (TreeSet<T>) numbers.subSet(from, true, to, true);
+
         return result;
     }
 

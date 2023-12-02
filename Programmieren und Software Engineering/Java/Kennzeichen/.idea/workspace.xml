@@ -5,52 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a74c46e-ded9-4ec8-9386-21b3eb102ff8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../../DBI/Fahrzeugverwaltung/.idea/Fahrzeugverwaltung.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../DBI/Fahrzeugverwaltung/Oppermann_Fahrzeuge.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/.idea/Mitarbeiter.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/Oppermann_Mitarbeiter.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/identifier.sqlite" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CSVReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/dictionaries/fabsi.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/Zahlenmengen Generics.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/DoubleNumeric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/FloatNumeric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/IntegerNumeric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Numeric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Zahlenmenge.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen/Zahlenmengen Generics.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/Binary_Tree.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/src/Node.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/Binary_Tree/src/Tree.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/GUI.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/data/add-square.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Stunden/GUI/src/MainWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TicTacToe/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TicTacToe/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TicTacToe/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TicTacToe/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/Zahlenmengen.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/src/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/src/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/src/Set.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/src/Set.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/BinaryTree.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/BinaryTree.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/Swing_testing.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/src/Main.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,6 +95,7 @@
       <updated>1700559735693</updated>
       <workItem from="1700559736702" duration="3468000" />
       <workItem from="1701109324540" duration="422000" />
+      <workItem from="1701109927409" duration="4000" />
     </task>
     <servers />
   </component>

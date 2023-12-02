@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5c313e3f-536c-4238-a818-c273cec5fa5d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../PA1N_Oppermann_Fabian/PA1_Nachname_Vorname.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PA1N_Oppermann_Fabian/src/GUI.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PA1N_Oppermann_Fabian/src/GUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PA1_Oppermann_Fabian2/PA1_Nachname_Vorname.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Permutationsgenerator/Permutationsgenerator.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Permutationsgenerator/src/PermutationenGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/Data/128 Staedte USA.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/Data/59 Staedte DE.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/Data/StadtKoordinaten.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/Traveling_Salesman_Problem_Brute_Forge.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CSV_Reader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/City.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CityMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/PermutationIterator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kennzeichen/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Kennzeichen/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/BinaryTree.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/BinaryTree.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/Swing_testing.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/PA1_Nachname_Vorname.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/MainWindow.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/MainWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/Set.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Zahlenmenge.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Zahlenmenge.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2KrLWDtHWq5Wc6Wh0mWBNQc4MC8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;393&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/fabsi/Developer/HTL/HTL_Files/Programmieren und Software Engineering/Java/FuzzyLogicCar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="MainWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MainWindow" />
+      <module name="FuzzyLogicCar" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainWindow" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5c313e3f-536c-4238-a818-c273cec5fa5d" name="Changes" comment="" />
+      <created>1674727784887</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1674727784887</updated>
+      <workItem from="1674727786031" duration="2009000" />
+      <workItem from="1674800379265" duration="314000" />
+      <workItem from="1701338093015" duration="561000" />
+      <workItem from="1701341258251" duration="1919000" />
+      <workItem from="1701450895855" duration="88000" />
+      <workItem from="1701451007687" duration="23000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

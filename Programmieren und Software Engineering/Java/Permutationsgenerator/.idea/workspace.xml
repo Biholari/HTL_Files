@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="824a972f-194c-47c5-bd3e-15b6d6c2d32e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../PA1N_Oppermann_Fabian/src/GUI.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PA1N_Oppermann_Fabian/src/GUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PermutationenGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/Data/128 Staedte USA.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/Data/59 Staedte DE.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/Data/StadtKoordinaten.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CSV_Reader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/City.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Kennzeichen/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Kennzeichen/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/BinaryTree.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/BinaryTree.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/Swing_testing.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/PA1_Nachname_Vorname.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/MainWindow.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/MainWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/Set.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Zahlenmenge.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Zahlenmenge.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2YncEF9CBSgoqevNcgHlu7grYbX" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="824a972f-194c-47c5-bd3e-15b6d6c2d32e" name="Changes" comment="" />
+      <created>1701164671503</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1701164671503</updated>
+      <workItem from="1701164672534" duration="2934000" />
+      <workItem from="1701168384693" duration="174000" />
+      <workItem from="1701169035711" duration="598000" />
+      <workItem from="1701170955287" duration="597000" />
+      <workItem from="1701189526990" duration="682000" />
+      <workItem from="1701197320459" duration="596000" />
+      <workItem from="1701291459690" duration="56000" />
+      <workItem from="1701291728896" duration="13000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
