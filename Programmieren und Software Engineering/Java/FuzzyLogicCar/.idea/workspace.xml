@@ -5,56 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c313e3f-536c-4238-a818-c273cec5fa5d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../PA1N_Oppermann_Fabian/PA1_Nachname_Vorname.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PA1N_Oppermann_Fabian/src/GUI.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PA1N_Oppermann_Fabian/src/GUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PA1_Oppermann_Fabian2/PA1_Nachname_Vorname.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Permutationsgenerator/Permutationsgenerator.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Permutationsgenerator/src/PermutationenGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/Data/128 Staedte USA.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/Data/59 Staedte DE.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/Data/StadtKoordinaten.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/Traveling_Salesman_Problem_Brute_Forge.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CSV_Reader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/City.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CityMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/PermutationIterator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Kennzeichen/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Kennzeichen/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/BinaryTree.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/BinaryTree.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/BinaryTree/src/Node.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/Swing_testing.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Lernen/Swing_testing/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/PA1_Nachname_Vorname.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/images/Chip_8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/MainWindow.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/MainWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/Node.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PA1_Oppermann_Fabian/src/Set.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Zahlenmenge.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Zahlenmenge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../DBI/JOIN - Buchladen/Oppermann_Buchladen.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Memory/src/Card.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Memory/src/MemoryGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/DrawPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/car.fcl" beforeDir="false" afterPath="$PROJECT_DIR$/data/car.fcl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PA1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicTacToe/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TicTacToe/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CSV_Reader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/City.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/City.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CityMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CityMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/GUI.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/GUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,11 +58,13 @@
     &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;393&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/fabsi/Developer/HTL/HTL_Files/Programmieren und Software Engineering/Java/FuzzyLogicCar&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -114,6 +82,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.9-corretto-17.0.9-3183f394aec4-5f3ff201" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -128,6 +103,14 @@
       <workItem from="1701341258251" duration="1919000" />
       <workItem from="1701450895855" duration="88000" />
       <workItem from="1701451007687" duration="23000" />
+      <workItem from="1701630495769" duration="623000" />
+      <workItem from="1701672955156" duration="3228000" />
+      <workItem from="1701700521386" duration="1023000" />
+      <workItem from="1701701556955" duration="732000" />
+      <workItem from="1701769118318" duration="12000" />
+      <workItem from="1701769136980" duration="7000" />
+      <workItem from="1702403838536" duration="782000" />
+      <workItem from="1702655381151" duration="21000" />
     </task>
     <servers />
   </component>

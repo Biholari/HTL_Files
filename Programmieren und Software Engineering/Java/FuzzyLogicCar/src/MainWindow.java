@@ -30,7 +30,7 @@ public class MainWindow extends JFrame {
             distance -= speed * updateTime / 1000;
             speed += acceleration * updateTime / 1000;
             System.out.printf("Beschleunigung: %.2f Geschwindigkeit: %.2f Distanz: %.2f%n", acceleration, speed, distance);
-            //power mit Fuzzy Logic ermitteln
+            // power mit Fuzzy Logic ermitteln
             // Set inputs
             fis.setVariable("speed", speed);
             fis.setVariable("acceleration", acceleration);

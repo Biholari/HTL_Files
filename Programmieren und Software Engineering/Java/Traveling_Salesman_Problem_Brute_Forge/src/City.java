@@ -1,9 +1,9 @@
 public class City {
     private final String name;
 
-    int x, y;
+    double x, y;
 
-    public City(String name, int x, int y) {
+    public City(String name, double x, double y) {
         this.name = name;
         this.x = x;
         this.y = y;
@@ -13,11 +13,11 @@ public class City {
         return name;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 

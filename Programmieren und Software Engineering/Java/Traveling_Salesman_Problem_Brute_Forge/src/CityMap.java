@@ -1,5 +1,7 @@
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class CityMap {
@@ -13,7 +15,6 @@ public class CityMap {
         double totalDistance = 0;
 
         System.out.println("Optimal Route:");
-        System.out.println("Start ->");
 
         for (int i = 0; i < route.size(); i++) {
             City currentCity = cities.get(route.get(i));
@@ -30,7 +31,8 @@ public class CityMap {
 
             System.out.print(currentCity.getName() + " -> ");
         }
-        System.out.println("Total Distance: " + totalDistance);
+        System.out.println(cities.get(route.get(0)).getName());
+        System.out.println("\nTotal Distance: " + totalDistance);
     }
 
     public void printAllRoutes() {
@@ -46,7 +48,6 @@ public class CityMap {
             double totalDistance = calculateTotalDistance(route);
 
             System.out.println("Route:");
-            System.out.println("Start ->");
 
             for (int i = 0; i < route.size(); i++) {
                 City currentCity = cities.get(route.get(i));
@@ -63,9 +64,8 @@ public class CityMap {
 
                 System.out.print(currentCity.getName() + " (" + currentCity.x + "," + currentCity.y + ") -> ");
             }
-
-            System.out.println("End");
-            System.out.println("Total Distance: " + totalDistance);
+            System.out.println(cities.get(route.get(0)).getName());
+            System.out.println("\nTotal Distance: " + totalDistance);
         }
     }
 
@@ -110,5 +110,28 @@ public class CityMap {
         }
 
         return totalDistance;
+    }
+
+    public void read(InputStream file) {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(file));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(";");
+                String name = parts[0];
+                double x = Double.parseDouble(parts[1]);
+                double y = Double.parseDouble(parts[2]);
+
+                City city = new City(name, x, y);
+                addCity(city);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public ArrayList<City> getCities() {
+        return cities;
     }
 }

@@ -5,32 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7bc0b6b3-6219-4c54-9b12-3764a66effc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../../DBI/Fahrzeugverwaltung/.idea/Fahrzeugverwaltung.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../DBI/Fahrzeugverwaltung/Oppermann_Fahrzeuge.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/.idea/Mitarbeiter.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/Oppermann_Mitarbeiter.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../DBI/Mitarbeiter/identifier.sqlite" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/dictionaries/fabsi.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/Zahlenmengen Generics.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/DoubleNumeric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/FloatNumeric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/IntegerNumeric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Numeric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen Generics/src/Zahlenmenge.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Zahlenmengen/Zahlenmengen Generics.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CityPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/DrawPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FuzzyLogicCar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FuzzyLogicCar/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FuzzyLogicCar/data/car.fcl" beforeDir="false" afterPath="$PROJECT_DIR$/../FuzzyLogicCar/data/car.fcl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FuzzyLogicCar/src/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FuzzyLogicCar/src/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PA1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PA1/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/Zahlenmengen.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/src/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/src/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zahlenmengen/src/Set.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Zahlenmengen/src/Set.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CSV_Reader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/City.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/City.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CityMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/CityMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/GUI.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/GUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Traveling_Salesman_Problem_Brute_Forge/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +69,8 @@
       <workItem from="1696327755559" duration="1736000" />
       <workItem from="1699982986968" duration="386000" />
       <workItem from="1699983415617" duration="13000" />
+      <workItem from="1701532688839" duration="72000" />
+      <workItem from="1701773243385" duration="1163000" />
     </task>
     <servers />
   </component>

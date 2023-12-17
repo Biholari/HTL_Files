@@ -1,24 +1,13 @@
+import javax.swing.*;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         try {
             InputStream file = Main.class.getResourceAsStream("StadtKoordinaten.txt");
-            CSV_Reader reader = new CSV_Reader(file);
-
-            reader.read();
-
             CityMap map = new CityMap();
-            for (City city : reader.getData()) {
-                map.addCity(city);
-            }
 
-            ArrayList<Integer> route = map.findShortestRoute();
-
-            // map.printAllRoutes();
-            map.printRoute(route);
-
+            map.read(file);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
