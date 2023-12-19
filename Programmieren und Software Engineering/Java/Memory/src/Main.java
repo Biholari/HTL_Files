@@ -6,14 +6,29 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             int totalPlayers;
             int totalPairs;
+            StringBuilder totalPlayersText = new StringBuilder();
+            StringBuilder totalPairsText = new StringBuilder();
+
+            totalPlayersText.append("How many players: ");
+            totalPairsText.append("How many pairs: ");
 
             do {
-                totalPlayers = Integer.parseInt(JOptionPane.showInputDialog("How many players: "));
+                try {
+                    totalPlayers = Integer.parseInt(JOptionPane.showInputDialog(totalPlayersText.toString()));
+                } catch (NumberFormatException e) {
+                    totalPlayers = 0;
+                    totalPlayersText.insert(0, "Invalid input. ");
+                }
             } while (totalPlayers < 1 || totalPlayers > 4);
 
             do {
-                totalPairs = Integer.parseInt(JOptionPane.showInputDialog("How many pairs: "));
-            } while (totalPairs < 1 || totalPairs > 10);
+                try {
+                    totalPairs = Integer.parseInt(JOptionPane.showInputDialog(totalPairsText.toString()));
+                } catch (NumberFormatException e) {
+                    totalPairsText.insert(0, "Invalid input. ");
+                    totalPairs = 0;
+                }
+            } while (totalPairs < 1 || totalPairs > 10 || totalPairs % 2 != 0);
 
             new MemoryGame(totalPlayers, totalPairs);
         });

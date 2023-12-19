@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class Card extends JButton {
     private final String value;
@@ -8,16 +9,9 @@ public class Card extends JButton {
         this.value = value;
         Icon icon = new ImageIcon(getClass().getResource(value));
         String name = value.substring(0, value.lastIndexOf('.'));
+        setPreferredSize(new Dimension(100, 100));
         setName(name);
         setIcon(isFlipped ? icon : null);
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public boolean isFlipped() {
-        return isFlipped;
     }
 
     public void flip() {

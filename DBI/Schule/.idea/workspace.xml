@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1173eca0-20bb-4d4e-bdc9-707c1e299e92" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../JOIN - Buchladen/Oppermann_Buchladen.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Memory/src/Card.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Memory/src/MemoryGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/src/DrawPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/FuzzyLogicCar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/FuzzyLogicCar/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/FuzzyLogicCar/data/car.fcl" beforeDir="false" afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/FuzzyLogicCar/data/car.fcl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/FuzzyLogicCar/src/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/FuzzyLogicCar/src/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/PA1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/PA1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/TicTacToe/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/TicTacToe/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/src/CSV_Reader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/src/City.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/src/City.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/src/CityMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/src/CityMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/src/GUI.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/src/GUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge/src/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="1173eca0-20bb-4d4e-bdc9-707c1e299e92" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
