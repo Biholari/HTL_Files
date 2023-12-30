@@ -1,20 +1,27 @@
-## 1
-Vervollständigen Sie die funktion `Set getWithFirstDigit(int digit)`, die ein neues Set ausgibt, indem alle Elemente des Baumes, die mit der Ziffer `digit` beginnen, enthalten sind.
+## 1. Einerstelle
 
-## 2
-Erstellen Sie eine grafische Oberfläche, wie in auf der Rückseite abgebildet, und zeigen Sie diese an.
+Vervollständigen Sie in dem binären Suchbaum in der Angabe die Funktion `Set getWithFirstDigit(int digit)` die ein neues Set zurückgibt in dem alle Zahlen enthalten sind die die gegebene Zahl (0 bis 9) in der **Einerstelle** (% 10) enthalten.
 
-## 3
-Wenn auf den Knopf `Einpacken` geklickt wird, soll darunter jedes Element in einer neuen Zeile angezeigt werden.
+## 2. GUI
 
-## 4
-Wenn auf den Knopf `Datum überprüfen` geklickt wird, soll darunter angezeigt werden, ob das Datum existiert ist.
+Erstellen Sie eine **Swing-GUI** entsprechend der **Abbildung** auf der Rückseite (aber ohne Inhalte, das sind Beispieleingaben mit Bild).
 
-## 5
-Der Text in den Buttons soll zufällig ausgewählt werden.
+## 3. Zufällige Wörter
 
-## 6
-Wenn auf einen Knopf mit den Gleichen namen wie auf Den bildern geklickt wird, soll das Bild sowie der Button deaktiviert werden (icon = null).
+Fügen Sie die **Buttons** für die **Wörter** und **Bilder** in die GUl ein. Dei Wörter sollen **zufällig** angeordnet sein. Dei Reihenfolge der Bilder ist fix.
 
-## 7
-Vervollständigen Sie die Funktion `Set getEverySecondNumber()`, die ein neues `Set` ausgibt, indem jedes 2te Element des Baumes enthalten ist.
+## 4. Koffer packen
+
+Wenn der **"Einpacken"**-Button gedrückt wird, soll das eingegebene Wort in den KofFer (**Label**) hinzugefügt werden. Jedes Wort soll mit Label in **einer Zeile** untereinander stehen. (`<html>`, siehe Beispiel auf der Rückseite)
+
+## 5. Datumscheck
+
+Wenn der Button **"Datum prüfen"** geklickt wird, soll das eingegebene **Datum** (in österreichischer Schreibweise) **überprüft** werden, ob es ein **gütiges Datum** ist. Für die Prüfung soll, die in der Angabe zur Verfügung gestellte Funktion, verwendet werden.
+
+## 6. Match
+
+Wenn auf ein **Bild** und ein **Wort** geklickt wird, sollen diese beiden Inhalte **entfernt** werden, wenn es eine **Übereinstimmung** ist (Wort passt zum Bild). Zum Entfernen das Icon auf null setzen.
+
+## 7. Jede zweite Zahl
+
+Vervollständigen Sie in dem binären Suchbaum in der Angabe die Funktion `Set getEverySecondNumber()` die ein neues Set zurückgibt in **dem jede zweite** Zahl (in-Order) des Suchbaums eingefügt wird. (keine zusätzlichen Datenstrukturen verwenden, rein rekursive Lösung, boolean Parameter / Return im Node empfohlen)

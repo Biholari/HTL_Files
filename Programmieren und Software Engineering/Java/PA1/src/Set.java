@@ -33,16 +33,14 @@ public class Set {
         return res;
     }
 
-    Set getEverySecondNumber()
-    {
-        Set res = new Set();
+    Set getEverySecondNumber() {
+        Set result = new Set();
         int counter = 0;
         //Aufgabe 7
         if (root != null) {
-            root.getEverySecondNumber(res, counter);
+            root.getEverySecondNumber(result, counter);
         }
-
-        return res;
+        return result;
     }
 
     public static void main(String[] args) {
@@ -53,6 +51,8 @@ public class Set {
         s.insert(5);
         s.insert(12);
         s.insert(0);
+
+        // -7 0 2 5 12 15
         System.out.println(s);
         System.out.println("First Digit");
         System.out.println(s.getWithFirstDigit(2)); //"2 12"

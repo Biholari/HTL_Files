@@ -6,9 +6,9 @@ import java.util.*;
 import java.util.List;
 import java.util.Timer;
 
-public class MemoryGame extends JFrame {
-    private final int totalPlayers;
-    private final int totalPairs;
+public class MemoryGameMenu extends JFrame {
+    private int totalPlayers;
+    private int totalPairs;
     private final HashMap<String, Integer> players = new HashMap<>();
     private Card lastClickedButton;
     private final JPanel gameLabel = new JPanel();
@@ -17,15 +17,41 @@ public class MemoryGame extends JFrame {
     private final JLabel currentPlayerLabel = new JLabel();
     private int finishedPairs;
 
-    public MemoryGame(int totalPlayers, int totalPairs) throws HeadlessException {
-        this.totalPlayers = totalPlayers;
-        this.totalPairs = totalPairs;
+    public MemoryGameMenu() throws HeadlessException {
+        initUI();
+    }
 
+    private void startGame() {
         for (int i = 0; i < totalPlayers; i++) {
             players.put(JOptionPane.showInputDialog("Player " + (i + 1) + " name: "), 0);
         }
 
-        initUI();
+        gameLabel.setLayout(new GridLayout(totalPairs / 2, totalPairs / 2 + 1));
+
+        /* Add all cards to the center of the frame */
+        File[] iconFiles = new File("data/").listFiles();
+        ArrayList<File> iconsList = new ArrayList<>(Arrays.asList(iconFiles));
+        Collections.shuffle(iconsList);
+
+        ArrayList<File> usedIcons = new ArrayList<>();
+        for (int i = 0; i < totalPairs; ++i) {
+            usedIcons.add(iconsList.get(i));
+            usedIcons.add(iconsList.get(i)); // Add each icon twice for pairs
+        }
+
+        Collections.shuffle(usedIcons);
+
+        for (int i = 0; i < totalPairs * 2; ++i) {
+            Card card = new Card(usedIcons.get(i).getName());
+            card.addActionListener(new MemoryListener());
+            gameLabel.add(card);
+        }
+
+        add(gameLabel, BorderLayout.CENTER);
+        repaint();
+        revalidate();
+
+        updatePlayer();
     }
 
     private void checkWinner() {
@@ -59,37 +85,67 @@ public class MemoryGame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        gameLabel.setLayout(new GridLayout(totalPairs / 2, totalPairs / 2 + 1));
+        JMenuBar menuBar = new JMenuBar();
+        JMenu gameMenu = new JMenu("Game");
+        JMenu gameOptions = new JMenu("Options");
 
-        /* Add all cards to the center of the frame */
-        File[] iconFiles = new File("data/").listFiles();
-        ArrayList<File> iconsList = new ArrayList<>(Arrays.asList(iconFiles));
-        Collections.shuffle(iconsList);
+        gameMenu.setMnemonic('G');
+        gameOptions.setMnemonic('O');
 
-        ArrayList<File> usedIcons = new ArrayList<>();
-        for (int i = 0; i < totalPairs; ++i) {
-            usedIcons.add(iconsList.get(i));
-            usedIcons.add(iconsList.get(i)); // Add each icon twice for pairs
+        JMenuItem newGame = new JMenuItem("New Game");
+        JMenuItem exitGame = new JMenuItem("Exit");
+
+        newGame.setMnemonic('N');
+        exitGame.setMnemonic('E');
+
+        newGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+        exitGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+
+        gameMenu.add(newGame);
+
+        /* Select how many players should be in the game */
+        ButtonGroup playerGroup = new ButtonGroup();
+        ButtonGroup pairGroup = new ButtonGroup();
+
+        boolean firstSelected = true;
+
+        for (int i = 0; i < 4; i++) {
+            JDataRadioButtonMenuItem player = new JDataRadioButtonMenuItem(i + 1 + " Player");
+            if (firstSelected) {
+                player.setSelected(true);
+                firstSelected = false;
+                totalPlayers = 1;
+            }
+            player.setData(String.valueOf(i + 1));
+            player.addActionListener(e -> totalPlayers = Integer.parseInt(((JDataRadioButtonMenuItem)e.getSource()).getData()));
+            playerGroup.add(player);
+            gameOptions.add(player);
         }
 
-        Collections.shuffle(usedIcons);
+        firstSelected = true;
 
-        for (int i = 0; i < totalPairs * 2; ++i) {
-            Card card = new Card(usedIcons.get(i).getName());
-            card.addActionListener(new MemoryListener());
-            gameLabel.add(card);
+        gameOptions.addSeparator();
+
+        for (int i = 0; i < 4; i++) {
+            JDataRadioButtonMenuItem pairs = new JDataRadioButtonMenuItem((i + 1) * 2 + " Pairs");
+            if (firstSelected) {
+                pairs.setSelected(true);
+                firstSelected = false;
+                totalPairs = 2;
+            }
+            pairs.setData(String.valueOf((i + 1) * 2));
+            pairs.addActionListener(e -> totalPairs = Integer.parseInt(((JDataRadioButtonMenuItem)e.getSource()).getData()));
+            pairGroup.add(pairs);
+            gameOptions.add(pairs);
         }
 
-        updatePlayer();
+        /*Add the menu bars*/
+        menuBar.add(gameMenu);
+        menuBar.add(gameOptions);
+        setJMenuBar(menuBar);
 
-        JPanel playerPanel = new JPanel();
-        playerPanel.setLayout(new BorderLayout());
-        playerPanel.add(currentPlayerLabel, BorderLayout.WEST);
+        newGame.addActionListener(e -> startGame());
 
-        add(playerPanel, BorderLayout.SOUTH);
-        add(gameLabel, BorderLayout.CENTER);
-
-        pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }

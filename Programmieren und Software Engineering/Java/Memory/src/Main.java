@@ -3,8 +3,7 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) throws HeadlessException {
-        SwingUtilities.invokeLater(() -> {
-            int totalPlayers;
+        /*int totalPlayers;
             int totalPairs;
             StringBuilder totalPlayersText = new StringBuilder();
             StringBuilder totalPairsText = new StringBuilder();
@@ -28,9 +27,8 @@ public class Main {
                     totalPairsText.insert(0, "Invalid input. ");
                     totalPairs = 0;
                 }
-            } while (totalPairs < 1 || totalPairs > 10 || totalPairs % 2 != 0);
-
-            new MemoryGame(totalPlayers, totalPairs);
-        });
+            } while (totalPairs < 1 || totalPairs > 10 || totalPairs % 2 != 0);*/
+        // new MemoryGameMenu(totalPlayers, totalPairs);
+        SwingUtilities.invokeLater(MemoryGameMenu::new);
     }
 }
