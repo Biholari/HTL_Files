@@ -5,16 +5,18 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 public class GUI extends JFrame {
-    private final JPanel mainPanel = new JPanel();
-    private final JPanel bottomPanel = new JPanel();
-    private final JPanel topPanel = new JPanel();
     private final JTextField inputField = new JTextField(10);
-    private final JButton searchButton = new JButton("Search");
     private final HashMap<String, String> licensePlate;
-    private JTextField resultField = new JTextField(10);
+    private final JTextField resultField = new JTextField(10);
 
     public GUI(HashMap<String, String> licensePlate) {
+        // Constructing
         this.licensePlate = licensePlate;
+
+        JPanel mainPanel = new JPanel();
+        JPanel topPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
+        JButton searchButton = new JButton("Search");
 
         resultField.setEditable(false);
         searchButton.addActionListener(new SearchButtonListener());

@@ -1,35 +1,32 @@
-import java.util.Collections;
-import java.util.TreeSet;
-
 public class Main {
     public static void main(String[] args) {
-        /*Zahlenmenge<Integer> z = new Zahlenmenge<>();
+        Zahlenmenge<Integer> s1 = new Zahlenmenge<>();
 
-        z.set(-9);
-        z.set(-5);
-        z.set(-4);
-        z.set(-3);
-        z.set(0);
-        z.set(2);
-        z.set(4);
-        z.set(10);
+        s1.set(-9);
+        s1.set(-5);
+        s1.set(-4);
+        s1.set(-3);
+        s1.set(0);
+        s1.set(2);
+        s1.set(4);
+        s1.set(10);
 
-        System.out.println(z.range(-4, 4));*/
+        Zahlenmenge<Integer> s2 = new Zahlenmenge<>();
 
-        TreeSet<Integer> z = new TreeSet<>();
+        s2.set(-5);
+        s2.set(-3);
+        s2.set(0);
+        s2.set(1);
+        s2.set(2);
+        s2.set(7);
+        s2.set(9);
 
-        z.add(-9);
-        z.add(-5);
-        z.add(-4);
-        z.add(-3);
-        z.add(0);
-        z.add(2);
-        z.add(4);
-        z.add(10);
-
-        // System.out.println(z.subSet(-4, true, 4, true));
-
-        System.out.println(z.higher(4));
-
+        // s1.union(s2).print();
+        // s1.intersect(s2).print();
+        // s1.range(0, 10).print();
+        // s2.range(-10, 0).print();
+        // s2.remove(0);
+        // s2.print();
+        // s1.diff(s2).print();
     }
 }

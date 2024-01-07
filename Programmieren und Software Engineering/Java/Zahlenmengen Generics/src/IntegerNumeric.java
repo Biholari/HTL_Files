@@ -1,17 +1,31 @@
 public class IntegerNumeric implements Numeric<Integer> {
-    @Override
-    public Integer zero()
-    {
+    public Integer zero() {
         return 0;
     }
 
-    @Override
-    public Integer add(Integer a, Integer b) {
-        return a + b;
+    public Integer add(Integer... vals) {
+        Integer sum = 0;
+        for (Integer val : vals) {
+            sum += val;
+        }
+        return sum;
+    }
+
+    public Integer div(Integer... vals) {
+        Integer sum = 1;
+        for (Integer val : vals) {
+            sum /= val;
+        }
+        return sum;
     }
 
     @Override
-    public Integer divide(Integer a, Integer b) {
-        return a / b;
+    public boolean greaterEqual(Integer val, Integer from) {
+        return val >= from;
+    }
+
+    @Override
+    public Integer fromInt(int x) {
+        return x;
     }
 }

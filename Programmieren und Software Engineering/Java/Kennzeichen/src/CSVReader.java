@@ -2,12 +2,9 @@ import java.io.*;
 import java.util.HashMap;
 
 public class CSVReader {
-    // File content as a HashMap
     HashMap<String, String> fileContent = new HashMap<>();
 
-    // Constructor
     public CSVReader(InputStream filePath) {
-        // Read file into HashMap
         try {
             readIntoHashMap(filePath);
         } catch (Exception e) {
