@@ -167,15 +167,13 @@ FROM Note n
     JOIN Schueler s ON n.SchuelerID = s.SchuelerID
     JOIN Fach f ON n.FachID = f.FachID
     JOIN Klasse k ON s.KlasseID = k.KlasseID
-WHERE n.Datum = '2023-06-30';
+WHERE n.Datum <= '2023-06-30';
 
 -- Ermitteln Sie welche Lehrer denselben Gegenstand unterrichten. Ausgegeben soll Name des Gegenstandes und die Namen der Lehrer, die dieses unterrichten
-SELECT f.Fachbezeichnung, l1.Name, l2.Name
+SELECT f.Fachbezeichnung, STRING_AGG(l.Name, ', ') AS 'Lehrer'
 FROM Fach f
-    JOIN Lehrer l1 ON f.LehrerID = l1.LehrerID
-    JOIN Lehrer l2 ON l2.Fachbereich = l1.Fachbereich
-WHERE l1.LehrerID <> l2.LehrerID
-    AND l1.LehrerID > l2.LehrerID;
+    JOIN Lehrer l ON f.LehrerID = l.LehrerID
+GROUP BY f.Fachbezeichnung;
 
 -- Ermitteln Sie wie viele Schüler pro Geburtsjahr in welche Klasse gehen. In der Ausgabe soll das Geburtsjahr, die Klasse und die Anzahl der Schüler enthalten sein
 SELECT
@@ -187,13 +185,9 @@ FROM Schueler s
 GROUP BY s.Geburtsjahr, k.Klassenbezeichnung;
 
 -- Ermitteln Sie wie viele 1er, 2er und 3er pro Gegenstand vergeben wurden
-SELECT
-    f.Fachbezeichnung,
-    COUNT(IIF(n.Note = 1, 1, NULL)) AS '1er',
-    COUNT(IIF(n.Note = 2, 1, NULL)) AS '2er',
-    COUNT(IIF(n.Note = 3, 1, NULL)) AS '3er',
-    COUNT(IIF(n.Note = 4, 1, NULL)) AS '4er',
-    COUNT(IIF(n.Note = 5, 1, NULL)) AS '5er'
+SELECT f.Fachbezeichnung, n.Note, COUNT(n.Note) AS 'Anzahl'
 FROM Fach f
     JOIN Note n ON f.FachID = n.FachID
-GROUP BY f.Fachbezeichnung;
+WHERE n.Note IN (1, 2, 3)
+GROUP BY f.Fachbezeichnung, n.Note
+ORDER BY f.Fachbezeichnung;
