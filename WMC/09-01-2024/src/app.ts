@@ -1,13 +1,11 @@
-import express, { Request, Response } from 'express';
-import products from './routes/products';
+import express from "express";
+import products from "./routes/products";
 
 const app = express();
 
 app.use(express.json());
 
-app.use("/products", products);
-
-app.get("/");
+app.use("/api/products", products);
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");

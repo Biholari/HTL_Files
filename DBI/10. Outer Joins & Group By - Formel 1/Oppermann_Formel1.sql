@@ -121,7 +121,7 @@ WHERE r.Land IS NULL;
 -- Welche Piloten haben, wie oft keinen Top 3 Platz belegt?
 SELECT f.VName, f.NName, COUNT(r.Platz) AS 'Anzahl'
 FROM Fahrer f
-    LEFT JOIN Resultate r ON f.FahrerNr = r.FahrerID
+    JOIN Resultate r ON f.FahrerNr = r.FahrerID
 WHERE r.Platz > 3
 GROUP BY f.VName, f.NName;
 
@@ -132,12 +132,11 @@ FROM Fahrer f
 WHERE r.SchnellsteRunde IS NULL;
 
 -- Ermitteln Sie welche Fahrer wie oft kein Resultat erzielt haben?
-SELECT F.FahrerNr, F.VName, F.NName, COUNT(res.RID) AS 'Anzahl'
+SELECT F.FahrerNr, F.VName, F.NName, COUNT(R.FahrerID) AS NoOfResults
 FROM Fahrer F
-    LEFT JOIN Resultate res ON F.FahrerNr = res.FahrerID
-GROUP BY F.FahrerNr, F.VName, F.NName
-HAVING COUNT(res.RID) = 0;
-
+    LEFT JOIN Resultate R ON F.FahrerNr = R.FahrerID
+WHERE R.FahrerID IS NULL
+GROUP BY F.FahrerNr, F.VName, F.NName;
 
 -- Welche Fahrer hatte 2022 ein Resultat und ist 2023 in keinem Team?
 SELECT f.VName, f.NName
@@ -148,9 +147,7 @@ FROM Fahrer f
 WHERE t.TeamNr IS NULL AND r.Jahr = 2022;
 
 -- In welchen Ländern wurde 2023 kein Rennen mehr gefahren?
-SELECT r.Land
-FROM Rennen r
-WHERE r.Jahr <> 2023 AND r.Land NOT IN (
-    SELECT r.Land
-    FROM Rennen r
-    WHERE r.Jahr = 2023);
+SELECT r1.Land, r2.Land
+FROM Rennen r1
+    JOIN Rennen r2 ON r1.Land = r2.Land
+WHERE r1.Jahr = 2023 AND r2.Jahr < 2023;

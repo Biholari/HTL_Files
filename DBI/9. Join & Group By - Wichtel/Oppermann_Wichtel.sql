@@ -156,19 +156,18 @@ BEGIN
 END;
 
 -- Ermitteln Sie alle Schüler, die anderen Schülern etwas schenken. Ausgegebene Spalten: Secret Santa (Vorname + Nachname), Schüler (Vorname + Nachname), Geschenk
-SELECT CONCAT(s1.Vorname, ' ', s1.Nachname) AS 'Secret Santa', CONCAT(s2.Vorname, ' ', s2.Nachname) AS 'Geschenk', g.Name
+SELECT CONCAT(s1.Vorname, ' ', s1.Nachname) AS 'Secret Santa', CONCAT(s2.Vorname, ' ', s2.Nachname) AS 'Schüler', g.Name
 FROM Wichtel w
-    JOIN Schueler s1 ON w.VonID = s1.ID
-    JOIN Schueler s2 ON w.FuerID = s2.ID
-    JOIN Geschenk g ON w.GeschenkID = g.ID
+    JOIN Schueler s1 on w.VonID = s1.ID
+    JOIN Schueler s2 on w.FuerID = s2.ID
+    JOIN Geschenk G on w.GeschenkID = G.ID
 WHERE s1.ID <> s2.ID;
 
 -- Überprüfen Sie, ob es einen Schüler gibt, der sich selbst etwas schenkt.
-SELECT CONCAT(s1.Vorname, ' ', s1.Nachname)
+SELECT CONCAT(s.Vorname, ' ', s.Nachname) AS FullName
 FROM Wichtel w
-    JOIN Schueler s1 ON w.VonID = s1.ID
-    JOIN Schueler s2 ON w.FuerID = s2.ID
-WHERE s1.ID = s2.ID;
+    JOIN Schueler s ON w.FuerID = s.ID AND w.VonID = s.ID;
+
 
 -- Überprüfen Sie, ob es einen Schüler gibt, der niemanden etwas schenkt.
 SELECT CONCAT(s.Vorname, ' ', s.Nachname) AS FullName
@@ -191,22 +190,16 @@ FROM Wichtel w
 GROUP BY g.Name;
 
 -- Ermitteln Sie welche Schüler klassenübergreifend anderen Schülern etwas schenken. Gruppieren Sie dabei nach der Klasse und zählen Sie die Anzahl der Schüler.
-SELECT
-    K.Name AS VonKlasse,
-    K2.Name AS FuerKlasse,
-    COUNT(DISTINCT W.VonID) AS AnzahlSchueler
-FROM Klasse K
-    JOIN Schueler S ON K.ID = S.KlasseID
-    JOIN Wichtel W ON S.ID = W.VonID
-    JOIN Schueler S2 ON W.FuerID = S2.ID
-    JOIN Klasse K2 ON S2.KlasseID = K2.ID
-WHERE K.ID <> K2.ID
-GROUP BY K.Name, K2.Name;
+SELECT k.Name, COUNT(*) AS Anzahl
+FROM Wichtel w
+    JOIN Schueler s ON w.VonID = s.ID
+    JOIN Klasse k ON s.KlasseID = k.ID
+GROUP BY k.Name;
 
 
 -- Ermitteln Sie die Top 3 unbeliebteren Geschenke.
 SELECT TOP 3
-    g.Name, COUNT(g.ID) AS Anzahl
+    g.Name, COUNT(*) AS Anzahl
 FROM Wichtel w
     JOIN Geschenk g ON w.GeschenkID = g.ID
 GROUP BY g.Name

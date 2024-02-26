@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c709b75c-760c-4cd0-a48d-dfc2918b1f3d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../PA1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PA1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Permutationsgenerator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Permutationsgenerator/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Permutationsgenerator/src/PermutationenGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Permutationsgenerator/src/PermutationenGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/10. Outer Joins &amp; Group By - Formel 1/Oppermann_Formel1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/10. Outer Joins &amp; Group By - Formel 1/Oppermann_Formel1.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/9. Join &amp; Group By - Wichtel/Oppermann_Wichtel.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/9. Join &amp; Group By - Wichtel/Oppermann_Wichtel.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WMC/09-01-2024/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WMC/09-01-2024/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../WMC/09-01-2024/src/routes/products.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../WMC/09-01-2024/src/routes/products.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +50,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/fabsi/Developer/HTL/HTL_Files/Programmieren und Software Engineering/Java/Traveling_Salesman_Problem_Brute_Forge&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -96,6 +98,10 @@
       <workItem from="1704189603035" duration="265000" />
       <workItem from="1704190755669" duration="339000" />
       <workItem from="1704360621367" duration="26000" />
+      <workItem from="1704967435749" duration="617000" />
+      <workItem from="1705142457265" duration="43000" />
+      <workItem from="1705143282416" duration="1032000" />
+      <workItem from="1705402372759" duration="12000" />
     </task>
     <servers />
   </component>
