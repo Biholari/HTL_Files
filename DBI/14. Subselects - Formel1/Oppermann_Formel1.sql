@@ -27,7 +27,7 @@ WHERE NOT EXISTS (
 
 SELECT f.VName + ' ' + f.NName AS Fahrer
 FROM Fahrer f
-LEFT JOIN Resultate res ON f.FahrerNr = res.FahrerID AND res.Platz = 1
+    LEFT JOIN Resultate res ON f.FahrerNr = res.FahrerID AND res.Platz = 1
 WHERE res.FahrerID IS NULL;
 
 
