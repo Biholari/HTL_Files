@@ -5,40 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cc974abe-a3f8-468b-be4b-532414a7461d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/CsvMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/MainWindow.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/MainWindow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/ShoppingListData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Formen/.idea/libraries/sun_xml_bind_jaxb_core.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/1. Create Table - SchulDB/Oppermann_SchulDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/1. Create Table - SchulDB/Oppermann_SchulDB.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/10. Outer Joins &amp; Group By - Formel 1/Oppermann_Formel1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/10. Outer Joins &amp; Group By - Formel 1/Oppermann_Formel1.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/11. Interset &amp; except - Formel 1/Oppermann_Formel1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/11. Interset &amp; except - Formel 1/Oppermann_Formel1.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/12. Schulungsfirma - Sub-Selects/Oppermann_Schulungsfirma.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/12. Schulungsfirma - Sub-Selects/Oppermann_Schulungsfirma.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/13. Schulungsfirma - Sub-Selects/Oppermann_Schulungsfirma.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/13. Schulungsfirma - Sub-Selects/Oppermann_Schulungsfirma.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/14. Subselects - Formel1/Oppermann_Formel1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/14. Subselects - Formel1/Oppermann_Formel1.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/2. Constraints - Reisedatenbank/Oppermann_Reisedatenbank.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/2. Constraints - Reisedatenbank/Oppermann_Reisedatenbank.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/4. Projektion - Mitarbeiter/Oppermann_Mitarbeiter.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/4. Projektion - Mitarbeiter/Oppermann_Mitarbeiter.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/5. Restriktion - Fahrzeugverwaltung/Oppermann_Fahrzeugverwaltung.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/5. Restriktion - Fahrzeugverwaltung/Oppermann_Fahrzeugverwaltung.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/6. Join - Buchladen/Oppermann_Buchladen.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/6. Join - Buchladen/Oppermann_Buchladen.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/7. Join &amp; Group By - Autohandel/Oppermann_Autohandel.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/7. Join &amp; Group By - Autohandel/Oppermann_Autohandel.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/8. Join &amp; Group By - Schule/Oppermann_Schule.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/8. Join &amp; Group By - Schule/Oppermann_Schule.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/9. Join &amp; Group By - Wichtel/Oppermann_Wichtel.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/9. Join &amp; Group By - Wichtel/Oppermann_Wichtel.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/Praesentation/iif.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DBI/Praesentation/stringagg.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/.idea/libraries/jakarta_xml_bind_api.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/.idea/libraries/sun_istack_commons_runtime.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/.idea/libraries/sun_xml_bind_jaxb_impl.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/Formen.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/Formen.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Ellipse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Ellipse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Form.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Form.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/FormenData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/FormenData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/FormenPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/FormenPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Polygon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Polygon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Raute.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Raute.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Rechteck.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Rechteck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Trapez.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Trapez.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Einkaufslistengenerator/resources/Produkte.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/resources/Produkte.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Einkaufslistengenerator/src/CsvMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/CsvMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Einkaufslistengenerator/src/MainWindow.form" beforeDir="false" afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/MainWindow.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Einkaufslistengenerator/src/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Einkaufslistengenerator/src/ShoppingListData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/ShoppingListData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -124,6 +95,7 @@
       <workItem from="1709633187039" duration="693000" />
       <workItem from="1709635878272" duration="2000" />
       <workItem from="1709636788285" duration="552000" />
+      <workItem from="1709733464991" duration="616000" />
     </task>
     <servers />
   </component>

@@ -15,7 +15,9 @@ public class MainWindow extends JFrame {
     private JButton addButton;
     private JButton deleteButton;
     private JTable shoppingList;
-    private TreeMap<String, LinkedList<String>> data = new TreeMap<>();
+    private JButton sortButton;
+    private JButton printButton;
+    private HashMap<String, LinkedList<String>> data = new HashMap<>();
     private ShoppingListData shoppingListData = new ShoppingListData();
     private int amount = amountSlider.getValue();
 
@@ -135,6 +137,23 @@ public class MainWindow extends JFrame {
             pack();
         });
 
+        sortButton.addActionListener(e -> {
+            // Sort Descending
+            model.setRowCount(0);
+            shoppingListData.getShoppingListData().entrySet().stream()
+                    .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                    .forEach(ee -> model.addRow(new Object[]{ee.getKey(), ee.getValue()}));
+            pack();
+        });
+
+        printButton.addActionListener(e -> {
+            try {
+                shoppingList.print(JTable.PrintMode.NORMAL, null, null, true, null, true);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
         // Add headers to the table
         model.addColumn("Produkt");
         model.addColumn("Menge");
@@ -149,7 +168,7 @@ public class MainWindow extends JFrame {
         }
     }
 
-    public void setData(TreeMap<String, LinkedList<String>> mappedFile) {
+    public void setData(HashMap<String, LinkedList<String>> mappedFile) {
         this.data = mappedFile;
         fillComboBox();
     }

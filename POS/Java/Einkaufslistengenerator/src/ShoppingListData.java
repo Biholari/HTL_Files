@@ -1,18 +1,18 @@
 import jakarta.xml.bind.annotation.*;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.io.Serializable;
-import java.util.TreeMap;
+
+import java.util.Map;
+import java.util.HashMap;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ShoppingListData implements Serializable {
-    private final TreeMap<String, Integer> shoppingListData = new TreeMap<>();
+public class ShoppingListData {
+    private HashMap<String, Integer> shoppingListData = new HashMap<>();
 
     public ShoppingListData() {
         // Default constructor
     }
 
-    public TreeMap<String, Integer> getShoppingListData() {
+    public HashMap<String, Integer> getShoppingListData() {
         return shoppingListData;
     }
 
