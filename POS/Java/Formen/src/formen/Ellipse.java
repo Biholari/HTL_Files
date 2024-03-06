@@ -1,6 +1,7 @@
 package formen;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlAttribute;
+
 import java.awt.*;
 
 public class Ellipse extends Form {

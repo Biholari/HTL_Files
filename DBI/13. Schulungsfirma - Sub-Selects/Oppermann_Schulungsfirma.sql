@@ -1,39 +1,38 @@
--- CREATE DATABASE Aufgabe13;
--- USE Aufgabe13;
+USE Schulungsfirma;
 
--- 31
-SELECT p.vname + ' ' + p.fname AS [Name]
-FROM referent r
-    LEFT JOIN geeignet ge ON r.pnr = ge.pnr
-    LEFT JOIN person p ON r.pnr = p.pnr
-WHERE ge.knr IS NULL;
+-- Gibt es Referenten, die für keinen Kurs geegnet sind
+
 
 -- 32
-SELECT ku.bezeichn
-FROM kurs ku
-WHERE ku.preis < (
-        SELECT preis
-        FROM kurs
-        WHERE bezeichn = 'Dirigieren'
-);
+SELECT *
+FROM kurs k
+    JOIN kurs k2 ON k2.bezeichn = 'Dirigieren'
+WHERE k2.preis > k.preis;
 
 -- 33
 SELECT ku.bezeichn
 FROM kurs ku
 WHERE ku.preis > ALL (
         SELECT preis
-        FROM kurs
-            JOIN kveranst kv ON kurs.knr = kv.knr
+        FROM kurs k
+            JOIN besucht be ON be.knr = k.knr
+            JOIN kveranst kv ON k.knr = kv.knr AND kv.knrlfnd = be.knrlfnd
         WHERE kv.ort = 'Paris'
 );
 
 -- 34
-SELECT ku.bezeichn
-FROM kurs ku
-WHERE ku.knr NOT IN (
-        SELECT knr
-        FROM setztvor
-    );
+SELECT k.*
+FROM setztvor sv
+    RIGHT JOIN kurs k ON sv.knr = k.knr
+where SV.knrvor IS NULL;
+
+SELECT k.*
+FROM kurs k
+WHERE k.knr NOT IN (
+    SELECT sv.knr
+    FROM setztvor sv
+    WHERE k.knr = sv.knr
+);
 
 -- 35
 SELECT p.vname + ' ' + p.fname AS [Name]
@@ -45,81 +44,21 @@ WHERE pnr NOT IN (
 );
 
 -- 37
-SELECT p.fname + ' ' + p.fname AS [Name]
+SELECT p.fname, p.fname
 FROM person p
-    JOIN besucht b ON p.pnr = b.pnr
-    JOIN kurs k ON b.knr = k.knr
-WHERE k.preis < ANY (
-        SELECT k2.preis
-        FROM kurs k2
-            JOIN kveranst v ON k2.knr = v.knr
-        WHERE v.ort = 'Moskau'
-);
+    JOIN besucht be ON be.pnr = p.pnr
+    JOIN kurs k ON k.knr = be.knr
+WHERE k.preis < ANY(
+    SELECT preis
+    FROM kurs
+        JOIN kveranst KV on KV.knr = KURS.knr
+    where kv.ort = 'Moskau'
+)
 
 -- 38
-SELECT k.knr, k.bezeichn, kv.knrlfnd, kv.von
-FROM kurs k
-    JOIN kveranst kv ON k.knr = kv.knr
-    JOIN referent r ON kv.pnr = r.pnr
-WHERE NOT EXISTS (
-        SELECT 1
-        FROM geeignet g
-        WHERE g.knr = k.knr
-            AND g.pnr = r.pnr
-);
+
 
 -- 39
-SELECT p.fname + ' ' + p.fname AS [Name]
-FROM person p
-WHERE p.pnr IN (
-        SELECT b.pnr
-        FROM besucht b
-            JOIN kveranst kv ON b.knr = kv.knr AND b.knrlfnd = kv.knrlfnd
-        WHERE kv.ort = 'Paris'
-    )
-    AND p.pnr IN (
-        SELECT b.pnr
-        FROM besucht b
-            JOIN kveranst kv ON b.knr = kv.knr AND b.knrlfnd = kv.knrlfnd
-        WHERE kv.ort = 'Wien'
-);
 
-SELECT p.pnr, p.fname
-FROM person p
-WHERE p.pnr IN (
-        SELECT b.pnr
-        FROM besucht b
-            JOIN kveranst kv ON b.knr = kv.knr
-            AND b.knrlfnd = kv.knrlfnd
-        WHERE kv.ort = 'Wien'
-    )
-    AND p.pnr NOT IN (
-        SELECT b.pnr
-        FROM besucht b
-            JOIN kveranst kv ON b.knr = kv.knr
-            AND b.knrlfnd = kv.knrlfnd
-        WHERE kv.ort = 'Paris'
-);
 
 -- 40
-SELECT k.bezeichn
-FROM kurs k
-    JOIN kveranst kv ON k.knr = kv.knr
-WHERE kv.ort = 'Wien' AND 
-        k.knr IN (
-            SELECT k.knr
-            FROM kurs k
-                JOIN kveranst kv ON k.knr = kv.knr
-            WHERE kv.ort = 'Paris'
-);
-
-SELECT k.bezeichn
-FROM kurs k
-    JOIN kveranst kv ON k.knr = kv.knr
-WHERE kv.ort = 'Wien' AND 
-        k.knr NOT IN (
-            SELECT k.knr
-            FROM kurs k
-                JOIN kveranst kv ON k.knr = kv.knr
-            WHERE kv.ort = 'Paris'
-);

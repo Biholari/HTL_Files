@@ -5,10 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cc974abe-a3f8-468b-be4b-532414a7461d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/MainWindow.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/CsvMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/MainWindow.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/MainWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Einkaufslistengenerator/src/ShoppingListData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Formen/.idea/libraries/sun_xml_bind_jaxb_core.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/1. Create Table - SchulDB/Oppermann_SchulDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/1. Create Table - SchulDB/Oppermann_SchulDB.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/10. Outer Joins &amp; Group By - Formel 1/Oppermann_Formel1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/10. Outer Joins &amp; Group By - Formel 1/Oppermann_Formel1.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/11. Interset &amp; except - Formel 1/Oppermann_Formel1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/11. Interset &amp; except - Formel 1/Oppermann_Formel1.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/12. Schulungsfirma - Sub-Selects/Oppermann_Schulungsfirma.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/12. Schulungsfirma - Sub-Selects/Oppermann_Schulungsfirma.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/13. Schulungsfirma - Sub-Selects/Oppermann_Schulungsfirma.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/13. Schulungsfirma - Sub-Selects/Oppermann_Schulungsfirma.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../DBI/14. Subselects - Formel1/Oppermann_Formel1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/14. Subselects - Formel1/Oppermann_Formel1.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../POS/Java/PA2/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../POS/Java/PA2/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/2. Constraints - Reisedatenbank/Oppermann_Reisedatenbank.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/2. Constraints - Reisedatenbank/Oppermann_Reisedatenbank.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/4. Projektion - Mitarbeiter/Oppermann_Mitarbeiter.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/4. Projektion - Mitarbeiter/Oppermann_Mitarbeiter.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/5. Restriktion - Fahrzeugverwaltung/Oppermann_Fahrzeugverwaltung.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/5. Restriktion - Fahrzeugverwaltung/Oppermann_Fahrzeugverwaltung.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/6. Join - Buchladen/Oppermann_Buchladen.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/6. Join - Buchladen/Oppermann_Buchladen.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/7. Join &amp; Group By - Autohandel/Oppermann_Autohandel.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/7. Join &amp; Group By - Autohandel/Oppermann_Autohandel.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/8. Join &amp; Group By - Schule/Oppermann_Schule.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/8. Join &amp; Group By - Schule/Oppermann_Schule.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/9. Join &amp; Group By - Wichtel/Oppermann_Wichtel.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DBI/9. Join &amp; Group By - Wichtel/Oppermann_Wichtel.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/Praesentation/iif.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../DBI/Praesentation/stringagg.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/.idea/libraries/jakarta_xml_bind_api.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/.idea/libraries/sun_istack_commons_runtime.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/.idea/libraries/sun_xml_bind_jaxb_impl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/Formen.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/Formen.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Ellipse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Ellipse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Form.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Form.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/FormenData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/FormenData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/FormenPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/FormenPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Polygon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Polygon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Raute.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Raute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Rechteck.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Rechteck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Formen/src/formen/Trapez.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Formen/src/formen/Trapez.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,26 +64,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.MainWindow.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "221",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MainWindow.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH&quot;: &quot;221&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/fabsi/Developer/HTL/HTL_Files/POS/Java/Zahlen_Auswerten&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="MainWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MainWindow" />
@@ -88,6 +120,10 @@
       <workItem from="1709057458776" duration="91000" />
       <workItem from="1709057555610" duration="14000" />
       <workItem from="1709057590027" duration="203000" />
+      <workItem from="1709220407227" duration="119000" />
+      <workItem from="1709633187039" duration="693000" />
+      <workItem from="1709635878272" duration="2000" />
+      <workItem from="1709636788285" duration="552000" />
     </task>
     <servers />
   </component>

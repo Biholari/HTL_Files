@@ -1,4 +1,5 @@
-USE Aufgabe2;
+CREATE DATABASE Reisedatenbank;
+USE Reisedatenbank;
 
 DROP TABLE IF EXISTS Rueckfluege;
 DROP TABLE IF EXISTS Hinfluege;

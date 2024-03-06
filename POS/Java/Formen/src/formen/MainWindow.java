@@ -1,7 +1,8 @@
 package formen;
 
+import jakarta.xml.bind.JAXBException;
+
 import javax.swing.*;
-import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.TreeMap;
@@ -120,7 +121,7 @@ public class MainWindow extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+    public static void  String[] args) {
         MainWindow m = new MainWindow();
         m.setVisible(true);
     }
