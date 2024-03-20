@@ -1,16 +1,15 @@
 import javax.swing.*;
-import java.io.File;
+import java.net.URISyntaxException;
 
 public class Main {
     public static void main(String[] args) {
-        CsvMapper csvm = new CsvMapper(new File("resources/Produkte.csv"));
-        csvm.loadCsv();
-
         SwingUtilities.invokeLater(() -> {
-            MainWindow mw = new MainWindow();
-            mw.setVisible(true);
-
-            mw.setData(csvm.getMappedFile());
+            try {
+                MainWindow mw = new MainWindow();
+                mw.setVisible(true);
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }

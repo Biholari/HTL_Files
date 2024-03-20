@@ -1,6 +1,7 @@
 import jakarta.xml.bind.*;
 
 import javax.swing.*;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.io.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -21,19 +22,35 @@ public class MainWindow extends JFrame {
     private ShoppingListData shoppingListData = new ShoppingListData();
     private int amount = amountSlider.getValue();
 
-    public MainWindow() {
-        setTitle("Hello World");
-        setSize(300, 200);
+    public MainWindow() throws URISyntaxException {
+        // Get string from Ressource Bundle
+        Locale.setDefault(new Locale("en"));
+        ResourceBundle rb = ResourceBundle.getBundle("Einkaufsliste");
+
+        setTitle(rb.getString("Title"));
+        setSize(1200, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(mainPanel);
-        pack();
+
+        // Set Text for Buttons
+        addButton.setText(rb.getString("Add"));
+        deleteButton.setText(rb.getString("Delete"));
+        sortButton.setText(rb.getString("Sort"));
+        printButton.setText(rb.getString("Print"));
+
+        // Load data
+        CsvMapper csvMapper = new CsvMapper(new File(getClass().getResource(rb.getString("FilePath")).toURI()));
+        csvMapper.loadCsv();
+
+        setData(csvMapper.getMappedFile());
 
         DefaultTableModel model = (DefaultTableModel) shoppingList.getModel();
 
         JMenuBar mb = new JMenuBar();
-        JMenuItem newItem = new JMenuItem("Neu");
-        JMenuItem saveItem = new JMenuItem("Speichern");
-        JMenuItem loadItem = new JMenuItem("Laden");
+
+        JMenuItem newItem = new JMenuItem(rb.getString("New"));
+        JMenuItem saveItem = new JMenuItem(rb.getString("Save"));
+        JMenuItem loadItem = new JMenuItem(rb.getString("Load"));
 
         newItem.addActionListener(e -> {
             shoppingListData.clearShoppingListData();
@@ -90,7 +107,6 @@ public class MainWindow extends JFrame {
             for (String item : data.get(keySelector.getSelectedItem())) {
                 itemSelector.addItem(item);
             }
-            pack();
         });
 
         mb.add(newItem);
@@ -101,7 +117,6 @@ public class MainWindow extends JFrame {
 
         amountSlider.addChangeListener(e -> {
             amount = amountSlider.getValue();
-            pack();
         });
 
         addButton.addActionListener(e -> {
@@ -120,8 +135,6 @@ public class MainWindow extends JFrame {
             for (String i : shoppingListData.getShoppingListData().keySet()) {
                 model.addRow(new Object[]{i, shoppingListData.getShoppingListData().get(i)});
             }
-
-            pack();
         });
 
         shoppingList.getSelectionModel().addListSelectionListener(e -> deleteButton.setEnabled(shoppingList.getSelectedRows().length > 0));
@@ -155,8 +168,8 @@ public class MainWindow extends JFrame {
         });
 
         // Add headers to the table
-        model.addColumn("Produkt");
-        model.addColumn("Menge");
+        model.addColumn(rb.getString("Headers").split(" ")[0]);
+        model.addColumn(rb.getString("Headers").split(" ")[1]);
     }
 
     private void fillComboBox() {

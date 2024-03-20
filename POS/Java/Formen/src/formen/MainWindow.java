@@ -121,7 +121,7 @@ public class MainWindow extends JFrame {
         }
     }
 
-    public static void  String[] args) {
+    public static void main(String[] args) {
         MainWindow m = new MainWindow();
         m.setVisible(true);
     }

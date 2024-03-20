@@ -1,12 +1,10 @@
 import jakarta.xml.bind.annotation.*;
-
-import java.util.Map;
 import java.util.HashMap;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ShoppingListData {
-    private HashMap<String, Integer> shoppingListData = new HashMap<>();
+    private final HashMap<String, Integer> shoppingListData = new HashMap<>();
 
     public ShoppingListData() {
         // Default constructor

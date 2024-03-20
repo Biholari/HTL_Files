@@ -14,10 +14,6 @@ public class CsvMapper {
     }
 
     public void loadCsv() {
-        _loadCsv();
-    }
-
-    private void _loadCsv() {
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while (br.readLine() != null) {
                 String[] line = br.readLine().split(";");
@@ -32,7 +28,7 @@ public class CsvMapper {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
