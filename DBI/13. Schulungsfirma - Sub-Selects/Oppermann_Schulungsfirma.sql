@@ -4,7 +4,7 @@ USE Schulungsfirma;
 
 
 -- 32
-SELECT *
+SELECT k.*
 FROM kurs k
     JOIN kurs k2 ON k2.bezeichn = 'Dirigieren'
 WHERE k2.preis > k.preis;
@@ -56,7 +56,14 @@ WHERE k.preis < ANY(
 )
 
 -- 38
-
+SELECT kv.*
+FROM kveranst kv
+    JOIN kurs k ON kv.knr = k.knr
+WHERE kv.pnr NOT IN (
+    SELECT pnr
+    FROM geeignet
+    WHERE k.knr = knr
+);
 
 -- 39
 

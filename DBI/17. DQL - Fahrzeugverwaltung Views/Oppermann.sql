@@ -9,7 +9,7 @@ AS
         JOIN Vermietungen v ON v.KundenID = k.KundenID
         JOIN Fahrzeuge f ON f.FahrzeugID = v.FahrzeugID
         JOIN Hersteller h ON h.HerstellerID = f.HerstellerID;
-GO
+GO;
 -- 2
 GO
 CREATE VIEW vInspektionen
@@ -18,7 +18,7 @@ AS
     FROM Fahrzeuge f
         JOIN Inspektionen i ON i.FahrzeugID = f.FahrzeugID
         JOIN Hersteller h ON h.HerstellerID = f.HerstellerID;
-GO
+GO;
 
 -- 1
 SELECT vV.HerstellerName, COUNT(*) AS Anzahl, SUM(vv.Preis) AS Preis

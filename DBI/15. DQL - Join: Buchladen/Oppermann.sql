@@ -35,70 +35,73 @@ SET Name = 'Bücherwurm'
 WHERE Name = 'Bucherwurm';
 
 -- 3.1
-SELECT k.Name, (SELECT be.Bestelldatum
-    FROM Bestellung be
-    WHERE be.KundeID = k.KundeID) AS [Datum]
+SELECT k.Name,
+    (
+        SELECT be.Bestelldatum
+        FROM Bestellung be
+        WHERE be.KundeID = k.KundeID
+    ) AS Datum
 FROM Kunde k
 WHERE k.KundeID IN (
-    SELECT be.KundeID
-FROM Buch_Bestellung bb
-    JOIN Buch b ON bb.BuchID = b.BuchID
-    JOIN Bestellung be ON be.BestellungID = bb.BestellungID
-WHERE b.Preis > 20
-);
+        SELECT be.KundeID
+        FROM Buch_Bestellung bb
+            JOIN Buch b ON bb.BuchID = b.BuchID
+            JOIN Bestellung be ON be.BestellungID = bb.BestellungID
+        WHERE b.Preis > 20
+    );
 
 -- 3.2
 SELECT k.Ort,
-    (SELECT STRING_AGG(k1.Name, ', ')
-    FROM Kunde k1
-    WHERE k1.Ort = k.Ort) AS Names
+    (
+        SELECT STRING_AGG(k1.Name, ', ')
+        FROM Kunde k1
+        WHERE k1.Ort = k.Ort
+    ) AS Names
 FROM Kunde k
 GROUP BY k.Ort
 
 -- 3.3
-SELECT k.Name, (
-    SELECT be.Bestelldatum
-    FROM Bestellung be
-    WHERE be.KundeID = k.KundeID) AS [Datum]
+SELECT k.Name, be.Bestelldatum
 FROM Kunde k
-WHERE k.KundeID IN (
-    SELECT be.KundeID
-FROM Buch_Bestellung bb
-    JOIN Buch b ON bb.BuchID = b.BuchID
-    JOIN Bestellung be ON be.BestellungID = bb.BestellungID
-WHERE b.Autor = 'Franz Kafka'
-);
+    JOIN Bestellung be ON be.KundeID = k.KundeID
+WHERE EXISTS (
+        SELECT *
+        FROM Buch_Bestellung bb
+            JOIN Buch b ON bb.BuchID = b.BuchID
+            JOIN Bestellung be ON be.BestellungID = bb.BestellungID
+        WHERE b.Autor = 'Franz Kafka' AND be.KundeID = k.KundeID
+    );
 
 -- 3.4 
 SELECT *
 FROM Kunde k
 WHERE k.KundeID IN (
-    SELECT be.KundeID
-FROM Buch_Bestellung bbe
-    JOIN Bestellung be ON be.BestellungID = bbe.BestellungID
-GROUP BY be.KundeID
-HAVING COUNT(*) >= 10
-);
+        SELECT be.KundeID
+        FROM Buch_Bestellung bbe
+            JOIN Bestellung be ON be.BestellungID = bbe.BestellungID
+        GROUP BY be.KundeID
+        HAVING COUNT(*) >= 10
+    );
 
 -- 3.5
 SELECT *
 FROM Buch b
 WHERE b.BuchID IN (
-    SELECT bbe.BuchID
-FROM Buch_Bestellung bbe
-    JOIN Bestellung be ON bbe.BestellungID = be.BestellungID
-WHERE be.Bestelldatum > '2023-10-04'
-)
+        SELECT bbe.BuchID
+        FROM Buch_Bestellung bbe
+            JOIN Bestellung be ON bbe.BestellungID = be.BestellungID
+        WHERE be.Bestelldatum > '2023-10-04'
+    );
 
 -- 3.6
 SELECT be.*
 FROM Buch_Bestellung bbe
     JOIN Bestellung be ON bbe.BestellungID = be.BestellungID
 WHERE bbe.BuchID IN (
-    SELECT BuchID
-FROM Buch b
-WHERE b.Titel LIKE 'die unendliche Geschichte'
-);
+        SELECT BuchID
+        FROM Buch b
+        WHERE b.Titel LIKE 'die unendliche Geschichte'
+    );
 
 -- 3.7
 SELECT *
