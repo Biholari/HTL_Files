@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue May 21 13:35:52 CEST 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018f-9aef-b713-00000eca0570 
+on database directory /Users/fabsi/Developer/HTL/HTL_Files/POS/Java/Nachrichtensystem/data with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@14899482 
+Loaded from file:/Users/fabsi/Developer/HTL/HTL_Files/POS/Java/Nachrichtensystem/lib/derby-10.16.1.1.jar
+java.vendor=Eclipse Adoptium
+java.runtime.version=17.0.11+9
+user.dir=/Users/fabsi/Developer/HTL/HTL_Files/POS/Java/Nachrichtensystem
+os.name=Mac OS X
+os.arch=aarch64
+os.version=14.4.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
