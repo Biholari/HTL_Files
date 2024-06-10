@@ -143,7 +143,8 @@ public class MainWindow extends JFrame {
         }
     }
 
-    private void setupDatabase() {
+    private void
+    setupDatabase() {
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             con = DriverManager.getConnection("jdbc:derby:data");

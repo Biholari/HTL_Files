@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainWindow extends JFrame{
@@ -17,7 +18,7 @@ public class MainWindow extends JFrame{
     private JTextField aufgabe4Suchtext;
     private JButton aufgabe4Button;
     private JTable aufgabe3Tabelle;
-    //aufgabe4Liste zeigt in Aufgabe 6 die Mönnernamen an
+    //aufgabe4Liste zeigt in Aufgabe 6 die Männernamen an
     private JList aufgabe4Liste;
     //aufgabe6Liste zeigt in Aufgabe 6 die Frauennamen an
     private JList aufgabe6Liste;
