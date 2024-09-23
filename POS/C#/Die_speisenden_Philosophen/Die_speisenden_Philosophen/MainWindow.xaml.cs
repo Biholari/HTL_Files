@@ -23,11 +23,11 @@ namespace Die_speisenden_Philosophen
             Fork fork4 = new Fork(4);
             Fork fork5 = new Fork(5);
 
-            p1 = new Philosopher("P1", 1, fork5, fork1, status1);
-            p2 = new Philosopher("P1", 2, fork1, fork2, status2);
-            p3 = new Philosopher("P1", 3, fork2, fork3, status3);
-            p4 = new Philosopher("P1", 4, fork3, fork4, status4);
-            p5 = new Philosopher("P1", 5, fork4, fork5, status5);
+            p1 = new Philosopher(fork5, fork1, status1);
+            p2 = new Philosopher(fork1, fork2, status2);
+            p3 = new Philosopher(fork2, fork3, status3);
+            p4 = new Philosopher(fork3, fork4, status4);
+            p5 = new Philosopher(fork4, fork5, status5);
 
             Philosopher.MeanThink = int.Parse(MeanThink.Text);
             Philosopher.MeanEat = int.Parse(MeanEat.Text);

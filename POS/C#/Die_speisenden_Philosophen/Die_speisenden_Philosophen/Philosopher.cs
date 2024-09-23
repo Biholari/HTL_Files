@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace Die_speisenden_Philosophen
 {
-    internal class Philosopher(String name, int id, Fork leftFork, Fork rightFork, TextBox status)
+    internal class Philosopher(Fork leftFork, Fork rightFork, TextBox status)
     {
         public static int VarianceThink { get; set; } = 200;
         internal static int VarianceEat { get; set; } = 40;
@@ -17,8 +17,6 @@ namespace Die_speisenden_Philosophen
         private bool running;
         private Thread thread;
         private static Random rand = new Random();
-        private string name = name;
-        private int id = id;
 
         public void StartThread()
         {
