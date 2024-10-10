@@ -1,88 +1,91 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Achterbahn
 {
     public partial class MainWindow : Window
     {
-        private int _passengerCount;
-        private int _wagonCapacity;
-        private int _rideCount;
-        private int _currentPassengers;
-        private object _lock = new object();
-        private AutoResetEvent _wagonReady = new AutoResetEvent(false);
-        private AutoResetEvent _passengersReady = new AutoResetEvent(false);
-        private List<Thread> _passengerThreads;
-        private Thread _wagonThread;
+        private List<Thread> passengerThreads;
+        private Thread wagonThread;
+        private Wagon wagon;
+        private int NumberOfPassengers;
+        private int WagonCapacity;
+        private int RideCount;
 
-        /// <summary>
-        /// Interaction logic for MainWindow.xaml
-        /// </summary>
+        // ObservableCollection für die Anzeige der Passagierstatus
+        public ObservableCollection<string> PassengerStatuses { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            // Initialisiere die ObservableCollection
+            PassengerStatuses = new ObservableCollection<string>();
+            // Setze DataContext für Bindings
+            this.DataContext = this;
         }
 
+        // Start der Simulation
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            _passengerCount = (int)slider.Value;
-            _wagonCapacity = int.Parse(WagonBox.Text);
-            _rideCount = 0;
-            _currentPassengers = 0;
+            // Hole die Werte von den Slidern
+            NumberOfPassengers = (int)PassengerSlider.Value;
+            WagonCapacity = (int)CapacitySlider.Value;
+            RideCount = (int)RideSlider.Value;
 
-            _passengerThreads = new List<Thread>();
+            // Initialisiere den Wagen mit den vom Benutzer gesetzten Parametern
+            wagon = new Wagon(WagonCapacity, RideCount, this);
 
-            for (int i = 0; i < _passengerCount; i++)
+            // Initialisiere die Anzeige der Passagierstatus
+            InitializePassengerDisplay();
+
+            // Starte den Wagen-Thread
+            wagonThread = new Thread(wagon.StartRide);
+            wagonThread.Start();
+
+            // Erzeuge und starte die Passagier-Threads
+            passengerThreads = new List<Thread>();
+            for (int i = 0; i < NumberOfPassengers; i++)
             {
-                Thread passengerThread = new Thread(PassengerAction);
-                _passengerThreads.Add(passengerThread);
-                passengerThread.Name = $"Passenger {i + 1}";
-                passengerThread.Start(i + 1);
+                var passenger = new Passenger(i + 1, wagon, this);
+                var thread = new Thread(passenger.Ride);
+                passengerThreads.Add(thread);
+                thread.Start();
             }
-
-            _wagonThread = new Thread(WagonAction);
-            _wagonThread.Start();
         }
 
-        private void PassengerAction(object passengerId)
+        // Aktualisiere den Status eines Passagiers in der GUI
+        public void UpdatePassengerStatus(int passengerId, string status, SolidColorBrush color)
         {
-            while (_rideCount < 10)
+            Dispatcher.Invoke(() =>
             {
-                _wagonReady.WaitOne();
-                lock (_lock)
+                // Aktualisiere den Text für den Passagier in der ObservableCollection
+                PassengerStatuses[passengerId - 1] = $"Passagier {passengerId}: {status}";
+            });
+        }
+
+        // Aktualisiere den Status des Wagens in der GUI
+        public void UpdateWagonStatus(string status, SolidColorBrush color)
+        {
+            WagonStatus.Dispatcher.Invoke(() =>
+            {
+                WagonStatus.Text = $"Wagen Status: {status}";
+                WagonStatus.Foreground = color;
+            });
+        }
+
+        // Initialisiere die Passagier-Anzeige in der GUI
+        public void InitializePassengerDisplay()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                PassengerStatuses.Clear();
+                for (int i = 1; i <= NumberOfPassengers; i++)
                 {
-                    Dispatcher.Invoke(() => StatusTextBlock.Text = $"Passagier {passengerId} steigt ein!");
-                    Thread.Sleep(1000);
-                    _currentPassengers++;
-                    if (_currentPassengers == _wagonCapacity)
-                    {
-                        _passengersReady.Set();
-                    }
-                    else
-                    {
-                        _wagonReady.Set();
-                    }
+                    PassengerStatuses.Add($"Passagier {i}: Warten");
                 }
-            }
-        }
-
-        private void WagonAction()
-        {
-            while (_rideCount < 10)
-            {
-                Dispatcher.Invoke(() => StatusTextBlock.Text = "Wagen wartet auf Passagiere...");
-                _currentPassengers = 0;
-                _wagonReady.Set();
-
-                _passengersReady.WaitOne();
-                Dispatcher.Invoke(() => StatusTextBlock.Text = "Wagen fährt los!");
-                Thread.Sleep(3000);
-
-                _rideCount++;
-                Dispatcher.Invoke(() => StatusTextBlock.Text = $"Fahrt {_rideCount} abgeschlossen!");
-                Thread.Sleep(2000);
-            }
-
-            Dispatcher.Invoke(() => StatusTextBlock.Text = "Wagen ist abgeschaltet.");
+            });
         }
     }
 }
