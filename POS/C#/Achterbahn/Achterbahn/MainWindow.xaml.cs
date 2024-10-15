@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Achterbahn
@@ -40,19 +39,21 @@ namespace Achterbahn
             // Initialisiere die Anzeige der Passagierstatus
             InitializePassengerDisplay();
 
-            // Starte den Wagen-Thread
-            wagonThread = new Thread(wagon.StartRide);
-            wagonThread.Start();
-
             // Erzeuge und starte die Passagier-Threads
             passengerThreads = new List<Thread>();
             for (int i = 0; i < NumberOfPassengers; i++)
             {
-                var passenger = new Passenger(i + 1, wagon, this);
-                var thread = new Thread(passenger.Ride);
+                Passenger passenger = new Passenger(i + 1, wagon, this);
+                Thread thread = new Thread(passenger.Ride);
+                thread.Name = $"Paasenger {i+1}";
                 passengerThreads.Add(thread);
                 thread.Start();
             }
+
+            // Starte den Wagen-Thread
+            wagonThread = new Thread(wagon.StartRide);
+            wagonThread.Name = "Wagon";
+            wagonThread.Start();
         }
 
         // Aktualisiere den Status eines Passagiers in der GUI

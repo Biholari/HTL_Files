@@ -1,47 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Printing;
 using System.Windows.Media;
 
 namespace Achterbahn
 {
     public class Wagon
     {
-        private int capacity;
+        public int Capacity { get; set; }
         private int ridesRemaining;
         private int passengersOnBoard = 0;
         private MainWindow mainWindow;
-        private ManualResetEvent rideCompletedEvent;
+        public ManualResetEvent RideCompletedEvent { get; }
+
         private AutoResetEvent passengerBoardedEvent;
         private object lockObject = new object();
 
         public Wagon(int capacity, int rideCount, MainWindow window)
         {
-            this.capacity = capacity;
+            this.Capacity = capacity;
             this.ridesRemaining = rideCount;
             this.mainWindow = window;
-            rideCompletedEvent = new ManualResetEvent(false);
-            passengerBoardedEvent = new AutoResetEvent(false);
+            this.RideCompletedEvent = new ManualResetEvent(false);
+            this.passengerBoardedEvent = new AutoResetEvent(false);
         }
 
         public void BoardWagon(int passengerId)
         {
             lock (lockObject)
             {
-                passengersOnBoard++;
-                mainWindow.UpdatePassengerStatus(passengerId, "Einsteigen", Brushes.Orange);
-
-                if (passengersOnBoard == capacity)
+                if (passengersOnBoard == Capacity)
                 {
                     mainWindow.UpdateWagonStatus("Voll, beginnt Fahrt...", Brushes.Green);
-                    passengerBoardedEvent.Set(); // Signalisiert, dass alle Passagiere an Bord sind
+                    passengerBoardedEvent.Set(); // Signalisiert, dass alle Passagiere an Bord
+                }
+                else
+                {
+                    passengersOnBoard++;
+                    mainWindow.UpdatePassengerStatus(passengerId, "Einsteigen", Brushes.Orange);
                 }
             }
         }
 
-        public void StartRide()
+        public void StartRide()<
         {
             while (ridesRemaining > 0)
             {
@@ -56,16 +55,11 @@ namespace Achterbahn
                     passengersOnBoard = 0;
                 }
 
-                rideCompletedEvent.Set(); // Fahrt abgeschlossen
+                RideCompletedEvent.Set(); // Fahrt abgeschlossen
                 passengerBoardedEvent.Reset(); // Zurücksetzen für nächste Fahrt
             }
 
             mainWindow.UpdateWagonStatus("Alle Fahrten abgeschlossen", Brushes.DarkRed);
-        }
-
-        public ManualResetEvent GetRideCompletedEvent()
-        {
-            return rideCompletedEvent;
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
 namespace Achterbahn
 {
@@ -27,7 +22,7 @@ namespace Achterbahn
                 _mainWindow.UpdatePassengerStatus(_id, "Wartet", Brushes.Gray);
                 _wagon.BoardWagon(_id);
 
-                _wagon.GetRideCompletedEvent().WaitOne();
+                _wagon.RideCompletedEvent.WaitOne();
                 _mainWindow.UpdatePassengerStatus(_id, "Aussteigen", Brushes.Blue);
 
                 Thread.Sleep(1000);
