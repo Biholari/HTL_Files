@@ -1,4 +1,5 @@
-﻿using System.Printing;
+﻿using Achterbahn;
+using System.Printing;
 using System.Windows.Media;
 
 namespace Achterbahn
@@ -40,7 +41,7 @@ namespace Achterbahn
             }
         }
 
-        public void StartRide()<
+        public void StartRide()
         {
             while (ridesRemaining > 0)
             {

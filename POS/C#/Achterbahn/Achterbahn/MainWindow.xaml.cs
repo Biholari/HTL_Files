@@ -45,7 +45,7 @@ namespace Achterbahn
             {
                 Passenger passenger = new Passenger(i + 1, wagon, this);
                 Thread thread = new Thread(passenger.Ride);
-                thread.Name = $"Paasenger {i+1}";
+                thread.Name = $"Paasenger {i + 1}";
                 passengerThreads.Add(thread);
                 thread.Start();
             }
