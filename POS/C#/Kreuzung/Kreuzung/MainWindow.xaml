@@ -6,49 +6,119 @@
         xmlns:local="clr-namespace:Kreuzung"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <StackPanel>
-            <TextBlock Text="Crossroad" HorizontalAlignment="Center" IsEnabled="False" FontSize="20" FontWeight="Bold"/>
-
-            <Grid HorizontalAlignment="Center" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Text="Autos:" Margin="5" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                <Slider x:Name="CarSlider" Minimum="1" Maximum="7" Value="3" Width="100" Margin="5" Grid.Row="0" Grid.Column="1" IsSnapToTickEnabled="True" TickFrequency="1"/>
-                <TextBox Text="{Binding ElementName=CarSlider, Path=Value}" Width="50" Margin="5" Grid.Row="0" Grid.Column="2"/>
-
-                <TextBlock Text="Kreuzungsart:" Margin="5" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                <ComboBox x:Name="CrossArt" Width="100" Margin="5" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding CrossroadTypes}"/>
-            </Grid>
-
-            <Grid HorizontalAlignment="Center" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <ListBox x:Name="NorthCars" ItemsSource="{Binding NorthCarsCollection}" Grid.Column="1" Grid.Row="0" Width="100" Height="100" />
-                <ListBox x:Name="MiddleCars" ItemsSource="{Binding MiddleCarsCollection}" Grid.Column="1" Grid.Row="1" Width="100" Height="100" />
-                <ListBox x:Name="EastCars" ItemsSource="{Binding EastCarsCollection}" Grid.Column="2" Grid.Row="1" Width="100" Height="100" />
-                <ListBox x:Name="SouthCars" ItemsSource="{Binding SouthCarsCollection}" Grid.Column="1" Grid.Row="2" Width="100" Height="100" />
-                <ListBox x:Name="WestCars" ItemsSource="{Binding WestCarsCollection}" Grid.Column="0" Grid.Row="1" Width="100" Height="100" />
-            </Grid>
-
-            <Button Content="Start" Width="100" Command="{Binding StartCommand}"/>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+            <Label Content="Anzahl der Autos:" VerticalAlignment="Center"/>
+            <TextBox x:Name="carCountTextBox" Width="50" Margin="5,0"/>
+            <Label Content="Kreuzungstyp:" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <ComboBox x:Name="crossroadComboBox" Width="150" Margin="5,0"/>
+            <Button x:Name="StartButton" Content="Start" Click="StartButton_Click" Margin="10,0,0,0"/>
         </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="Norden" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center">
+                <ListBox x:Name="northListBox" Width="Auto" Height="100" ItemsSource="{Binding NorthCars}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1} - {2}">
+                                        <Binding Path="Id"/>
+                                        <Binding Path="Status"/>
+                                        <Binding Path="Direction"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </GroupBox>
+
+            <GroupBox Header="Westen" Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center">
+                <ListBox x:Name="westListBox" Width="Auto" Height="100" ItemsSource="{Binding WestCars}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1} - {2}">
+                                        <Binding Path="Id"/>
+                                        <Binding Path="Status"/>
+                                        <Binding Path="Direction"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </GroupBox>
+
+            <GroupBox Header="Kreuzung" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <ListBox x:Name="middleListBox" Width="Auto" Height="100" ItemsSource="{Binding MiddleCars}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1} - {2}">
+                                        <Binding Path="Id"/>
+                                        <Binding Path="Status"/>
+                                        <Binding Path="Direction"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </GroupBox>
+
+            <GroupBox Header="Osten" Grid.Row="1" Grid.Column="2" VerticalContentAlignment="Center">
+                <ListBox x:Name="eastListBox" Width="Auto" Height="100" ItemsSource="{Binding EastCars}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1} - {2}">
+                                        <Binding Path="Id"/>
+                                        <Binding Path="Status"/>
+                                        <Binding Path="Direction"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </GroupBox>
+
+            <GroupBox Header="Süden" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center">
+                <ListBox x:Name="southListBox" Width="Auto" Height="100" ItemsSource="{Binding SouthCars}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1} - {2}">
+                                        <Binding Path="Id"/>
+                                        <Binding Path="Status"/>
+                                        <Binding Path="Direction"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </GroupBox>
+        </Grid>
     </Grid>
 </Window>

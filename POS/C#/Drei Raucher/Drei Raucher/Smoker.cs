@@ -1,46 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
+﻿using System.ComponentModel;
+using System.Threading;
 
 namespace Drei_Raucher
 {
-    class Smoker
+    public class Smoker : INotifyPropertyChanged
     {
-        private Ingredient _ingredient;
-        private string _name;
-        private Action<string> _updateUI;
+        private readonly Agent _agent;
 
-        public Smoker(Ingredient ingredient, string name, Action<string> updateUI)
+        public Ingredients Ingredient { get; }
+        public int WaitTime { get; set; }
+
+        private Status _currentStatus;
+        public Status CurrentStatus
         {
-            _ingredient = ingredient;
-            _name = name;
-            _updateUI = updateUI;
+            get => _currentStatus;
+            set { _currentStatus = value; OnPropertyChanged(); }
         }
 
-        public void TryToSmoke(object tableObj)
+        public Smoker(Ingredients ingredient, Agent agent)
         {
-            Table table = (Table)tableObj;
+            Ingredient = ingredient;
+            _agent = agent;
+        }
 
+        public void TryToSmoke()
+        {
             while (true)
             {
-                lock (table)
+                if (_agent.TryConsumeIngredients(Ingredient))
                 {
-                    while (!table.HasIgredientsFor(_ingredient))
-                    {
-                        Monitor.Wait(table);
-                    }
-
-                    table.Clear();
-                    _updateUI($"{_name} is smoking...");
-                    Thread.Sleep(10);
-
-                    _updateUI($"{_name} is done smoking.");
-                    Monitor.PulseAll(table);
+                    CurrentStatus = Status.Smoking;
+                    Thread.Sleep(WaitTime);
+                    CurrentStatus = Status.Waiting;
+                    _agent.NotifyAgent();
                 }
             }
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string? propertyName = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

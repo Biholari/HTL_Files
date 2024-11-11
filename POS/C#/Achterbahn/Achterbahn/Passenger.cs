@@ -1,33 +1,82 @@
-﻿using System.Windows.Media;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Achterbahn
 {
-    class Passenger
+    public class Passenger : INotifyPropertyChanged
     {
-        private int _id;
-        private MainWindow _mainWindow;
-        private Wagon _wagon;
-
-        public Passenger(int id, Wagon wagon, MainWindow mainWindow)
+        public string Name { get; set; }
+        private Rollercoaster rollercoaster;
+        public Rollercoaster Rollercoaster
         {
-            this._id = id;
-            this._mainWindow = mainWindow;
-            this._wagon = wagon;
+            get => rollercoaster;
+            set
+            {
+                rollercoaster = value;
+                OnPropertyChanged();
+            }
         }
 
-        public void Ride()
+        private Status status;
+        private readonly Thread Thread;
+
+        public Status Status
+        {
+            get { return status; }
+            set { status = value; OnPropertyChanged(); }
+        }
+
+        public Passenger(string name)
+        {
+            Name = name;
+            Thread = new Thread(Board) { Name = name };
+        }
+
+        private void Board()
         {
             while (true)
             {
-                _mainWindow.UpdatePassengerStatus(_id, "Wartet", Brushes.Gray);
-                _wagon.BoardWagon(_id);
+                Status = Status.Waiting;
 
-                _wagon.RideCompletedEvent.WaitOne();
-                _mainWindow.UpdatePassengerStatus(_id, "Aussteigen", Brushes.Blue);
+                // Wait for the ride to be ready for boarding
+                Rollercoaster.RideReadyEvent.Wait();
 
-                Thread.Sleep(1000);
-                _mainWindow.UpdatePassengerStatus(_id, "Warten", Brushes.Orange);
+                // Try to board the ride
+                if (Rollercoaster.TryBoard())
+                {
+                    Status = Status.Boarding;
+                    Thread.Sleep(1000);
+
+                    Status = Status.Riding;
+
+                    // Wait for ride completion
+                    Rollercoaster.RideCompletedEvent.Wait();
+
+                    Status = Status.Walking;
+                    Thread.Sleep(200);
+                }
+
+                if (Rollercoaster.Status == RollercoasterStatus.Done)
+                    break;
             }
         }
+
+        public void Start()
+        {
+            Thread.Start();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    // Enum for the status of a passenger
+    public enum Status
+    {
+        Waiting,
+        Boarding,
+        Riding,
+        Walking
     }
 }

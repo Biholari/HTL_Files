@@ -1,43 +1,55 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Kreuzung
 {
     public class Car : INotifyPropertyChanged
     {
-        public int ID { get; set; }
-        public string Direction { get; set; }
+        public MainWindow mainWindow;
+        public int Id { get; set; }
+        public Direction Direction { get; set; }
         private string status;
-
         public string Status
         {
-            get { return status; }
+            get => status;
             set
             {
                 status = value;
-                OnPropertyChanged(nameof(Status));
+                OnPropertyChanged();
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public Car(int id, string direction)
+        public Car(MainWindow mw)
         {
-            ID = id;
-            Direction = direction;
+            Direction = GetRandomDirection();
             Status = "Driving";
+            mainWindow = mw;
         }
 
-        protected void OnPropertyChanged(string propertyName)
+        private static Direction GetRandomDirection()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Array values = Enum.GetValues(typeof(Direction));
+            return (Direction)values.GetValue(new Random().Next(values.Length));
         }
 
-        public void Drive(ICrossroad crossroad)
+        public void Drive(Crossroad crossroad)
         {
             Thread.Sleep(new Random().Next(1000, 10000));
-            Status = "Waiting";
+            mainWindow.UpdateCarStatus(this, "Crossing");
             crossroad.Cross(this);
-            Status = "Crossed";
+            mainWindow.UpdateCarStatus(this, "Finished");
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? name = null) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+
+    public enum Direction
+    {
+        North,
+        South,
+        East,
+        West
     }
 }

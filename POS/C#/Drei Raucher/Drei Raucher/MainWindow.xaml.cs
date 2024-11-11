@@ -1,83 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace Drei_Raucher
 {
     public partial class MainWindow : Window
     {
-        private readonly Table _table = new Table();
-        private Agent _agent;
-        private Smoker _smokerA, _smokerB, _smokerC;
+        public Agent Agent { get; set; }
+        public Smoker SmokerA { get; private set; }
+        public Smoker SmokerB { get; private set; }
+        public Smoker SmokerC { get; private set; }
         private Thread _agentThread, _smokerAThread, _smokerBThread, _smokerCThread;
-        private bool _isRunning = false;
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
+
+            InitializeSimulation();
         }
 
-        private void StartSimulation(object sender, RoutedEventArgs e)
+        private void InitializeSimulation()
         {
-            // Disable start button, enable stop button
-            StartButton.IsEnabled = false;
-            StopButton.IsEnabled = true;
-            _isRunning = true;
+            Agent = new Agent();
+            SmokerA = new Smoker(Ingredients.Tobacco, Agent);
+            SmokerB = new Smoker(Ingredients.CigarettePaper, Agent);
+            SmokerC = new Smoker(Ingredients.Match, Agent);
 
-            // Initialize agent and smokers
-            _agent = new Agent(UpdateAgentText);
-            _smokerA = new Smoker(Ingredient.Tobacco, "Smoker A", UpdateSmokerAText);
-            _smokerB = new Smoker(Ingredient.Paper, "Smoker B", UpdateSmokerBText);
-            _smokerC = new Smoker(Ingredient.Matches, "Smoker C", UpdateSmokerCText);
-
-            // Start threads
-            _agentThread = new Thread(_agent.PlaceIngredients);
-            _smokerAThread = new Thread(_smokerA.TryToSmoke);
-            _smokerBThread = new Thread(_smokerB.TryToSmoke);
-            _smokerCThread = new Thread(_smokerC.TryToSmoke);
-
-            _agentThread.Start(_table);
-            _smokerAThread.Start(_table);
-            _smokerBThread.Start(_table);
-            _smokerCThread.Start(_table);
+            DataContext = this;
         }
 
-        private void StopSimulation(object sender, RoutedEventArgs e)
+        private void StartGame(object sender, RoutedEventArgs e)
         {
-            _isRunning = false;
+            _agentThread = new Thread(Agent.Run);
+            _smokerAThread = new Thread(SmokerA.TryToSmoke);
+            _smokerBThread = new Thread(SmokerB.TryToSmoke);
+            _smokerCThread = new Thread(SmokerC.TryToSmoke);
 
-            // Disable stop button, enable start button
-            StartButton.IsEnabled = true;
-            StopButton.IsEnabled = false;
-
-            // Stop threads gracefully
-            _agentThread?.Abort();
-            _smokerAThread?.Abort();
-            _smokerBThread?.Abort();
-            _smokerCThread?.Abort();
-        }
-
-        private void UpdateAgentText(string text)
-        {
-            Dispatcher.Invoke(() => AgentTextBox.Text = text);
-        }
-
-        private void UpdateSmokerAText(string text)
-        {
-            Dispatcher.Invoke(() => SmokerTobaccoTextBox.Text = text);
-        }
-
-        private void UpdateSmokerBText(string text)
-        {
-            Dispatcher.Invoke(() => SmokerPaperTextBox.Text = text);
-        }
-
-        private void UpdateSmokerCText(string text)
-        {
-            Dispatcher.Invoke(() => SmokerMatchesTextBox.Text = text);
+            _agentThread.Start();
+            _smokerAThread.Start();
+            _smokerBThread.Start();
+            _smokerCThread.Start();
         }
     }
 }

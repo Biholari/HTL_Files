@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Drei_Raucher
 {
-    public enum Ingredient
+    public enum Status
     {
-        Tobacco,
-        Paper,
-        Matches
+        Waiting,
+        Smoking
     }
 }

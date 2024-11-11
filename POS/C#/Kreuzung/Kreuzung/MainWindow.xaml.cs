@@ -1,82 +1,112 @@
 ﻿using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Kreuzung
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<Car> NorthCarsCollection { get; set; } = new ObservableCollection<Car>();
-        public ObservableCollection<Car> SouthCarsCollection { get; set; } = new ObservableCollection<Car>();
-        public ObservableCollection<Car> EastCarsCollection { get; set; } = new ObservableCollection<Car>();
-        public ObservableCollection<Car> WestCarsCollection { get; set; } = new ObservableCollection<Car>();
-        public ObservableCollection<Car> MiddleCarsCollection { get; set; } = new ObservableCollection<Car>();
-        public ObservableCollection<string> CrossroadTypes { get; set; } = new ObservableCollection<string>
-        {
-            "Crossroad", "MultilineCroassroad"
-        };
+        private Crossroad crossroad;
+        public ObservableCollection<Car> EastCars { get; set; } = [];
+        public ObservableCollection<Car> NorthCars { get; set; } = [];
+        public ObservableCollection<Car> SouthCars { get; set; } = [];
+        public ObservableCollection<Car> WestCars { get; set; } = [];
+        public ObservableCollection<Car> MiddleCars { get; set; } = [];
 
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = this;
+
+            crossroadComboBox.ItemsSource = new List<string> { "Crossroad", "Large Crossroad", "Traffic Light Crossroad" };
         }
 
-        public void StartSimulation(object parameter)
+        private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            //int carCount = (int)CarSlider.Value;
-            //ICrossroad crossroad = parameter switch
-            //{
-            //    "Simple" => new SimpleCrossroad(),
-            //    "MultiLine" => new MultiLineCroassroad(),
-            //    _ => throw new ArgumentException("Invalid parameter")
-            //};
-
-            //for (int i = 0; i < carCount; i++)
-            //{
-            //    var direction = GetRandomDirection();
-            //    Car car = new(i, direction);
-            //    AddCarToList(car, direction);
-            //    Thread carThread = new Thread(() => car.Drive(crossroad));
-            //    carThread.Start();
-            //}
-
-            NorthCarsCollection.Add(new Car(1, "North"));
-        }
-
-        private void AddCarToList(Car car, string direction)
-        {
-            switch (direction)
+            crossroad = crossroadComboBox.SelectedItem switch
             {
-                case "North":
-                    NorthCarsCollection.Add(car);
-                    break;
-                case "South":
-                    SouthCarsCollection.Add(car);
-                    break;
-                case "East":
-                    EastCarsCollection.Add(car);
-                    break;
-                case "West":
-                    WestCarsCollection.Add(car);
-                    break;
+                "Crossroad" => new Crossroad(),
+                "Large Crossroad" => new LargeCrossroad(),
+                "Traffic Light Crossroad" => new TrafficLightCrossroad(),
+                _ => throw new NotImplementedException()
+            };
+
+            int carCount = int.Parse(carCountTextBox.Text);
+            for (int i = 0; i < carCount; i++)
+            {
+                Car car = new(this) { Id = i+1 };
+                AddCarToDirectionList(car);
+                Thread carThread = new(() => car.Drive(crossroad)) { Name = $"Car {i+1}"};
+                carThread.Start();
             }
         }
 
-        private string GetRandomDirection()
+        public void UpdateCarStatus(Car car, string status)
         {
-            return new Random().Next(0, 2) == 0 ? "North" : "South";
+            Dispatcher.Invoke(() =>
+            {
+                car.Status = status;
+                if (status == "Crossing")
+                {
+                    RemoveCarFromDirectionList(car);
+                    MiddleCars.Add(car);
+                }
+                else if (status == "Finished")
+                {
+                    MiddleCars.Remove(car);
+                    switch (car.Direction)
+                    {
+                        case Direction.North:
+                            NorthCars.Remove(car);
+                            SouthCars.Add(car);
+                            car.Direction = Direction.South;
+                            break;
+                        case Direction.South:
+                            SouthCars.Remove(car);
+                            NorthCars.Add(car);
+                            car.Direction = Direction.North;
+                            break;
+                        case Direction.East:
+                            EastCars.Remove(car);
+                            WestCars.Add(car);
+                            car.Direction = Direction.West;
+                            break;
+                        case Direction.West:
+                            WestCars.Remove(car);
+                            EastCars.Add(car);
+                            car.Direction = Direction.East;
+                            break;
+                    }
+                }
+            });
+        }
+
+        private void AddCarToDirectionList(Car car)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                GetCarCollectionByDirection(car.Direction).Add(car);
+            });
+        }
+
+        private void RemoveCarFromDirectionList(Car car)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                GetCarCollectionByDirection(car.Direction).Remove(car);
+            });
+        }
+
+        private ObservableCollection<Car> GetCarCollectionByDirection(Direction direction)
+        {
+            return direction switch
+            {
+                Direction.North => NorthCars,
+                Direction.South => SouthCars,
+                Direction.East => EastCars,
+                Direction.West => WestCars,
+                _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+            };
         }
     }
 }

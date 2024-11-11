@@ -1,56 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace Drei_Raucher
 {
-    internal class Agent
+    public class Agent
     {
-        private Random _random = new Random();
-        private Action<string> _updateUI;
+        private readonly object _lock = new();
+        public ObservableCollection<Ingredients> Table { get; } = [];
+        private static readonly Random _random = new();
 
-        public Agent(Action<string> updateUI)
+        public void Run()
         {
-            _updateUI = updateUI;
-        }
-
-        public void PlaceIngredients(object tableObj)
-        {
-            Table table = (Table)tableObj;
-
             while (true)
             {
-                lock (table)
-                {
-                    while (!table.IsEmpty())
-                    {
-                        Monitor.Wait(table);
-                    }
-
-                    Ingredient[] ingredients = GetTwoRandomIngredients();
-                    table.PlaceIngredients(ingredients[0], ingredients[1]);
-                    _updateUI($"Agent placed {ingredients[0]} and {ingredients[1]} on the table.");
-
-                    Monitor.PulseAll(table);
-                    Thread.Sleep(10);
-
-                }
+                WaitUntilIngredientsConsumed();
+                PlaceRandomIngredients();
             }
         }
 
-        private Ingredient[] GetTwoRandomIngredients()
+        public bool TryConsumeIngredients(Ingredients smokerIngredient)
         {
-            Ingredient[] allIngredients = (Ingredient[])Enum.GetValues(typeof(Ingredient));
-            int first = _random.Next(allIngredients.Length);
-            int second;
-            do
+            lock (_lock)
             {
-                second = _random.Next(allIngredients.Length);
-            } while (second == first);
+                if (Table.Contains(smokerIngredient)) return false;
+                Table.Clear();
+                Monitor.PulseAll(_lock);
+                return true;
+            }
+        }
 
-            return new Ingredient[] { allIngredients[first], allIngredients[second] };
+        private void PlaceRandomIngredients()
+        {
+            lock (_lock)
+            {
+                // Put 2 random ingredients on the table
+                var randomIngredients = Enum.GetValues<Ingredients>().ToList()
+                        .Where(ingredient => ingredient != (Ingredients)_random.NextInt64(0, 2))
+                        .ToList();
+                // Add all elements of randomIngredients to Table
+                randomIngredients.ForEach(ing => Table.Add(ing));
+                // Notify all smokers, that the ingredients are ready
+                Monitor.PulseAll(_lock);
+            }
+        }
+
+        public void NotifyAgent()
+        {
+            lock (_lock)
+            {
+                Table.Clear();
+                Monitor.Pulse(_lock);  // Notify the agent to put new ingredients
+            }
+        }
+
+        private void WaitUntilIngredientsConsumed()
+        {
+            lock (_lock)
+            {
+                while (Table.Count > 0)
+                    Monitor.Wait(_lock);
+            }
         }
     }
 }
