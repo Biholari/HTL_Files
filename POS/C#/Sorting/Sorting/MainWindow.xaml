@@ -6,8 +6,17 @@
         Title="Sorting-Algorithmen" Height="350" Width="800">
     <DockPanel>
         <StackPanel Width="100">
-            <Button Name="start" Margin="10" Click="Start_Click">Sort</Button>
-            <Button Name="reverse" Margin="10 0 10 10" Click="Reverse_Click">Reverse</Button>
+            <Button Name="start" Margin="10 10 10 0" Click="Start_Click">Bubble-Sort</Button>
+            <Button Margin="10 10 10 0" Click="CocktailSort_Click">Cocktail-Sort</Button>
+            <Button Margin="10 10 10 0" Click="InsertionSort_Click">Insertion-Sort</Button>
+            <Button Margin="10 10 10 0" Click="CombSort_Click">Comb-Sort</Button>
+            <Button Margin="10 10 10 0" Click="ShellSort_Click">Shell-Sort</Button>
+            <Button Margin="10 10 10 0" Click="HeapSort_Click">Heap-Sort</Button>
+            <Button Margin="10 10 10 0" Click="MergeSort_Click">Merge-Sort</Button>
+            <Button Margin="10" Click="QuickSort_Click">Quick-Sort</Button>
+            <Button Margin="10" Click="SelectionSort_Click">Selection-Sort</Button>
+            <Button Name="reverse" Margin="10" Click="Reverse_Click">Reverse</Button>
+            <Button Name="ShuffleBtn" Margin="10 0 10 10" Click="ShuffleBtn_Click">Shuffle</Button>
             <TextBlock Margin="10 0 10 0">Checks:</TextBlock>
             <TextBlock Margin="20 0 0 10" Text="{Binding Path=Checks}"></TextBlock>
             <TextBlock Margin="10 0 10 0">Swaps:</TextBlock>
