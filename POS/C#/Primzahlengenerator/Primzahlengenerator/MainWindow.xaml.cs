@@ -9,7 +9,7 @@ namespace Primzahlengenerator
     /// </summary>
     public partial class MainWindow : Window
     {
-        public int PrimeNumber { get; set; } = 3;
+        public int Iterations { get; set; } = 3;
         public ObservableCollection<long> PrimeNumbers { get; set; } = [];
         private int runningCalculations = 0;
 
@@ -26,12 +26,11 @@ namespace Primzahlengenerator
             Storyboard loadingAnimation = (Storyboard)FindResource("loadingRotation");
             loadingAnimation.Begin();
 
-            int iteration = PrimeNumber;
             Interlocked.Increment(ref runningCalculations);
 
             ThreadPool.QueueUserWorkItem(state =>
             {
-                long output = GetPrime(iteration);
+                long output = GetPrime(Iterations);
 
                 Dispatcher.Invoke(() =>
                 {

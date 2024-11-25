@@ -13,8 +13,8 @@
     </Window.Resources>
     <Grid>
         <StackPanel>
-            <Label Content="n-te Primezahl: "/>
-            <TextBox x:Name="PrimeNumberTxtBx" Text="{Binding PrimeNumber, Mode=TwoWay}"/>
+            <Label Content="Primezahl Iterationen: "/>
+            <TextBox x:Name="PrimeNumberTxtBx" Text="{Binding Iterations, Mode=TwoWay}"/>
             <Button Content="Starten" Click="Button_Click"/>
 
             <Image x:Name="LoadingImage" Stretch="Fill" Width="125" Height="124" Source="/loading_big.png" Visibility="Collapsed">
