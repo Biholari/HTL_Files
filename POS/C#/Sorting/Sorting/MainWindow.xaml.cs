@@ -20,6 +20,14 @@ namespace Sorting
         private int _checks = 0;
         private int _swaps = 0;
         private int _selected = -1;
+        private int _delay = 50;
+
+        public int Delay
+        {
+            get { return _delay; }
+            set { _delay = value; NotifyPropertyChanged(x => x.Delay); }
+        }
+
 
         public ObservableCollection<int> List
         {
@@ -83,7 +91,7 @@ namespace Sorting
             this.DataContext = this;
         }
 
-        private void Start_Click(object sender, RoutedEventArgs e)
+        private void Bubble_Click(object sender, RoutedEventArgs e)
         {
             int size = sortList.Count;
             Checks = 0;
@@ -96,28 +104,21 @@ namespace Sorting
                     swapped = false;
                     for (int i = 0; i < size - 1; ++i, Selected = i)
                     {
-                        try
-                        {
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                        Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                          {
+                              Checks++;
+                              if (sortList[i] > sortList[i + 1])
                               {
-                                  Checks++;
-                                  if (sortList[i] > sortList[i + 1])
-                                  {
-                                      Swaps++;
-                                      (sortList[i + 1], sortList[i]) = (sortList[i], sortList[i + 1]);
-                                      swapped = true;
-                                  }
-                                  return null;
-                              }), null);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex.ToString());
-                        }
-                        Thread.Sleep(50);
+                                  Swaps++;
+                                  (sortList[i + 1], sortList[i]) = (sortList[i], sortList[i + 1]);
+                                  swapped = true;
+                              }
+                              return null;
+                          }), null);
+                        Thread.Sleep(_delay);
                     }
                     size = size - 1;
-                } while (swapped == true);
+                } while (swapped);
 
             });
         }
@@ -133,61 +134,44 @@ namespace Sorting
                 do
                 {
                     swapped = false;
-                    for (int i = 0; i < size - 1; ++i)
+                    for (int i = 0; i < size - 1; ++i, Selected = i)
                     {
-                        int currentIndex = i;
-                        try
-                        {
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                        Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                          {
+                              Checks++;
+                              if (sortList[i] > sortList[i + 1])
                               {
-                                  Selected = currentIndex;
-                                  Checks++;
-                                  if (sortList[currentIndex] > sortList[currentIndex + 1])
-                                  {
-                                      Swaps++;
-                                      (sortList[currentIndex + 1], sortList[currentIndex]) = (sortList[currentIndex], sortList[currentIndex + 1]);
-                                      swapped = true;
-                                  }
-                                  return null;
-                              }), null);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex.ToString());
-                        }
-                        Thread.Sleep(50);
+                                  Swaps++;
+                                  (sortList[i + 1], sortList[i]) = (sortList[i], sortList[i + 1]);
+                                  swapped = true;
+                              }
+                              return null;
+                          }), null);
+                        Thread.Sleep(_delay);
                     }
                     if (!swapped)
                     {
                         break;
                     }
                     swapped = false;
-                    for (int i = size - 1; i > 0; --i)
+                    for (int i = size - 1; i > 0; --i, Selected = i)
                     {
-                        int currentIndex = i;
-                        try
-                        {
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                        Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                          {
+                              Selected = i;
+                              Checks++;
+                              if (sortList[i] < sortList[i - 1])
                               {
-                                  Selected = currentIndex;
-                                  Checks++;
-                                  if (sortList[currentIndex] < sortList[currentIndex - 1])
-                                  {
-                                      Swaps++;
-                                      (sortList[currentIndex - 1], sortList[currentIndex]) = (sortList[currentIndex], sortList[currentIndex - 1]);
-                                      swapped = true;
-                                  }
-                                  return null;
-                              }), null);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex.ToString());
-                        }
-                        Thread.Sleep(50);
+                                  Swaps++;
+                                  (sortList[i - 1], sortList[i]) = (sortList[i], sortList[i - 1]);
+                                  swapped = true;
+                              }
+                              return null;
+                          }), null);
+                        Thread.Sleep(_delay);
                     }
-                    size = size - 1;
-                } while (swapped == true);
+                    size--;
+                } while (swapped);
             });
         }
 
@@ -201,41 +185,27 @@ namespace Sorting
                 for (int i = 0; i < size - 1; ++i, Selected = i)
                 {
                     int min = i;
-                    for (int j = i + 1; j < size; ++j)
+                    for (int j = i + 1; j < size; ++j, Selected = j)
                     {
-                        try
-                        {
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                        Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                          {
+                              Checks++;
+                              if (sortList[j] < sortList[min])
                               {
-                                  Checks++;
-                                  if (sortList[j] < sortList[min])
-                                  {
-                                      min = j;
-                                  }
-                                  return null;
-                              }), null);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex.ToString());
-                        }
-                        Thread.Sleep(50);
+                                  min = j;
+                              }
+                              return null;
+                          }), null);
+                        Thread.Sleep(_delay);
                     }
                     if (min != i)
                     {
-                        try
-                        {
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                              {
-                                  Swaps++;
-                                  (sortList[i], sortList[min]) = (sortList[min], sortList[i]);
-                                  return null;
-                              }), null);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex.ToString());
-                        }
+                        Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                          {
+                              Swaps++;
+                              (sortList[i], sortList[min]) = (sortList[min], sortList[i]);
+                              return null;
+                          }), null);
                     }
                 }
             });
@@ -254,35 +224,21 @@ namespace Sorting
                     int j = i - 1;
                     while (j >= 0 && sortList[j] > key)
                     {
-                        try
-                        {
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                              {
-                                  Checks++;
-                                  Swaps++;
-                                  sortList[j + 1] = sortList[j];
-                                  j = j - 1;
-                                  return null;
-                              }), null);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex.ToString());
-                        }
-                        Thread.Sleep(50);
-                    }
-                    try
-                    {
                         Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
                           {
-                              sortList[j + 1] = key;
+                              Checks++;
+                              Swaps++;
+                              sortList[j + 1] = sortList[j];
+                              j = j - 1;
                               return null;
                           }), null);
+                        Thread.Sleep(_delay);
                     }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex.ToString());
-                    }
+                    Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                      {
+                          sortList[j + 1] = key;
+                          return null;
+                      }), null);
                 }
             });
         }
@@ -306,25 +262,18 @@ namespace Sorting
                     swapped = false;
                     for (int i = 0; i < size - gap; ++i, Selected = i)
                     {
-                        try
-                        {
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                        Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                          {
+                              Checks++;
+                              if (sortList[i] > sortList[i + gap])
                               {
-                                  Checks++;
-                                  if (sortList[i] > sortList[i + gap])
-                                  {
-                                      Swaps++;
-                                      (sortList[i], sortList[i + gap]) = (sortList[i + gap], sortList[i]);
-                                      swapped = true;
-                                  }
-                                  return null;
-                              }), null);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex.ToString());
-                        }
-                        Thread.Sleep(50);
+                                  Swaps++;
+                                  (sortList[i], sortList[i + gap]) = (sortList[i + gap], sortList[i]);
+                                  swapped = true;
+                              }
+                              return null;
+                          }), null);
+                        Thread.Sleep(_delay);
                     }
                 }
             });
@@ -332,7 +281,7 @@ namespace Sorting
 
         private void ShellSort_Click(object sender, RoutedEventArgs e)
         {
-            /*int size = sortList.Count;
+            int size = sortList.Count;
             Checks = 0;
             Swaps = 0;
             ThreadPool.QueueUserWorkItem(o =>
@@ -345,44 +294,35 @@ namespace Sorting
                         int j;
                         for (j = i; j >= gap; j -= gap)
                         {
-                            try
-                            {
-                                Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                                  {
-                                      Checks++;
-                                      if (sortList[j - gap] > temp)
-                                      {
-                                          Swaps++;
-                                          sortList[j] = sortList[j - gap];
-                                      }
-                                      else
-                                      {
-                                          break;
-                                      }
-                                      return null;
-                                  }), null);
-                            }
-                            catch (Exception ex)
-                            {
-                                Debug.WriteLine(ex.ToString());
-                            }
-                            Thread.Sleep(50);
-                        }
-                        try
-                        {
+                            bool shouldBreak = false;
                             Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                              {
-                                  sortList[j] = temp;
-                                  return null;
-                              }), null);
+                            {
+                                Checks++;
+                                if (sortList[j - gap] > temp)
+                                {
+                                    Swaps++;
+                                    sortList[j] = sortList[j - gap];
+                                }
+                                else
+                                {
+                                    shouldBreak = true;
+                                }
+                                return null;
+                            }), null);
+                            if (shouldBreak)
+                            {
+                                break;
+                            }
+                            Thread.Sleep(_delay);
                         }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex.ToString());
-                        }
+                        Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                          {
+                              sortList[j] = temp;
+                              return null;
+                          }), null);
                     }
                 }
-            });*/
+            });
         }
 
         private void HeapSort_Click(object sender, RoutedEventArgs e)
@@ -392,61 +332,75 @@ namespace Sorting
             Swaps = 0;
             ThreadPool.QueueUserWorkItem(o =>
             {
-                for (int i = size / 2 - 1; i >= 0; i--)
+                for (int i = size / 2 - 1; i >= 0; i--, Selected = i)
                 {
                     Heapify(size, i);
                 }
-                for (int i = size - 1; i > 0; i--)
+                for (int i = size - 1; i > 0; i--, Selected = i)
                 {
-                    try
+                    Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
                     {
-                        Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                          {
-                              Swaps++;
-                              (sortList[0], sortList[i]) = (sortList[i], sortList[0]);
-                              Heapify(i, 0);
-                              return null;
-                          }), null);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex.ToString());
-                    }
-                    Thread.Sleep(50);
+                        Swaps++;
+                        (sortList[0], sortList[i]) = (sortList[i], sortList[0]);
+                        return null;
+                    }), null);
+                    Thread.Sleep(_delay);
+                    Heapify(i, 0);
                 }
             });
         }
 
         private void Heapify(int size, int i)
         {
-            int largest = i;
-            int l = 2 * i + 1;
-            int r = 2 * i + 2;
-            if (l < size && sortList[l] > sortList[largest])
+            int largestIndex = i;
+            int leftChild = 2 * i + 1;
+            int rightChild = 2 * i + 2;
+
+            Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
             {
-                largest = l;
-            }
-            if (r < size && sortList[r] > sortList[largest])
+                Selected = i;
+                return null;
+            }), null);
+
+            if (leftChild < size)
             {
-                largest = r;
-            }
-            if (largest != i)
-            {
-                try
+                Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
                 {
-                    Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                      {
-                          Swaps++;
-                          (sortList[i], sortList[largest]) = (sortList[largest], sortList[i]);
-                          Heapify(size, largest);
-                          return null;
-                      }), null);
-                }
-                catch (Exception ex)
+                    Checks++;
+                    if (sortList[leftChild] > sortList[largestIndex])
+                    {
+                        largestIndex = leftChild;
+                    }
+                    return null;
+                }), null);
+                Thread.Sleep(_delay);
+            }
+
+            if (rightChild < size)
+            {
+                Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
                 {
-                    Debug.WriteLine(ex.ToString());
-                }
-                Thread.Sleep(50);
+                    Checks++;
+                    if (sortList[rightChild] > sortList[largestIndex])
+                    {
+                        largestIndex = rightChild;
+                    }
+                    return null;
+                }), null);
+                Thread.Sleep(_delay);
+            }
+
+            if (largestIndex != i)
+            {
+                Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                {
+                    Swaps++;
+                    Selected = largestIndex;
+                    (sortList[i], sortList[largestIndex]) = (sortList[largestIndex], sortList[i]);
+                    return null;
+                }), null);
+                Thread.Sleep(_delay);
+                Heapify(size, largestIndex);
             }
         }
 
@@ -466,6 +420,12 @@ namespace Sorting
             if (l < r)
             {
                 int m = l + (r - l) / 2;
+                Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                {
+                    Selected = m; 
+                    return null;
+                }), null);
+                Thread.Sleep(_delay);
                 MergeSort(l, m);
                 MergeSort(m + 1, r);
                 Merge(l, m, r);
@@ -478,11 +438,12 @@ namespace Sorting
             int n2 = r - m;
             int[] L = new int[n1];
             int[] R = new int[n2];
-            for (int i2 = 0; i2 < n1; ++i2)
+
+            for (int i2 = 0; i2 < n1; ++i2, Selected = l + i2)
             {
                 L[i2] = sortList[l + i2];
             }
-            for (int j2 = 0; j2 < n2; ++j2)
+            for (int j2 = 0; j2 < n2; ++j2, Selected = m + 1 + j2)
             {
                 R[j2] = sortList[m + 1 + j2];
             }
@@ -491,70 +452,55 @@ namespace Sorting
             int k = l;
             while (i < n1 && j < n2)
             {
-                try
+                int currentIndex = k;
+                Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
                 {
-                    Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                      {
-                          Checks++;
-                          if (L[i] <= R[j])
-                          {
-                              Swaps++;
-                              sortList[k] = L[i];
-                              i++;
-                          }
-                          else
-                          {
-                              Swaps++;
-                              sortList[k] = R[j];
-                              j++;
-                          }
-                          k++;
-                          return null;
-                      }), null);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.ToString());
-                }
-                Thread.Sleep(50);
+                    Selected = currentIndex;
+                    Checks++;
+                    if (L[i] <= R[j])
+                    {
+                        Swaps++;
+                        sortList[k] = L[i];
+                        i++;
+                    }
+                    else
+                    {
+                        Swaps++;
+                        sortList[k] = R[j];
+                        j++;
+                    }
+                    return null;
+                }), null);
+                k++;
+                Thread.Sleep(_delay);
             }
             while (i < n1)
             {
-                try
+                int currentIndex = k;
+                Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
                 {
-                    Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                      {
-                          Swaps++;
-                          sortList[k] = L[i];
-                          i++;
-                          k++;
-                          return null;
-                      }), null);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.ToString());
-                }
-                Thread.Sleep(50);
+                    Selected = currentIndex;
+                    Swaps++;
+                    sortList[k] = L[i];
+                    i++;
+                    return null;
+                }), null);
+                k++;
+                Thread.Sleep(_delay);
             }
             while (j < n2)
             {
-                try
+                int currentIndex = k;
+                Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
                 {
-                    Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                      {
-                          Swaps++;
-                          sortList[k] = R[j];
-                          j++;
-                          k++;
-                          return null;
-                      }), null);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.ToString());
-                }
-                Thread.Sleep(50);
+                    Selected = currentIndex;
+                    Swaps++;
+                    sortList[k] = R[j];
+                    j++;
+                    return null;
+                }), null);
+                k++;
+                Thread.Sleep(_delay);
             }
         }
 
@@ -574,6 +520,7 @@ namespace Sorting
             if (low < high)
             {
                 int pi = Partition(low, high);
+
                 QuickSort(low, pi - 1);
                 QuickSort(pi + 1, high);
             }
@@ -583,41 +530,30 @@ namespace Sorting
         {
             int pivot = sortList[high];
             int i = low - 1;
-            for (int j = low; j < high; ++j)
+            for (int j = low; j < high; ++j, Selected = j)
             {
-                try
-                {
-                    Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                      {
-                          Checks++;
-                          if (sortList[j] < pivot)
-                          {
-                              i++;
-                              Swaps++;
-                              (sortList[i], sortList[j]) = (sortList[j], sortList[i]);
-                          }
-                          return null;
-                      }), null);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.ToString());
-                }
-                Thread.Sleep(50);
-            }
-            try
-            {
+                int currentIndex = j;
                 Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                  {
-                      Swaps++;
-                      (sortList[i + 1], sortList[high]) = (sortList[high], sortList[i + 1]);
-                      return null;
-                  }), null);
+                {
+                    Checks++;
+                    if (sortList[currentIndex] < pivot)
+                    {
+                        i++;
+                        Swaps++;
+                        (sortList[i], sortList[currentIndex]) = (sortList[currentIndex], sortList[i]);
+                    }
+                    return null;
+                }), null);
+                Thread.Sleep(_delay);
             }
-            catch (Exception ex)
+            Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
             {
-                Debug.WriteLine(ex.ToString());
-            }
+                Swaps++;
+                Selected = i + 1;
+                (sortList[i + 1], sortList[high]) = (sortList[high], sortList[i + 1]);
+                return null;
+            }), null);
+            Thread.Sleep(_delay);
             return i + 1;
         }
 
@@ -649,25 +585,18 @@ namespace Sorting
                     swapped = false;
                     for (int i = 0; i < size - 1; ++i, Selected = i)
                     {
-                        try
-                        {
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                        Dispatcher.Invoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                          {
+                              Checks++;
+                              if (sortList[i] < sortList[i + 1])
                               {
-                                  Checks++;
-                                  if (sortList[i] < sortList[i + 1])
-                                  {
-                                      Swaps++;
-                                      (sortList[i + 1], sortList[i]) = (sortList[i], sortList[i + 1]);
-                                      swapped = true;
-                                  }
-                                  return null;
-                              }), null);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex.ToString());
-                        }
-                        Thread.Sleep(50);
+                                  Swaps++;
+                                  (sortList[i + 1], sortList[i]) = (sortList[i], sortList[i + 1]);
+                                  swapped = true;
+                              }
+                              return null;
+                          }), null);
+                        Thread.Sleep(_delay);
                     }
                     size = size - 1;
                 } while (swapped == true);
