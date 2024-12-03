@@ -49,6 +49,7 @@ go
 -- TAN: 12345678
 --   |> 12 => Index
 --   |> 345678 => TAN
+go
 create procedure prcUEBERWEISEN (@BLZAbs int, @KtoNrAbs int, @BLZEmpf int, @KtoNrEmpf int, @Betrag decimal(5,2), @Buchungstext varchar(50), @TAN char(6))
 as 
 begin
@@ -70,9 +71,41 @@ begin
 		where Ziffernfolge = @TAN;
 
 		insert into Kontobewegung values
-			(@BLZAbs, @KtoNrAbs, (isnull((select max(Buchungszeile) from Kontobewegung), 0)+1), @Buchungstext, @Betrag, getdate());
+			(@BLZAbs, @KtoNrAbs, (isnull((select max(Buchungszeile) from Kontobewegung), 0)+1), @Buchungstext, @Betrag * -1, getdate());
 
 		insert into Kontobewegung values
 			(@BLZEmpf, @KtoNrEmpf, (isnull((select max(Buchungszeile) from Kontobewegung), 0)+1), @Buchungstext, @Betrag, getdate());
 	end;
 end;
+
+-- d)
+drop procedure if exists prcKontostand;
+
+go
+create procedure prcKontostand (@BLZ int, @Kontonummer int)
+as
+begin
+	create table #Kontostand
+	(
+		Blz int,
+		KontoNr int,
+		Betrag int,
+		Datum date
+	);
+
+	insert into #Kontostand (BLZ, KontoNr, Betrag, Datum)
+	select 
+		@BLZ, 
+		kbwg.KontoNr, 
+		SUM(kbwg.Betrag) OVER (ORDER BY kbwg.Datum ROWS UNBOUNDED PRECEDING),
+		kbwg.Datum
+	from Kontobewegung kbwg
+	where Blz = @BLZ and kbwg.KontoNr = @Kontonummer
+	order by kbwg.Datum;
+
+	select *
+	from #Kontostand;
+end;
+go
+
+exec prcKontostand @BLZ=1, @Kontonummer=100;
