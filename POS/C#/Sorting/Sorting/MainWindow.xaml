@@ -5,7 +5,7 @@
         xmlns:local="clr-namespace:Sorting"
         Title="Sorting-Algorithmen" Height="720" Width="1180">
     <DockPanel>
-        <StackPanel Width="100">
+        <StackPanel Width="Auto">
             <Button Name="start" Margin="10 10 10 0" Click="Bubble_Click">Bubble-Sort</Button>
             <Button Margin="10 10 10 0" Click="CocktailSort_Click">Cocktail-Sort</Button>
             <Button Margin="10 10 10 0" Click="InsertionSort_Click">Insertion-Sort</Button>
@@ -15,8 +15,12 @@
             <Button Margin="10 10 10 0" Click="HeapSort_Click">Heap-Sort</Button>
             <Button Margin="10 10 10 0" Click="MergeSort_Click">Merge-Sort</Button>
             <Button Margin="10" Click="QuickSort_Click">Quick-Sort</Button>
-            <Button Name="reverse" Margin="10" Click="Reverse_Click">Reverse</Button>
-            <Button Name="ShuffleBtn" Margin="10 0 10 10" Click="ShuffleBtn_Click">Shuffle</Button>
+            
+            <Button Name="reverse" Margin="10 10 10 10" Click="Reverse_Click">Reverse</Button>
+            <Button Name="ShuffleBtn" Margin="10 0 10 0" Click="ShuffleBtn_Click">Shuffle</Button>
+            <Button Name="BackAdd" Margin="10 10 10 0" Content="Add Value at end" Click="BackAdd_Click" />
+            <Button Name="FrontAdd" Margin="10 10 10 0" Content="Add Value at front" Click="FrontAdd_Click" />
+
             <TextBlock Margin="10,0,10,5">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="Delay: {0}">
@@ -30,6 +34,8 @@
             <TextBlock Margin="10 0 10 0">Swaps:</TextBlock>
             <TextBlock Margin="20 0 0 10" Text="{Binding Path=Swaps}"></TextBlock>
         </StackPanel>
+        
+        
         <ListBox Name="sortingBox" ItemsSource="{Binding Path=List}" SelectedIndex="{Binding Path=Selected, Mode=OneWay}" DataContext="{Binding}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -16,7 +15,7 @@ namespace Sorting
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public ObservableCollection<int> sortList = new ObservableCollection<int>();
-        private readonly Random rand = new Random();
+        private static readonly Random rand = new Random();
         private int _checks = 0;
         private int _swaps = 0;
         private int _selected = -1;
@@ -27,8 +26,6 @@ namespace Sorting
             get { return _delay; }
             set { _delay = value; NotifyPropertyChanged(x => x.Delay); }
         }
-
-
         public ObservableCollection<int> List
         {
             set
@@ -65,7 +62,6 @@ namespace Sorting
                 return _swaps;
             }
         }
-
         public int Selected
         {
             set
@@ -88,9 +84,10 @@ namespace Sorting
             }
             Checks = 0;
             Swaps = 0;
-            this.DataContext = this;
+            DataContext = this;
         }
 
+        #region Bubble Sort
         private void Bubble_Click(object sender, RoutedEventArgs e)
         {
             int size = sortList.Count;
@@ -122,7 +119,9 @@ namespace Sorting
 
             });
         }
+        #endregion
 
+        #region Cocktail Sort
         private void CocktailSort_Click(object sender, RoutedEventArgs e)
         {
             int size = sortList.Count;
@@ -174,7 +173,9 @@ namespace Sorting
                 } while (swapped);
             });
         }
+        #endregion
 
+        #region Selection Sort
         private void SelectionSort_Click(object sender, RoutedEventArgs e)
         {
             int size = sortList.Count;
@@ -210,7 +211,9 @@ namespace Sorting
                 }
             });
         }
+        #endregion
 
+        #region Insetion Sort
         private void InsertionSort_Click(object sender, RoutedEventArgs e)
         {
             int size = sortList.Count;
@@ -242,7 +245,10 @@ namespace Sorting
                 }
             });
         }
+        #endregion
 
+        #region Comb Sort 
+        //TODO
         private void CombSort_Click(object sender, RoutedEventArgs e)
         {
             int size = sortList.Count;
@@ -254,7 +260,7 @@ namespace Sorting
                 bool swapped = true;
                 while (gap != 1 || swapped == true)
                 {
-                    gap = (gap * 10) / 13;
+                    gap *= 10 / 13;
                     if (gap < 1)
                     {
                         gap = 1;
@@ -278,7 +284,9 @@ namespace Sorting
                 }
             });
         }
+        #endregion
 
+        #region Shell Sort
         private void ShellSort_Click(object sender, RoutedEventArgs e)
         {
             int size = sortList.Count;
@@ -324,7 +332,9 @@ namespace Sorting
                 }
             });
         }
+        #endregion
 
+        #region Heap Sort
         private void HeapSort_Click(object sender, RoutedEventArgs e)
         {
             int size = sortList.Count;
@@ -403,7 +413,9 @@ namespace Sorting
                 Heapify(size, largestIndex);
             }
         }
+        #endregion
 
+        #region Merge Sort
         private void MergeSort_Click(object sender, RoutedEventArgs e)
         {
             int size = sortList.Count;
@@ -503,7 +515,9 @@ namespace Sorting
                 Thread.Sleep(_delay);
             }
         }
+        #endregion
 
+        #region Quick Sort
         private void QuickSort_Click(object sender, RoutedEventArgs e)
         {
             int size = sortList.Count;
@@ -556,7 +570,9 @@ namespace Sorting
             Thread.Sleep(_delay);
             return i + 1;
         }
+        #endregion
 
+        #region Utilities
         private void ShuffleBtn_Click(object sender, RoutedEventArgs e)
         {
             var rnd = new Random();
@@ -603,6 +619,18 @@ namespace Sorting
 
             });
         }
+
+        private void BackAdd_Click(object sender, RoutedEventArgs e)
+        {
+            sortList.Add(rand.Next(200));
+        }
+
+        private void FrontAdd_Click(object sender, RoutedEventArgs e)
+        {
+            sortList.Insert(0, rand.Next(200));
+        }
+
+        #endregion
 
         #region INotifyPropertyChanged Member
 
