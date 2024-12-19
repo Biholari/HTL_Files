@@ -1,3 +1,0 @@
-C:/Users/fabia/Developer/HTL_Files/POS/C#/WindowsProject1/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/fabia/Developer/HTL_Files/POS/C#/WindowsProject1/build/CMakeFiles/ZERO_CHECK.dir
-C:/Users/fabia/Developer/HTL_Files/POS/C#/WindowsProject1/build/WindowsProject1/CMakeFiles/WindowsProject1.dir
