@@ -82,13 +82,8 @@ namespace PixelDraw_2024
             //    DrawCircle(150, 150, i);
             //}
 
-            DrawCurveThroughPoints(new Point[]
-            {
-                new(50, 50),
-                new(20, 50),
-                new(10, 10),
-                new(100, 100)
-            });
+            DrawCatmullRomSpline([new(100, 100), new(150, 200), new(200, 290), new(250, 100)]);
+            //DrawCurveThroughPoints([new(100, 100), new(150, 200), new(200, 290), new(250, 100), new(300, 150)]);
         }
 
         private static void DrawLine(int x1, int y1, int x2, int y2)
@@ -119,33 +114,38 @@ namespace PixelDraw_2024
         }
 
         #region Bezier
-
-        private static void Lerp(Point p1, Point p2, double t, out Point result)
-        {
-            result = new Point(p1.X + (p2.X - p1.X) * t, p1.Y + (p2.Y - p1.Y) * t);
-        }
-
-        private static void Bezier(Point p0, Point p1, Point p2, Point p3, double t, out Point result)
-        {
-            Point p01, p12, p23, p012, p123;
-            Lerp(p0, p1, t, out p01);
-            Lerp(p1, p2, t, out p12);
-            Lerp(p2, p3, t, out p23);
-            Lerp(p01, p12, t, out p012);
-            Lerp(p12, p23, t, out p123);
-            Lerp(p012, p123, t, out result);
-        }
-
-        private static void DrawCurveThroughPoints(IEnumerable<Point> points)
+        private static void DrawCatmullRomSpline(IEnumerable<Point> points, int numPoints = 1000)
         {
             Point[] p = points.ToArray();
-            for (double t = 0; t < 1; t += 0.001)
+            if (p.Length < 4)
+                throw new ArgumentException("At least four points are required for Catmull-Rom spline");
+
+            foreach (Point point in p) 
             {
-                Bezier(p[0], p[1], p[2], p[3], t, out Point result);
-                SetPixel((int)result.X, (int)result.Y);
+                DrawCircle((int)point.X, (int)point.Y, 5);
+            }
+
+            for (int i = 0; i < p.Length - 3; i++)
+            {
+                for (int j = 0; j <= numPoints; j++)
+                {
+                    double t = (double)j / numPoints;
+
+                    double tt = t * t;
+                    double ttt = tt * t;
+
+                    double q1 = -ttt + 2 * tt - t;
+                    double q2 = 3 * ttt - 5 * tt + 2;
+                    double q3 = -3 * ttt + 4 * tt + t;
+                    double q4 = ttt - tt;
+
+                    double tx = 0.5 * (p[i].X * q1 + p[i + 1].X * q2 + p[i + 2].X * q3 + p[i + 3].X * q4);
+                    double ty = 0.5 * (p[i].Y * q1 + p[i + 1].Y * q2 + p[i + 2].Y * q3 + p[i + 3].Y * q4);
+
+                    SetPixel((int)tx, (int)ty);
+                }
             }
         }
-
         #endregion
     }
 }

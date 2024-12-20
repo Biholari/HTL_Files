@@ -8,15 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="resources\blobid1.png" />
-    <None Remove="resources\blobid2.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="resources\blobid1.png">
+    <Resource Include="resources\rounded.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="resources\blobid2.png">
+    <Resource Include="resources\indicator.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
