@@ -12,12 +12,7 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center"
                 VerticalAlignment="Center">
-            <indi:Indicator
-                CurrentValue="{Binding CurrentValue}"
-                MinValue="{Binding MinValue}"
-                MaxValue="{Binding MaxValue}"
-                ImageSize="{Binding ImageSize}"
-                />
+            <indi:Indicator Minimum="{Binding MinValue}" Maximum="{Binding MaxValue}" Value="{Binding CurrentValue}" ViewSize="{Binding ImageSize}"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -50,7 +45,7 @@
                     TickFrequency="1"
                     IsSnapToTickEnabled="True"/>
 
-            <Slider Width="220" Margin="0,25,0,0" TickFrequency="1" IsSnapToTickEnabled="True" Minimum="1" Maximum="10" Value="{Binding ImageSize}"/>
+            <Slider Width="220" Margin="0,25,0,0" TickFrequency="1" IsSnapToTickEnabled="True" Minimum="1" Maximum="300" Value="{Binding ImageSize}"/>
         </StackPanel>
     </Grid>
 </Window>
