@@ -11,15 +11,5 @@ namespace WPF_Wecker
         {
             InitializeComponent();
         }
-
-        private void AlarmClockControl_Alarm(object sender, RoutedEventArgs e)
-        {
-            System.Windows.MessageBox.Show("Alarm finished!");
-        }
-
-        private void AlarmClockControl_AlarmSetEvProp(object sender, RoutedEventArgs e)
-        {
-            System.Windows.MessageBox.Show("Alarm set!");
-        }
     }
 }
