@@ -32,9 +32,9 @@ namespace WeckerLibrary
 
         public static readonly RoutedEvent TimerExpiredEvent =
             EventManager.RegisterRoutedEvent(
-                "TimerExpired", 
-                RoutingStrategy.Bubble, 
-                typeof(RoutedEventHandler), 
+                "TimerExpired",
+                RoutingStrategy.Bubble,
+                typeof(RoutedEventHandler),
                 typeof(CountdownTimerControl));
 
         public event RoutedEventHandler TimerExpired

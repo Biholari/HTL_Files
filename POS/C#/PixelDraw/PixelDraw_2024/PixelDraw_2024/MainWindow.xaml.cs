@@ -1,10 +1,21 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Xml.Serialization;
 
 namespace PixelDraw_2024
 {
+    public class Node
+    {
+        public bool IsVisited { get; set; }
+        public bool IsAllowed { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public double Distance { get; set; } = double.MaxValue;
+        public Node? Parent { get; set; }
+    }
+
     public partial class MainWindow : Window
     {
         private static readonly int imageSize = 300;
@@ -12,6 +23,15 @@ namespace PixelDraw_2024
         private static int _bytesPerPixel;
         private static int _stride;
         private static byte[]? _colorArray;
+        private static byte[] _readArray = ConvertColor(Colors.Black);
+        private static Point? startingPoint = null;
+        private static Color _currentColor = Colors.Black;
+        private static bool _isDrawing = false;
+        private static bool _setStartPoint = false;
+        private static bool _setEndPoint = false;
+
+        private static Point _startPoint;
+        private static Point _endPoint;
 
         public MainWindow()
         {
@@ -24,6 +44,67 @@ namespace PixelDraw_2024
         }
 
         #region Hilfsfunktionen
+        private static int GetDistance(Point a, Point b)
+        {
+            return (int)Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2));
+        }
+        private void setPixelThreaded(Color c, int x, int y)
+        {
+            try
+            {
+                _wb.Dispatcher.Invoke(
+                  System.Windows.Threading.DispatcherPriority.Normal
+                  , new System.Windows.Threading.DispatcherOperationCallback(delegate
+                  {
+                      if (x < _wb.PixelWidth && x > 0 && y < _wb.PixelHeight && y > 0)
+                      {
+                          _wb.WritePixels(new Int32Rect(x, y, 1, 1), ConvertColor(c), _stride, 0);
+                      }
+                      return null;
+                  }), null);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
+
+        }
+
+        private Color getPixelThreaded(int x, int y)
+        {
+            Color res = Colors.Transparent;
+            try
+            {
+                _wb.Dispatcher.Invoke(
+                  System.Windows.Threading.DispatcherPriority.Normal
+                  , new System.Windows.Threading.DispatcherOperationCallback(delegate
+                  {
+                      if (x < _wb.PixelWidth && x > 0 && y < _wb.PixelHeight && y > 0)
+                      {
+                          _wb.CopyPixels(new Int32Rect(x, y, 1, 1), _readArray, _stride, 0);
+                          res = ConvertColor(_readArray);
+                      }
+                      return null;
+                  }), null);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
+            return res;
+        }
+
+        private Color getPixel(int x, int y)
+        {
+            Color res = Colors.Transparent;
+            if (x < _wb.PixelWidth && x > 0 && y < _wb.PixelHeight && y > 0)
+            {
+                _wb.CopyPixels(new Int32Rect(x, y, 1, 1), _readArray, _stride, 0);
+                res = ConvertColor(_readArray);
+            }
+
+            return res;
+        }
 
         private static byte[] ConvertColor(Color color)
         {
@@ -61,29 +142,23 @@ namespace PixelDraw_2024
 
         #endregion
 
-        private void Button1_Click(object sender, RoutedEventArgs e)
+        private Node[,] ImageTo2DMatrix()
         {
-            for (int i = 10; i <= 290; i++)
+            Node[,] matrix = new Node[_wb.PixelWidth, _wb.PixelHeight];
+            for (int i = 0; i < _wb.PixelWidth; i++)
             {
-                SetPixel(i, 10);
-                SetPixel(i, 290);
-                SetPixel(10, i);
-                SetPixel(290, i);
+                for (int j = 0; j < _wb.PixelHeight; j++)
+                {
+                    matrix[i, j] = new Node
+                    {
+                        IsVisited = false,
+                        IsAllowed = !getPixel(i, j).Equals(Colors.Black),
+                        X = i,
+                        Y = j,
+                    };
+                }
             }
-            //for (int i = 10; i <= 290; i += 20)
-            //{
-            //    DrawLine(150, 150, 10, i);
-            //    DrawLine(150, 150, 290, i);
-            //    DrawLine(150, 150, i, 10);
-            //    DrawLine(150, 150, i, 290);
-            //}
-            //for (int i = 10; i <= 145; i += 20)
-            //{
-            //    DrawCircle(150, 150, i);
-            //}
-
-            DrawCatmullRomSpline([new(100, 100), new(150, 200), new(200, 290), new(250, 100)]);
-            //DrawCurveThroughPoints([new(100, 100), new(150, 200), new(200, 290), new(250, 100), new(300, 150)]);
+            return matrix;
         }
 
         private static void DrawLine(int x1, int y1, int x2, int y2)
@@ -96,7 +171,7 @@ namespace PixelDraw_2024
             {
                 int x = x1 + (i * dx / steps);
                 int y = y1 + (i * dy / steps);
-                SetPixel(x, y);
+                SetPixel(_currentColor, x, y);
             }
         }
 
@@ -113,6 +188,77 @@ namespace PixelDraw_2024
             }
         }
 
+        private void drawing_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Point position = e.GetPosition(drawing);
+            int x = (int)(position.X * _wb.PixelWidth / drawing.ActualWidth);
+            int y = (int)(position.Y * _wb.PixelHeight / drawing.ActualHeight);
+
+            if (_setStartPoint)
+            {
+                _startPoint = new Point(x, y);
+                _setStartPoint = false;
+            }
+            else if (_setEndPoint)
+            {
+                _endPoint = new Point(x, y);
+                _setEndPoint = false;
+            }
+            else
+            {
+                if (_isDrawing)
+                {
+                    if (startingPoint == null)
+                    {
+                        startingPoint = new Point(x, y);
+                    }
+                    else
+                    {
+                        DrawLine((int)startingPoint.Value.X, (int)startingPoint.Value.Y, x, y);
+                        startingPoint = null;
+                    }
+                }
+                else
+                {
+                    ThreadPool.QueueUserWorkItem((state) => FloodFill(x, y, getPixelThreaded(x, y), _currentColor));
+                }
+            }
+        }
+
+        private void FloodFill(double x, double y, Color oldColor, Color newColor)
+        {
+            if (oldColor.Equals(newColor))
+                return;
+
+            Stack<Point> pixels = new();
+            pixels.Push(new Point(x, y));
+
+            while (pixels.Count > 0)
+            {
+                Point p = pixels.Pop();
+                double px = p.X;
+                double py = p.Y;
+
+                _wb.Dispatcher.Invoke(() =>
+                {
+                    Color currentColor = getPixelThreaded((int)px, (int)py);
+                    if (currentColor.Equals(oldColor))
+                    {
+                        setPixelThreaded(newColor, (int)px, (int)py);
+
+                        if (px + 1 < _wb.PixelWidth)
+                            pixels.Push(new Point(px + 1, py));
+                        if (px - 1 >= 0)
+                            pixels.Push(new Point(px - 1, py));
+                        if (py + 1 < _wb.PixelHeight)
+                            pixels.Push(new Point(px, py + 1));
+                        if (py - 1 >= 0)
+                            pixels.Push(new Point(px, py - 1));
+                    }
+                });
+            }
+        }
+
         #region Bezier
         private static void DrawCatmullRomSpline(IEnumerable<Point> points, int numPoints = 1000)
         {
@@ -120,7 +266,7 @@ namespace PixelDraw_2024
             if (p.Length < 4)
                 throw new ArgumentException("At least four points are required for Catmull-Rom spline");
 
-            foreach (Point point in p) 
+            foreach (Point point in p)
             {
                 DrawCircle((int)point.X, (int)point.Y, 5);
             }
@@ -147,5 +293,105 @@ namespace PixelDraw_2024
             }
         }
         #endregion
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem item = (ComboBoxItem)ColorCB.SelectedItem;
+            _currentColor = (Color)ColorConverter.ConvertFromString(item.Content.ToString());
+        }
+
+        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem item = (ComboBoxItem)TypeCB.SelectedItem;
+            _isDrawing = item.Content.ToString() switch
+            {
+                "Draw" => true,
+                "Fill" => false,
+                _ => false,
+            };
+            ;
+        }
+
+        private void Button_SetStart(object sender, RoutedEventArgs e) => _setStartPoint = true;
+        private void Button_SetEnd(object sender, RoutedEventArgs e) => _setEndPoint = true;
+
+        private void Dijkstra_Click(object sender, RoutedEventArgs e)
+        {
+            var graph = ImageTo2DMatrix();
+            Node start = graph[(int)_startPoint.X, (int)_startPoint.Y];
+            Node end = graph[(int)_endPoint.X, (int)_endPoint.Y];
+
+            // Initialize start node
+            start.Distance = 0;
+
+            // Priority queue to store nodes to visit
+            var open = new List<Node> { start };
+
+            while (open.Count > 0)
+            {
+                // Get node with minimum distance
+                var current = open.OrderBy(n => n.Distance).First();
+                open.Remove(current);
+
+                if (current.IsVisited) continue;
+                current.IsVisited = true;
+
+                // If we reached the end, reconstruct and draw the path
+                if (current.X == end.X && current.Y == end.Y)
+                {
+                    DrawPath(current);
+                    break;
+                }
+
+                // Process all valid neighbors
+                foreach (var neighbor in GetNeighbors(graph, current))
+                {
+                    if (neighbor.IsVisited || !neighbor.IsAllowed) continue;
+
+                    // Calculate new distance to neighbor
+                    double newDistance = current.Distance + 1; // Using 1 as cost between adjacent pixels
+
+                    if (newDistance < neighbor.Distance)
+                    {
+                        neighbor.Distance = newDistance;
+                        neighbor.Parent = current;
+                        if (!open.Contains(neighbor))
+                        {
+                            open.Add(neighbor);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private static IEnumerable<Node> GetNeighbors(Node[,] graph, Node current)
+        {
+            int[] dx = [-1, 1, 0, 0]; // 4-direction movement
+            int[] dy = [0, 0, -1, 1]; // Up, Down, Left, Right
+
+            for (int i = 0; i < 4; i++)
+            {
+                int newX = current.X + dx[i];
+                int newY = current.Y + dy[i];
+
+                // Check bounds
+                if (newX >= 0 && newX < graph.GetLength(0) &&
+                    newY >= 0 && newY < graph.GetLength(1))
+                {
+                    yield return graph[newX, newY];
+                }
+            }
+        }
+
+        private static void DrawPath(Node end)
+        {
+            Node? current = end;
+            while (current != null)
+            {
+                SetPixel(Colors.Blue, current.X, current.Y);
+                current = current.Parent;
+            }
+        }
     }
 }

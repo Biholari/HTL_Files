@@ -8,9 +8,26 @@
         Title="Drawing" Height="450" Width="800">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5px">
-            <Button Content="Draw" Padding="5px" Name="button1" VerticalAlignment="Top" Click="Button1_Click" />
+            <!--<Button Content="Draw" Padding="5px" Name="button1" VerticalAlignment="Top" Click="Button1_Click" />-->
+            <Label Content="Color: " />
+            <ComboBox Margin="0,0,10,0" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" x:Name="ColorCB">
+                <ComboBoxItem>Black</ComboBoxItem>
+                <ComboBoxItem>Red</ComboBoxItem>
+                <ComboBoxItem>Green</ComboBoxItem>
+                <ComboBoxItem>Blue</ComboBoxItem>
+            </ComboBox>
+
+            <Label Content="Type: "/>
+            <ComboBox Margin="0,0,10,0"  SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged_1" x:Name="TypeCB">
+                <ComboBoxItem>Draw</ComboBoxItem>
+                <ComboBoxItem>Fill</ComboBoxItem>
+            </ComboBox>
+
+            <Button Content="Set Start Point" Click="Button_SetStart" Margin="0,0,10,0"/>
+            <Button Content="Set End Point" Click="Button_SetEnd" Margin="0,0,10,0"/>
+            <Button Content="Dijkstra Algorithm" Click="Dijkstra_Click"/>
         </StackPanel>
-        <Image Name="drawing" Stretch="Uniform"/>
+        <Image Name="drawing" Stretch="Uniform" MouseLeftButtonDown="drawing_MouseLeftButtonDown"/>
 
     </DockPanel>
 </Window>
