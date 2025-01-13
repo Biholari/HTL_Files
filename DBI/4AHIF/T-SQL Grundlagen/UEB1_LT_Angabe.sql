@@ -1,10 +1,10 @@
-use stp_uebg;
 
-DROP TABLE if exists lt
+
+DROP TABLE lt
 go
-DROP TABLE if exists l
+DROP TABLE l
 go
-DROP TABLE if exists t
+DROP TABLE t
 go
 
 ---------------------------------------------------------
@@ -72,34 +72,41 @@ select * from lt;
 --------------------------------------------------------------
 --------------------------------------------------------------
 -- Die Verwendung von IF 
---Wenn die Anzahl der Teile am Lager 'L1' grï¿½ï¿½er als 10 ist, dann Meldung ausgeben,
+--Wenn die Anzahl der Teile am Lager 'L1' größer als 10 ist, dann Meldung ausgeben,
 --sonst von jedem Teil am Lager 'L1' Name des Teils, Farbe, Menge ausgeben
 go
-if (select sum(menge) from lt where lnr='L1') > 10
-   print 'zu viele Teile am Lager'
+if (select sum(menge) from lt where lt.lnr = 'L1') < 10
+begin
+    select tname, farbe, menge
+    from lt
+        join t on lt.tnr = t.tnr
+    where lnr = 'L1'
+end
 else
-   select tname, farbe, menge from t, lt where lnr='L1' and t.tnr=lt.tnr;
+    print 'Anzahl der Teile im Lager L1 ist größer als 10'
 go
+ 
 
 --------------------------------------------------------------
 --------------------------------------------------------------
 --Die while Anweisung
 --Solange die Summe der Menge aller Artikel im Lager kleiner als 10000 ist,
---soll die Menge um 10 % erhï¿½ht werden. 
---Wenn jedoch der Maximalwert der Menge eines Teiles grï¿½ï¿½er als 500 ist,
+--soll die Menge um 10 % erhöht werden. 
+--Wenn jedoch der Maximalwert der Menge eines Teiles größer als 500 ist,
 --soll abgebrochen werden
 go
-declare @summe decimal(10)
-select @summe = sum(menge) from lt
-while @summe < 10000
+while ((select sum(menge) from lt) < 10000)
 begin
-   update lt set menge = menge * 1.1
-   select @summe = sum(menge) from lt
-   if (select max(menge) from lt) > 500
-      break
+    if ((select max(menge) from lt) > 500)
+    begin
+        return
+    end
+
+    update lt
+    set menge = menge * 1.1
 end
-select * from lt
-go;
+go
+
 
 ----------------------------------------------------------
 ----------------------------------------------------------
@@ -107,98 +114,99 @@ go;
 --'Durchschnitt' und 'Grenze' sind zwei Variablen
 --'Grenze' hat den fixen Wert 300
 --'Durchschnitt' von Menge in Tabelle lt
---Falls die Maximalmenge eines Artikels im Lager 'L1' grÃ¶ÃŸer als 'Grenze' ist,
---soll die Menge vom 'L1'im Lager um den Durchschnitt erhÃ¶ht werden.
-go
-declare @durchschnitt decimal(10)  
-declare @grenze decimal(10)
-select @grenze = 300
-select @durchschnitt = avg(menge) from lt
-if (select max(menge) from lt where lnr='L1') > @grenze
-       update lt set menge = menge + @durchschnitt where lnr='L1'
-select * from lt
-go;
+--Falls die Maximalmenge eines Artikels im Lager 'L1' größer als 'Grenze' ist,
+--soll die Menge vom 'L1'im Lager um den Durchschnitt erhöht werden.
+declare @Durchschnitt int
+declare @Grenze int
+set @Grenze = 300
+select @Durchschnitt = avg(menge) from lt
+if (select max(menge) from lt where lnr = 'L1') > @Grenze
+begin
+    update lt
+    set menge = menge + @Durchschnitt
+    where lnr = 'L1'
+end
+
 
 -------------------------------------------------------
 -------------------------------------------------------
 -- Stored Procedure 1
--- die Mengen der Tabelle lt sollen um einen mitÃ¼bergebenen Prozentwert erhÃ¶ht werden
+-- die Mengen der Tabelle lt sollen um einen mitübergebenen Prozentwert erhöht werden
 -- anlegen:
-go
-create procedure erhoehe_menge (@prozent decimal(3))
+go 
+create proc erhoehen
+    @prozent int
 as
 begin
-   update lt set menge = menge * (1 + @prozent/100)
+    update lt
+    set menge = menge * 1 + (@prozent/100)
 end
 go
---aufrufen:
-exec erhoehe_menge 5
-select * from lt
-go
+
 
 ---------------------------------------------------------
 ---------------------------------------------------------
 --stored Procedure 2
---es soll der Ã¼bergebene Artikel aus lt gelÃ¶scht werden und die mengen der restlichen artikel
---um 5 % erhÃ¶ht werden. - verschachtelter prozeduraufruf
+--es soll der übergebene Artikel aus lt gelöscht werden und die mengen der restlichen artikel
+--um 5 % erhöht werden. - verschachtelter prozeduraufruf
 -- anlegen:
 go
-create procedure del_t (@tnr char(2))
+create proc loeschen
+    @tnr int
 as
 begin
-   delete from lt where tnr=@tnr
-   exec erhoehe_menge 5
+    delete from lt
+    where tnr = @tnr
+
+    exec erhoehen 5
 end
 go
---aufrufen:
-exec del_t 'T1'
-select * from lt
-go
+
 
 -------------------------------------------------------------
 -- Erstellen Sie eine Prozedur del_l (lnr) mit Output-Parameter:
--- Zeile aus L lÃ¶schen; dabei eventuell vorher entsprechende Zeilen aus lt lÃ¶schen;
--- zurÃ¼ckgeben, wie viele Zeilen aus lt gelÃ¶scht werden mussten
+-- Zeile aus L löschen; dabei eventuell vorher entsprechende Zeilen aus lt löschen;
+-- zurückgeben, wie viele Zeilen aus lt gelöscht werden mußten
 go
-create procedure del_l (@lnr char(2), @anz int output)
+create proc del_l 
+    @lnr int,
+    @anz int output
 as
 begin
-   select @anz = count(*) from lt where lnr=@lnr
-   delete from lt where lnr=@lnr
-   delete from l where lnr=@lnr
+    delete from lt
+    where lnr = @lnr
+    select @anz = @@ROWCOUNT
+
+    delete from l
+    where lnr = @lnr
 end
 go
-declare @anz int
-exec del_l 'L1', @anz output
-print @anz
-select * from l
-select * from lt
-go
+
 
 -----------------------------------------------------------------
 -- Erstellen Sie eine Prozedur clear_lt(m) returning
--- Solange die Summe der Mengen in lt grÃ¶ÃŸer als m ist, die Lieferung mit der jeweils niedrigsten Menge
--- lÃ¶schen; zurÃ¼ckgeben, wie viele Lieferungen gelÃ¶scht wurden; keine rekursive LÃ¶sung einsetzen
+-- Solange die Summe der Mengen in lt größer als m ist, die Lieferung mit der jeweils niedrigsten Menge
+-- löschen; zurückgeben, wie viele Lieferungen gelöscht wurden; keine rekursive Lösung einsetzen
 ------------------------------------
-create procedure clear_lt (@m decimal(10), @anz int output)
+go
+create proc clear_lt
+    @m int,
+    @anz int output
 as
 begin
-   declare @minmenge decimal(10)
-   declare @lnr char(2)
-   declare @tnr char(2)
-   declare @menge decimal(4)
-   select @anz = 0
-   while (select sum(menge) from lt) > @m
-   begin
-      select @minmenge = min(menge) from lt
-      select @lnr = lnr, @tnr = tnr, @menge = menge from lt where menge = @minmenge
-      delete from lt where lnr=@lnr and tnr=@tnr
-      select @anz = @anz + 1
-   end
+    -- save how many got deleted
+    set @anz = 0
+
+    while ((select sum(menge) from lt) > @m)
+    begin
+        select @anz = @anz + 1
+
+        declare @lnr char(2)
+        declare @tnr char(2)
+        select top 1 @lnr=lnr, @tnr=tnr from lt order by menge;
+
+        delete from lt
+        where lnr = @lnr and tnr = @tnr
+    end
 end
-go
-declare @anz int
-exec clear_lt 1000, @anz output
-print @anz
-select * from lt
 go
