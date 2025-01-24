@@ -1,5 +1,5 @@
-create database mensa;
-use mensa;
+create database Mensa;
+use Mensa;
 
 drop table if exists serviert
 drop table if exists Speise_besteht_aus

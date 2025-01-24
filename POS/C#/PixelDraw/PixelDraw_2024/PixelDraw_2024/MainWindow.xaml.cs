@@ -6,16 +6,6 @@ using System.Windows.Media.Imaging;
 
 namespace PixelDraw_2024
 {
-    public class Node
-    {
-        public bool IsVisited { get; set; }
-        public bool IsAllowed { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
-        public double Distance { get; set; } = double.MaxValue;
-        public Node? Parent { get; set; }
-    }
-
     public partial class MainWindow : Window
     {
         private static readonly int imageSize = 300;
@@ -124,7 +114,7 @@ namespace PixelDraw_2024
             return c;
         }
 
-        private static void SetPixel(Color c, int x, int y)
+        public static void SetPixel(Color c, int x, int y)
         {
             if (x < _wb.PixelWidth && x > 0 && y < _wb.PixelHeight && y > 0)
             {
@@ -140,16 +130,14 @@ namespace PixelDraw_2024
             }
         }
 
-        #endregion
-
-        private Node[,] ImageTo2DMatrix()
+        private ANode[,] ImageTo2DMatrix()
         {
-            Node[,] matrix = new Node[_wb.PixelWidth, _wb.PixelHeight];
+            ANode[,] matrix = new ANode[_wb.PixelWidth, _wb.PixelHeight];
             for (int i = 0; i < _wb.PixelWidth; i++)
             {
                 for (int j = 0; j < _wb.PixelHeight; j++)
                 {
-                    matrix[i, j] = new Node
+                    matrix[i, j] = new ANode
                     {
                         IsVisited = false,
                         IsAllowed = !getPixel(i, j).Equals(Colors.Black),
@@ -160,6 +148,7 @@ namespace PixelDraw_2024
             }
             return matrix;
         }
+        #endregion
 
         private static void DrawLine(int x1, int y1, int x2, int y2)
         {
@@ -318,75 +307,26 @@ namespace PixelDraw_2024
         private void Dijkstra_Click(object sender, RoutedEventArgs e)
         {
             var graph = ImageTo2DMatrix();
-            Node start = graph[(int)_startPoint.X, (int)_startPoint.Y];
-            Node end = graph[(int)_endPoint.X, (int)_endPoint.Y];
+            ANode start = graph[(int)_startPoint.X, (int)_startPoint.Y];
+            ANode end = graph[(int)_endPoint.X, (int)_endPoint.Y];
 
-            // Initialize start node
-            start.Distance = 0;
-
-            // Priority queue to store nodes to visit
-            var open = new List<Node> { start };
-
-            while (open.Count > 0)
+            AStar dijkstra = new() 
             {
-                // Get node with minimum distance
-                var current = open.OrderBy(n => n.Distance).First();
-                open.Remove(current);
+                Height = _wb.PixelHeight,
+                Width = _wb.PixelWidth,
+                Start = start,
+                End = end,
+                Nodes = graph
+            };
 
-                if (current.IsVisited) continue;
-                current.IsVisited = true;
 
-                // If we reached the end, reconstruct and draw the path
-                if (current.X == end.X && current.Y == end.Y)
-                {
-                    DrawPath(current);
-                    break;
-                }
-
-                // Process all valid neighbors
-                foreach (var neighbor in GetNeighbors(graph, current))
-                {
-                    if (neighbor.IsVisited || !neighbor.IsAllowed) continue;
-
-                    // Calculate new distance to neighbor
-                    double newDistance = current.Distance + 1; // Using 1 as cost between adjacent pixels
-
-                    if (newDistance < neighbor.Distance)
-                    {
-                        neighbor.Distance = newDistance;
-                        neighbor.Parent = current;
-                        if (!open.Contains(neighbor))
-                        {
-                            open.Add(neighbor);
-                        }
-                    }
-                }
-            }
+            dijkstra.Run();
+            DrawPath(dijkstra.End);
         }
 
-
-        private static IEnumerable<Node> GetNeighbors(Node[,] graph, Node current)
+        private static void DrawPath(ANode end)
         {
-            int[] dx = [-1, 1, 0, 0]; // 4-direction movement
-            int[] dy = [0, 0, -1, 1]; // Up, Down, Left, Right
-
-            for (int i = 0; i < 4; i++)
-            {
-                int newX = current.X + dx[i];
-                int newY = current.Y + dy[i];
-
-                // Check bounds
-                if (newX >= 0 && newX < graph.GetLength(0) &&
-                    newY >= 0 && newY < graph.GetLength(1))
-                {
-                    yield return graph[newX, newY];
-                }
-            }
-        }
-
-        private static void DrawPath(Node end)
-        {
-            Node? current = end;
+            ANode? current = end;
             while (current != null)
             {
                 SetPixel(Colors.Blue, current.X, current.Y);

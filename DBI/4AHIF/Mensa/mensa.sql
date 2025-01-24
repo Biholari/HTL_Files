@@ -3,64 +3,91 @@ use mensa;
 drop proc if exists Zutatenslite;
 
 go
-create proc Zutatenslite 
-	@MenueNr int, 
-	@Portionen int
-as
-begin
-	declare @ErgebnisTabelle table (
-		ZutatenNr int, 
-		Bezeichnung varchar(35), 
-		BenoetigteMenge int, 
-		Einheit varchar(5),
-		FehlendeMenge int);
+CREATE PROCEDURE Zutatenliste
+    @MenueNummer INT,
+    @AnzahlPortionen INT
+AS
+BEGIN
+    SET NOCOUNT ON;
 
-	declare @SpeiseNr int;
+    -- Temporäre Tabelle für die Ausgabe
+    declare @ZutatenListe table (
+        Zutatennummer INT,
+        Bezeichnung NVARCHAR(255),
+        BenötigteMenge DECIMAL(10, 2),
+        Einheit NVARCHAR(50),
+        FehlendeMenge DECIMAL(10, 2)
+    );
 
-	declare SpeiseCursor cursor for
-	select SpeiseNr
-	from speise;
+    -- Cursor zur Iteration über die benötigten Zutaten des Menüs
+    DECLARE ZutatenCursor CURSOR FOR
+    SELECT 
+        z.ZutatenNr,
+        z.Bezeichnung,
+        z.Einheit,
+        z.aktBestand,
+        SUM(sb.Menge * @AnzahlPortionen) AS BenötigteMenge
+    FROM Menue_besteht_aus mb
+    INNER JOIN Speise_besteht_aus sb ON mb.SpeiseNr= sb.SpeiseNr
+    INNER JOIN Zutat z ON sb.Zutatennr = z.ZutatenNr
+    WHERE mb.MenueNr= @MenueNummer
+    GROUP BY z.ZutatenNr, z.Bezeichnung, z.Einheit, z.aktBestand;
 
-	open SpeiseCursor
-	fetch next from SpeiseCursor into @SpeiseNr;
+    -- Variablen für den Cursor
+    DECLARE @Zutatennummer INT;
+    DECLARE @Bezeichnung NVARCHAR(255);
+    DECLARE @Einheit NVARCHAR(50);
+    DECLARE @Bestand DECIMAL(10, 2);
+    DECLARE @BenötigteMenge DECIMAL(10, 2);
+    DECLARE @FehlendeMenge DECIMAL(10, 2);
 
-	while @@FETCH_STATUS = 0
-	begin
-		insert into @ErgebnisTabelle
-		select z.ZutatenNr,
-				z.Bezeichnung,
-				sba.Menge,
-				z.Einheit,
-				case
-					when z.aktBestand >= (sba.Menge * @Portionen) then 0
-					else (sba.Menge * @Portionen) - z.aktBestand
-				end as AktuellerBestand
-		from Speise_besteht_aus sba
-			join zutat z on z.ZutatenNr = sba.Zutatennr
-		where sba.SpeiseNr = @SpeiseNr;
+    -- Cursor öffnen
+    OPEN ZutatenCursor;
 
-		update z
-		set z.aktBestand = case
-				when z.aktBestand >= (sba.Menge * @Portionen) 
-				then z.aktBestand - (sba.Menge * @Portionen)
-				else 0
-			end
-		from zutat z
-			join Speise_besteht_aus sba on z.ZutatenNr = sba.Zutatennr
-		where sba.SpeiseNr = @SpeiseNr;
+    -- Lesen der ersten Zeile des Cursors
+    FETCH NEXT FROM ZutatenCursor INTO @Zutatennummer, @Bezeichnung, @Einheit, @Bestand, @BenötigteMenge;
 
-		fetch next from SpeiseCursor into @SpeiseNr;
-	end
+    -- Schleife über alle Datensätze
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        -- Fehlende Menge berechnen
+        IF @Bestand < @BenötigteMenge
+        BEGIN
+            SET @FehlendeMenge = @BenötigteMenge - @Bestand;
+        END
+        ELSE
+        BEGIN
+            SET @FehlendeMenge = 0;
+        END;
 
-	select * from @ErgebnisTabelle;
+        -- Einfügen der Ergebnisse in die temporäre Tabelle
+        INSERT INTO @ZutatenListe (Zutatennummer, Bezeichnung, BenötigteMenge, Einheit, FehlendeMenge)
+        VALUES (@Zutatennummer, @Bezeichnung, @BenötigteMenge, @Einheit, @FehlendeMenge);
 
-	close SpeiseCursor
-	deallocate SpeiseCursor
-end
-go
+        -- Bestand aktualisieren
+        UPDATE Zutat
+        SET aktBestand = CASE 
+                        WHEN aktBestand - @BenötigteMenge < 0 THEN 0
+                        ELSE aktBestand - @BenötigteMenge
+                      END
+        WHERE ZutatenNr = @Zutatennummer;
 
-exec Zutatenslite 1, 1;
+        -- Nächste Zeile des Cursors lesen
+        FETCH NEXT FROM ZutatenCursor INTO @Zutatennummer, @Bezeichnung, @Einheit, @Bestand, @BenötigteMenge;
+    END;
 
-select *
-from Speise_besteht_aus
-where SpeiseNr = 101
+    -- Cursor schließen und freigeben
+    CLOSE ZutatenCursor;
+    DEALLOCATE ZutatenCursor;
+
+    -- Ausgabe der Ergebnisse
+    SELECT * FROM @ZutatenListe;
+END;
+GO
+
+begin try
+	exec dbo.Zutatenliste 44, 1
+end try
+begin catch
+	print error_message()
+end catch

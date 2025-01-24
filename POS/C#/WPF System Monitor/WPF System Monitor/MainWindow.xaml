@@ -3,10 +3,50 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:ic="clr-namespace:IndicatorControl;assembly=IndicatorControl"
         xmlns:local="clr-namespace:WPF_System_Monitor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800"
+        AllowsTransparency="True" WindowStyle="None" Background="Transparent"
+        Topmost="True">
 
+    <Grid x:Name="MainGrid" MouseLeftButtonDown="MainGrid_MouseLeftButtonDown">
+        <StackPanel x:Name="IndicatorPanel" Margin="10">
+            <ic:Indicator x:Name="CpuIndicator" Maximum="100" />
+
+            <ic:Indicator x:Name="MemoryIndicator"/>
+
+
+
+            <!-- Memory Indicator 
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <TextBlock Text="RAM:" Foreground="White" Width="50"/>
+                <ProgressBar x:Name="MemoryIndicator" Width="200" Height="20" Value="0"/>
+                <TextBlock x:Name="MemoryText" Foreground="White" Margin="5,0" Text="0%"/>
+            </StackPanel>-->
+        </StackPanel>
+
+        <!-- Graph Panel (initially hidden) -->
+        <Canvas x:Name="GraphPanel" Visibility="Collapsed" Background="#80000000">
+            <Polyline x:Name="CpuGraph" Stroke="Red" StrokeThickness="2"/>
+            <Polyline x:Name="MemoryGraph" Stroke="Blue" StrokeThickness="2"/>
+        </Canvas>
+
+        <tb:TaskbarIcon x:Name="TaskbarIcon" 
+                IconSource="/icons/icon.ico" 
+                ToolTipText="System Monitor">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Show Indicators" Click="ShowIndicator_Click"/>
+                    <MenuItem Header="Show Graphs" Click="ShowGraphs_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Show/Hide" Click="ToggleWindow_Click"/>
+                    <MenuItem Header="Exit" Click="Exit_Click"/>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
     </Grid>
+
+    <!-- TaskBar Icon -->
 </Window>
