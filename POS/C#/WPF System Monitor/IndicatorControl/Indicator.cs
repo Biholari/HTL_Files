@@ -1,106 +1,87 @@
-﻿using System.Windows;
+﻿using System;
+using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace IndicatorControl
 {
     public class Indicator : Control
     {
-        private Image? meterIndicator;
-
         static Indicator()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Indicator), new FrameworkPropertyMetadata(typeof(Indicator)));
         }
 
+        #region Dependency Properties
 
-        public static readonly DependencyProperty CurrentValueProperty =
-            DependencyProperty.Register(
-                "CurrentValue",
-                typeof(double),
-                typeof(Indicator),
-                new PropertyMetadata(0.0, null));
-
-        public double CurrentValue
+        public double Value
         {
-            get => (double)GetValue(CurrentValueProperty);
-            set => SetValue(CurrentValueProperty, value);
+            get { return (double)GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
         }
 
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register("Value", typeof(double), typeof(Indicator),
+                new PropertyMetadata(0.0, OnValueChanged));
 
-        public static readonly DependencyProperty MinimumProperty =
-            DependencyProperty.Register(
-                "Minimum",
-                typeof(double),
-                typeof(Indicator),
-                new PropertyMetadata(0.0, OnRangePropertyChanged));
-        public double Minimum
+        public double MinValue
         {
-            get => (double)GetValue(MinimumProperty);
-            set => SetValue(MinimumProperty, value);
+            get { return (double)GetValue(MinValueProperty); }
+            set { SetValue(MinValueProperty, value); }
         }
 
-        public static readonly DependencyProperty MaximumProperty =
-            DependencyProperty.Register(
-                "Maximum",
-                typeof(double),
-                typeof(Indicator),
-                new PropertyMetadata(0.0, OnRangePropertyChanged));
-        public double Maximum
+        public static readonly DependencyProperty MinValueProperty =
+            DependencyProperty.Register("MinValue", typeof(double), typeof(Indicator),
+                new PropertyMetadata(0.0));
+
+        public double MaxValue
         {
-            get => (double)GetValue(MaximumProperty);
-            set => SetValue(MaximumProperty, value);
+            get { return (double)GetValue(MaxValueProperty); }
+            set { SetValue(MaxValueProperty, value); }
         }
 
-        private static void OnRangePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static readonly DependencyProperty MaxValueProperty =
+            DependencyProperty.Register("MaxValue", typeof(double), typeof(Indicator),
+                new PropertyMetadata(100.0));
+
+        public string Title
         {
-            if (d is Indicator indicator)
-                indicator.UpdatePointerRotation();
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
         }
 
-        public override void OnApplyTemplate()
+        public static readonly DependencyProperty TitleProperty =
+            DependencyProperty.Register("Title", typeof(string), typeof(Indicator),
+                new PropertyMetadata(string.Empty));
+
+        public int PointerAngle
         {
-            base.OnApplyTemplate();
-
-            Image meterBackground = (Image)Template.FindName("PART_METERBACKGROUND", this);
-            meterIndicator = (Image)Template.FindName("PART_METERINDICATOR", this);
-
-            if (meterBackground != null && meterIndicator != null)
-            {
-                meterBackground.Source = new BitmapImage(new Uri("pack://application:,,,/IndicatorControl;component/Resources/MeterBackground.png"));
-                meterBackground.Width = 100;
-                meterBackground.Height = 100;
-
-                meterIndicator.Source = new BitmapImage(new Uri("pack://application:,,,/IndicatorControl;component/Resources/MeterPointer.png"));
-                meterIndicator.Width = 100;
-                meterIndicator.Height = 100;
-                meterIndicator.RenderTransformOrigin = new Point(0.5, 0.5);
-                meterIndicator.RenderTransform = new RotateTransform();
-
-                UpdatePointerRotation();
-            }
+            get { return (int)GetValue(PointerAngleProperty); }
+            private set { SetValue(PointerAngleProperty, value); }
         }
 
-        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-        {
-            base.OnPropertyChanged(e);
+        public static readonly DependencyProperty PointerAngleProperty =
+            DependencyProperty.Register("PointerAngle", typeof(int), typeof(Indicator),
+                new PropertyMetadata(0));
 
-            if (e.Property == CurrentValueProperty)
-            {
-                UpdatePointerRotation();
-            }
+        #endregion
+
+        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = (Indicator)d;
+            control.UpdatePointerAngle();
         }
 
-        private void UpdatePointerRotation()
+        private void UpdatePointerAngle()
         {
-            if (meterIndicator?.RenderTransform is RotateTransform transform)
-            {
-                double range = Maximum - Minimum;
-                double normalizedValue = (CurrentValue - Minimum) / range;
-                double angle = normalizedValue * 287.0;
-                transform.Angle = angle;
-            }
+            const int startAngle = -135;
+            const int endAngle = 135;
+            int valueRange = (int)(MaxValue - MinValue);
+            int angleRange = endAngle - startAngle;
+
+            int angle = startAngle + (int)((Value - MinValue) * angleRange / valueRange);
+            PointerAngle = Math.Max(startAngle, Math.Min(endAngle, angle));
         }
     }
 }

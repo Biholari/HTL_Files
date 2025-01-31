@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Management;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -10,9 +11,12 @@ namespace WPF_System_Monitor
     {
         private Thread? monitorThread;
         private bool isRunning = true;
+        private bool showGraphs = false;
         private readonly List<double> cpuHistory = [];
         private readonly List<double> memoryHistory = [];
         private const int MAX_HISTORY_POINTS = 50;
+        private readonly PerformanceCounter cpuCounter = new("Processor", "% Processor Time", "_Total");
+        private readonly PerformanceCounter memCounter = new("Memory", "Available MBytes");
 
         public MainWindow()
         {
@@ -29,21 +33,31 @@ namespace WPF_System_Monitor
             monitorThread.Start();
         }
 
+        public static string? QueryComputerSystem(string type)
+        {
+            string? str = null;
+            ManagementObjectSearcher objCS = new("SELECT * FROM Win32_ComputerSystem");
+            foreach (ManagementObject objMgmt in objCS.Get().Cast<ManagementObject>())
+            {
+                str = objMgmt[type].ToString();
+            }
+            return str;
+        }
+
         private void MonitoringLoop()
         {
-            var cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-            var memCounter = new PerformanceCounter("Memory", "% Committed Bytes In Use");
-
             while (isRunning)
             {
                 var cpuValue = cpuCounter.NextValue();
+
                 var memValue = memCounter.NextValue();
 
                 // Update UI
                 Dispatcher.Invoke(() =>
                 {
                     UpdateIndicators(cpuValue, memValue);
-                    UpdateGraphs(cpuValue, memValue);
+                    if (showGraphs)
+                        UpdateGraphs(cpuValue, memValue);
                 });
 
                 Thread.Sleep(1000);
@@ -52,11 +66,20 @@ namespace WPF_System_Monitor
 
         private void UpdateIndicators(float cpu, float memory)
         {
-            CpuIndicator.CurrentValue = cpu;
-            CpuIndicator.Maximum = 100;
+            CpuIndicator.Title = "CPU %";
 
-            MemoryIndicator.CurrentValue = memory;
-            MemoryIndicator.Maximum = 100;
+            CpuIndicator.MinValue = 0;
+            CpuIndicator.Value = (int)cpu;
+            CpuIndicator.MaxValue = 100.0;
+
+
+            MemoryIndicator.Title = "Hauptspeicher (GB)";
+            MemoryIndicator.MinValue = 0;
+            MemoryIndicator.Value = (int)memory;
+            if (double.TryParse(QueryComputerSystem("totalphysicalmemory"), out double total))
+            {
+                MemoryIndicator.MaxValue = total;
+            }
         }
 
         private void UpdateGraphs(float cpu, float memory)
@@ -95,12 +118,14 @@ namespace WPF_System_Monitor
 
         private void ShowIndicator_Click(object sender, RoutedEventArgs e)
         {
+            showGraphs = false;
             IndicatorPanel.Visibility = Visibility.Visible;
             GraphPanel.Visibility = Visibility.Collapsed;
         }
 
         private void ShowGraphs_Click(object sender, RoutedEventArgs e)
         {
+            showGraphs = true;
             IndicatorPanel.Visibility = Visibility.Collapsed;
             GraphPanel.Visibility = Visibility.Visible;
         }

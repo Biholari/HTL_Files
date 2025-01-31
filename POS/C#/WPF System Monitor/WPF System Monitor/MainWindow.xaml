@@ -13,18 +13,9 @@
 
     <Grid x:Name="MainGrid" MouseLeftButtonDown="MainGrid_MouseLeftButtonDown">
         <StackPanel x:Name="IndicatorPanel" Margin="10">
-            <ic:Indicator x:Name="CpuIndicator" Maximum="100" />
+            <ic:Indicator x:Name="CpuIndicator" />
 
             <ic:Indicator x:Name="MemoryIndicator"/>
-
-
-
-            <!-- Memory Indicator 
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <TextBlock Text="RAM:" Foreground="White" Width="50"/>
-                <ProgressBar x:Name="MemoryIndicator" Width="200" Height="20" Value="0"/>
-                <TextBlock x:Name="MemoryText" Foreground="White" Margin="5,0" Text="0%"/>
-            </StackPanel>-->
         </StackPanel>
 
         <!-- Graph Panel (initially hidden) -->
@@ -47,6 +38,4 @@
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>
     </Grid>
-
-    <!-- TaskBar Icon -->
 </Window>

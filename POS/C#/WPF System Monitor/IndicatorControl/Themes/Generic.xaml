@@ -11,27 +11,78 @@
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="100"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <Image x:Name="PART_METERBACKGROUND" />
-                            <Image x:Name="PART_METERINDICATOR" />
+                            <Grid Height="100" Width="100" Grid.Row="0">
+                                <!-- Background Image -->
+                                <Image Source="pack://application:,,,/IndicatorControl;component/Resources/MeterBackground.png"/>
+                                
+                                <!-- Pointer -->
+                                <Image Source="pack://application:,,,/IndicatorControl;component/Resources/MeterPointer.png" 
+                                       RenderTransformOrigin="0.5,0.5">
+                                    <Image.RenderTransform>
+                                        <RotateTransform Angle="{Binding PointerAngle, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    </Image.RenderTransform>
+                                </Image>
+                            </Grid>
 
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                                <TextBlock Text="Min: "/>
-                                <TextBlock Text="0" />
+                            <!-- Value Text -->
+                            <TextBlock Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:0.###}}"
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       FontSize="10">
+                                <TextBlock.RenderTransform>
+                                    <TransformGroup>
+                                        <TranslateTransform Y="10"/>
+                                    </TransformGroup>
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
 
-                                <TextBlock Text="Value: "/>
-                                <TextBlock Text="{Binding CurrentValue, 
-                                    RelativeSource={RelativeSource TemplatedParent}, 
-                                    StringFormat={}{0:F1}}" Margin="0,0,10,0" />
+                            <!-- Min Value (Left) with Rotation -->
+                            <TextBlock Text="{Binding MinValue, RelativeSource={RelativeSource TemplatedParent}}"
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       FontSize="10">
+                                <TextBlock.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="-45"/>
+                                        <TranslateTransform />
+                                    </TransformGroup>
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
 
-                                <TextBlock Text="Max: "/>
-                                <TextBlock Text="{Binding Maximum, 
-                                    RelativeSource={RelativeSource TemplatedParent}, 
-                                    StringFormat={}{0:F1}}" Margin="0,0,10,0" />
-                            </StackPanel>
+                            <!-- Max Value (Right) with Rotation -->
+                            <TextBlock Text="{Binding MaxValue, RelativeSource={RelativeSource TemplatedParent}}"
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       FontSize="10">
+                                <TextBlock.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="45"/>
+                                        <TranslateTransform />
+                                    </TransformGroup>
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+
+                            <!-- Title -->
+                            <Border Grid.Row="1"
+                                    BorderBrush="Black"
+                                    BorderThickness="1"
+                                    CornerRadius="2"
+                                    Padding="5,2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    Margin="0,0,0,5">
+                                <Border.Background>
+                                    <SolidColorBrush Color="White" Opacity="0.7"/>
+                                </Border.Background>
+                                <TextBlock Text="{TemplateBinding Title}" 
+                                     HorizontalAlignment="Center" 
+                                     VerticalAlignment="Bottom"
+                                     Margin="0,0,0,5"/>
+                            </Border>
                         </Grid>
                     </Border>
                 </ControlTemplate>
