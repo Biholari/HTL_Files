@@ -10,30 +10,22 @@ create or alter function udfTag_mit_MaxUmsatz(@Monat int)
 returns datetime
 as
 begin
-	declare @MaxUmsatzTag date
+	declare @maxtag date
 
-    select top 1 @MaxUmsatzTag = cast(v.Verkaufszeitpunkt as date)
+    select top 1 @maxtag = convert(date, VerkaufsZeitpunkt)
     from Verkauf v
-        join Zapfsaeule zs on v.ZNr = zs.ZNr
-        join Tagespreis tp on tp.KName = zs.KName and cast(v.VerkaufsZeitpunkt as date) = tp.Tagesdatum
+        join Zapfsaeule z on z.ZNr = v.ZNr
+        join Tagespreis t on t.KName = z.KName
     where month(v.VerkaufsZeitpunkt) = @Monat
-    group by cast(v.VerkaufsZeitpunkt as date)
-    order by sum(v.MengeL * tp.Preis) desc
+    group by convert(date, VerkaufsZeitpunkt)
+    order by sum(v.MengeL * t.Preis) desc
 
-    return @MaxUmsatzTag
+    return @maxtag
 end
 go
 
-    select top 1 cast(v.Verkaufszeitpunkt as date)
-    from Verkauf v
-        join Zapfsaeule zs on v.ZNr = zs.ZNr
-        join Tagespreis tp on tp.KName = zs.KName and convert(date, v.VerkaufsZeitpunkt ) = tp.Tagesdatum
-    where month(v.VerkaufsZeitpunkt) = 10
-    group by cast(v.VerkaufsZeitpunkt as date)
-    order by sum(v.MengeL * tp.Preis) desc
-
 go
-select dbo.udfTag_mit_MaxUmsatz (4)
+select dbo.udfTag_mit_MaxUmsatz (10)
 go
 
 
@@ -41,86 +33,104 @@ go
 drop function if exists udfPreisaenderung_in_Prozent
 
 go
-create function udfPreisaenderung_in_Prozent(@AlterPreis int, @NeuerPreis int)
-returns int
+create or alter function udfPreisaenderung_in_Prozent(@AlterPreis decimal(10,4), @NeuerPreis decimal(10,4))
+returns decimal(10,4)
 as
 begin
-	return cast((@NeuerPreis / 100) * @AlterPreis as int)
+	return ((@NeuerPreis - @AlterPreis) / @AlterPreis) * 100
 end
+go
+
+go
+declare @res decimal(10,4)
+select @res = dbo.udfPreisaenderung_in_Prozent(10.22, 10.44)
+select @res
 go
 
 -- c
 drop proc if exists stpPreisentwicklung
 
--- TODO
 go
 create or alter proc stpPreisentwicklung 
-    @Kraftstoffname varchar(50), 
+    @KName nvarchar(50), 
     @Monat int
 as
 begin
-    declare @Change table (Tageswert decimal(10,4), AbsWert decimal(10,4), ProzWert decimal(10,4))
+    if not exists (select 1 from Kraftstoff where KName = @KName)
+        raiserror ('Der angegebene Kraftstoff exisitiert nicht', 16, 1)
 
-    declare @StartPreis decimal(10,4), @Preis decimal(10,4)
+    if @Monat not between 1 and 12
+        raiserror ('Monat muss zwischen 1 und 12 sein', 16, 1)
+    
+    declare @Entwicklung table (Tagesdatum date, preis decimal(10,4), Veraenderun decimal(10,4), ProzentuelleAenderung decimal(10,4))
 
-    -- Get first price
-    select top 1 @StartPreis = tp.Preis 
-    from Tagespreis tp 
-    where month(tp.Tagesdatum) = @Monat and tp.KName = @Kraftstoffname 
-    order by tp.Tagesdatum 
+    insert into @Entwicklung (Tagesdatum, Preis)
+    select Tagesdatum, Preis
+    from Tagespreis
+    where KName = @KName and month(Tagesdatum) = @Monat
+    order by Tagesdatum;
 
-    if @StartPreis is null or @StartPreis = 0
-    begin
-        raiserror('StartPreis ist null oder 0', 16, 1)
-        return
-    end
-
-    insert into @Change
-    select 
-        tp.Preis,
-        cast(@StartPreis - tp.Preis as decimal(10,4)),
-        cast((tp.Preis * 100) / @StartPreis as decimal(10,2))
-    from Tagespreis tp
-    where month(tp.Tagesdatum) = @Monat and tp.KName = @Kraftstoffname 
-    order by tp.Tagesdatum 
-
-    select * from @Change
+    with PrevPrices as (
+        select 
+            Tagesdatum,
+            Preis,
+            coalesce(lag(Preis) over (order by Tagesdatum),0) as PrevPrice
+        from @Entwicklung
+    )
+    update e
+    set 
+        e.Veraenderun = e.Preis - coalesce(p.PrevPrice, 0),
+        e.ProzentuelleAenderung = case 
+            when p.PrevPrice > 0
+            then dbo.udfPreisaenderung_in_Prozent(p.PrevPrice, e.Preis)
+            else p.PrevPrice
+        end
+    from @Entwicklung e
+        join PrevPrices p on e.Tagesdatum = p.Tagesdatum
+       
+    select *
+    from @Entwicklung
 end
 go
 
+go
 exec dbo.stpPreisentwicklung 'Benzin', 10
+go
 
-
--- c
+-- d
 drop proc if exists stpBetrag
 
 go
 create or alter proc stpBetrag 
     @ZNr int, 
-    @Menge int, 
-    @ZahlenderBetrag int output
+    @Menge decimal(10,2), 
+    @ZahlenderBetrag decimal(10,2) output
 as
 begin
-    if not exists (select 1 from Zapfsaeule zs where zs.ZNr = @ZNr)
-        raiserror ('Zapfsäule gibt es nicht', 16, 1)
+    if not exists (select 1 from Zapfsaeule where ZNr = @ZNr)
+        raiserror ('Die angegebene Zapfsäule exisitiert nicht', 16, 1)
 
-    if (@Menge > (select zs.aktMengeL from Zapfsaeule zs where zs.ZNr = @ZNr))
-        raiserror ('Es gibt nicht so viel Kraftstoff', 16, 1)
+    declare @Preis decimal(10,4), @KName nvarchar(50), @aktMenge decimal(10,2)
 
-    select @ZahlenderBetrag = @ZahlenderBetrag + (
-        select tp.Preis * @Menge
-        from Zapfsaeule zs
-            join Kraftstoff ks on ks.KName = zs.KName
-            join Tagespreis tp on tp.KName = ks.KName
-        where zs.ZNr = @ZNr and tp.Tagesdatum = getdate()
-    )
-
-    update Zapfsaeule 
-    set aktMengeL = aktMengeL - @Menge
+    select @KName = KName, @aktMenge = aktMengeL
+    from Zapfsaeule
     where ZNr = @ZNr
+    
+    if @aktMenge < @Menge
+    begin
+        raiserror('Nicht genügend Kraftstoff in der Zapfsäule', 16, 1)
+        return
+    end
 
-    insert into Verkauf values
-    ((select top 1 coalesce(v.VNr+1,0) from Verkauf v order by v.VNr), 
-        @Menge, getdate(), @ZNr);
+    select top 1 @Preis = Preis
+    from Tagespreis
+    where KName = @KName
+    order by Tagesdatum desc
+
+    set @ZahlenderBetrag = @Menge * @Preis
+
+    insert into Verkauf (MengeL, VerkaufsZeitpunkt, ZNr) values (@Menge, getdate(), @ZNr)
+
+    update Zapfsaeule set aktMengeL = aktMengeL - @Menge where ZNr = @ZNr
 end
 go
