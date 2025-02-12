@@ -2,9 +2,6 @@
 
 namespace Rucksack
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public class Item(int size, int value)
     {
         public int Size { get; } = size;
@@ -46,8 +43,6 @@ namespace Rucksack
         private static (int maxValue, List<int> selectedItems) Knapsack(List<Item> items, int capacity)
         {
             // Erstelle DP-Tabelle [Anzahl Items + 1, Kapazität + 1]
-            /// Speicher als Zeile die Anzahl der Gegenstände
-            /// Als Spalte den currentWeight von 0 bis capacity
             int[,] knapsackTable = new int[items.Count + 1, capacity + 1];
 
             // Fülle die DP-Tabelle

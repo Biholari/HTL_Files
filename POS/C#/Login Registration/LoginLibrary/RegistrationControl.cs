@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace LoginLibrary;
 
@@ -20,9 +20,6 @@ public class RegistrationControl : Control
 
     public static readonly DependencyProperty LastNameProperty =
         DependencyProperty.Register(nameof(LastName), typeof(string), typeof(RegistrationControl));
-
-    public static readonly DependencyProperty EmailProperty =
-        DependencyProperty.Register(nameof(Email), typeof(string), typeof(RegistrationControl));
 
     public static readonly DependencyProperty UsernameProperty =
         DependencyProperty.Register(nameof(Username), typeof(string), typeof(RegistrationControl));
@@ -107,12 +104,6 @@ public class RegistrationControl : Control
         set => SetValue(LastNameProperty, value);
     }
 
-    public string Email
-    {
-        get => (string)GetValue(EmailProperty);
-        set => SetValue(EmailProperty, value);
-    }
-
     public string Username
     {
         get => (string)GetValue(UsernameProperty);
@@ -193,35 +184,60 @@ public class RegistrationControl : Control
         {
             switchToLoginButton.Click += OnSwitchToLogin;
         }
+
+        if (GetTemplateChild("Part_SwitchIdentifier") is Button identifierButton)
+        {
+            identifierButton.Click += (s, e) => UseEmail = !UseEmail;
+        }
     }
     private void OnRegister(object sender, RoutedEventArgs e)
     {
-        RaiseEvent(new RoutedEventArgs(RegisterEvent, this));
         // Check with regex if email is correct
-        //if (ValidateForm())
-        //{
-            
-        //}
+        if (ValidateForm())
+        {
+            RaiseEvent(new RegistrationRoutedEventArgs(RegisterEvent, this, Identifier, FirstName, LastName, Username, Password));
+        }
     }
 
-    private void OnReset(object sender, RoutedEventArgs e)
+    private bool ValidateForm()
     {
-        RaiseEvent(new RoutedEventArgs(ResetEvent, this));
+        if (string.IsNullOrWhiteSpace(Identifier))
+        {
+            ErrorMessage = UseEmail ? "Email is required" : "Username is required";
+            ErrorVisibility = Visibility.Visible;
+            return false;
+        }
+
+        if (UseEmail && !Regex.IsMatch(Identifier, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
+        {
+            ErrorMessage = "Invalid email format";
+            ErrorVisibility = Visibility.Visible;
+            return false;
+        }
+
+        if (string.IsNullOrWhiteSpace(Password))
+        {
+            ErrorMessage = "Password is required";
+            ErrorVisibility = Visibility.Visible;
+            return false;
+        }
+
+        ErrorVisibility = Visibility.Collapsed;
+        return true;
     }
 
-    private void OnCancel(object sender, RoutedEventArgs e)
-    {
-        RaiseEvent(new RoutedEventArgs(CancelEvent, this));
-    }
+    private void OnReset(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(ResetEvent, this));
 
-    private void OnSwitchToLogin(object sender, RoutedEventArgs e)
-    {
-        RaiseEvent(new RoutedEventArgs(SwitchToLoginEvent, this));
-    }
+    private void OnCancel(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(CancelEvent, this));
+
+    private void OnSwitchToLogin(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(SwitchToLoginEvent, this));
 }
 
-public class RegisterEventArgs(string identifier, string password) : EventArgs
+public class RegistrationRoutedEventArgs(RoutedEvent routedEvent, object source, string identifier, string firstName, string lastName, string username, string password) : RoutedEventArgs(routedEvent, source)
 {
     public string Identifier { get; } = identifier;
     public string Password { get; } = password;
+    public string FirstName { get; } = firstName;
+    public string LastName { get; } = lastName;
+    public string Username { get; } = username;
 }

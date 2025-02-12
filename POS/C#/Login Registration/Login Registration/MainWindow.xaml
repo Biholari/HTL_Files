@@ -25,6 +25,7 @@
                 Cancel="registrationControl_Cancel"
                 Register="registrationControl_Register"
                 SwitchToLogin="registrationControl_SwitchToLogin"
+                UseEmail="{Binding UseEmail}"
                 Visibility="{Binding RegistrationControlVisibility}" />
         </StackPanel>
     </Grid>

@@ -5,11 +5,9 @@ using System.Windows;
 
 namespace Login_Registration;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window, INotifyPropertyChanged
 {
+    private bool _useEmail;
     private Visibility _loginControlVisibility = Visibility.Visible;
     private Visibility _registrationControlVisibility = Visibility.Collapsed;
 
@@ -18,11 +16,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         get => _loginControlVisibility;
         set
         {
-            if (_loginControlVisibility != value)
-            {
-                _loginControlVisibility = value;
-                NotifyPropertyChanged();
-            }
+            _loginControlVisibility = value;
+            NotifyPropertyChanged();
         }
     }
 
@@ -31,12 +26,15 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         get => _registrationControlVisibility;
         set
         {
-            if (_registrationControlVisibility != value)
-            {
-                _registrationControlVisibility = value;
-                NotifyPropertyChanged();
-            }
+            _registrationControlVisibility = value;
+            NotifyPropertyChanged();
         }
+    }
+
+    public bool UseEmail
+    {
+        get { return _useEmail; }
+        set { _useEmail = value; NotifyPropertyChanged(); }
     }
 
     public MainWindow()
@@ -71,8 +69,17 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void registrationControl_Register(object sender, EventArgs e)
     {
-        LoginControlVisibility = Visibility.Visible;
-        RegistrationControlVisibility = Visibility.Collapsed;
+        if (e is RegistrationRoutedEventArgs registerArgs)
+        {
+            MessageBox.Show(
+                $"Registration Details:\nIdentifier: {registerArgs.Identifier}\nFirst Name: {registerArgs.FirstName}\nLast Name: {registerArgs.LastName}\nUsername: {registerArgs.Username}\nPassword: {registerArgs.Password}",
+                "Registration Information",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+
+            LoginControlVisibility = Visibility.Visible;
+            RegistrationControlVisibility = Visibility.Collapsed;
+        }
     }
 
     private void registrationControl_SwitchToLogin(object sender, EventArgs e)

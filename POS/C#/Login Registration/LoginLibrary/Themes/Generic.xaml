@@ -68,7 +68,12 @@
                             <Button
                                 x:Name="PART_SwitchToRegisterButton"
                                 Width="80"
+                                Margin="0,0,10,0"
                                 Content="Register" />
+                            <Button
+                                x:Name="PART_SwitchIdentifier"
+                                Width="80"
+                                Content="Switch" />
                         </StackPanel>
                     </Grid>
                 </ControlTemplate>
@@ -131,7 +136,7 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             Margin="0,0,0,5"
-                            Text="{Binding Email, RelativeSource={RelativeSource TemplatedParent}}" />
+                            Text="{Binding Identifier, RelativeSource={RelativeSource TemplatedParent}}" />
 
                         <!--  Username (optional)  -->
                         <Label
@@ -220,7 +225,12 @@
                             <Button
                                 x:Name="PART_SwitchToLogin"
                                 Width="80"
+                                Margin="0,0,10,0"
                                 Content="Back to Login" />
+                            <Button
+                                x:Name="PART_SwitchIdentifier"
+                                Width="80"
+                                Content="Switch" />
                         </StackPanel>
                     </Grid>
                 </ControlTemplate>

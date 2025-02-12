@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace LoginLibrary;
 
@@ -92,6 +92,7 @@ public class LoginControl : Control
     public override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
+
         if (GetTemplateChild("PART_PasswordBox") is PasswordBox passwordBox)
         {
             passwordBox.PasswordChanged += (s, e) => Password = passwordBox.Password;
@@ -106,6 +107,16 @@ public class LoginControl : Control
         {
             switchToRegistrationButton.Click += OnSwitchToRegistration;
         }
+
+        if (GetTemplateChild("PART_SwitchIdentifier") is Button identifierButton)
+        {
+            identifierButton.Click += OnSwitchIdentifier;
+        }
+    }
+
+    private void OnSwitchIdentifier(object sender, RoutedEventArgs e)
+    {
+        UseEmail = !UseEmail;
     }
 
     private bool ValidateForm()
@@ -117,7 +128,7 @@ public class LoginControl : Control
             return false;
         }
 
-        if (UseEmail && !Identifier.Contains('@'))
+        if (UseEmail && !Regex.IsMatch(Identifier, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
         {
             ErrorMessage = "Invalid email format";
             ErrorVisibility = Visibility.Visible;
