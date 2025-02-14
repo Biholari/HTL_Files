@@ -61,7 +61,6 @@ public class RegistrationControl : Control
         EventManager.RegisterRoutedEvent(nameof(SwitchToLogin), RoutingStrategy.Bubble,
             typeof(RoutedEventHandler), typeof(RegistrationControl));
 
-
     public event RoutedEventHandler Register
     {
         add => AddHandler(RegisterEvent, value);
