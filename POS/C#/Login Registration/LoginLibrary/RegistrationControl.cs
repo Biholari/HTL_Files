@@ -21,18 +21,18 @@ public class RegistrationControl : Control
     public static readonly DependencyProperty LastNameProperty =
         DependencyProperty.Register(nameof(LastName), typeof(string), typeof(RegistrationControl));
 
-    public static readonly DependencyProperty UsernameProperty =
-        DependencyProperty.Register(nameof(Username), typeof(string), typeof(RegistrationControl));
-
     public static readonly DependencyProperty IdentifierLabelProperty =
         DependencyProperty.Register(nameof(IdentifierLabel), typeof(string), typeof(RegistrationControl),
             new PropertyMetadata("Email:"));
 
+    public static readonly DependencyProperty AddressProperty =
+        DependencyProperty.Register(nameof(Address), typeof(string), typeof(RegistrationControl));
+    
     public static readonly DependencyProperty UsernameVisibilityProperty =
         DependencyProperty.Register(nameof(UsernameVisibility), typeof(Visibility), typeof(RegistrationControl));
 
-    public static readonly DependencyProperty AddressProperty =
-        DependencyProperty.Register(nameof(Address), typeof(string), typeof(RegistrationControl));
+    public static readonly DependencyProperty UsernameProperty =
+        DependencyProperty.Register(nameof(Username), typeof(string), typeof(RegistrationControl));
 
     public static readonly DependencyProperty ErrorMessageProperty =
         DependencyProperty.Register(nameof(ErrorMessage), typeof(string), typeof(RegistrationControl));
@@ -43,7 +43,7 @@ public class RegistrationControl : Control
 
     public static readonly DependencyProperty UseEmailProperty =
         DependencyProperty.Register(nameof(UseEmail), typeof(bool), typeof(RegistrationControl),
-            new PropertyMetadata(true, OnUseEmailChanged));
+            new PropertyMetadata(false, OnUseEmailChanged));
 
     public static readonly RoutedEvent RegisterEvent =
         EventManager.RegisterRoutedEvent(nameof(Register), RoutingStrategy.Bubble,
@@ -91,6 +91,18 @@ public class RegistrationControl : Control
         set => SetValue(IdentifierProperty, value);
     }
 
+    public Visibility UsernameVisibility
+    {
+        get => (Visibility)GetValue(UsernameVisibilityProperty);
+        set => SetValue(UsernameVisibilityProperty, value);
+    }
+
+    public string Username
+    {
+        get => (string)GetValue(UsernameProperty);
+        set => SetValue(UsernameProperty, value);
+    }
+
     public string FirstName
     {
         get => (string)GetValue(FirstNameProperty);
@@ -101,12 +113,6 @@ public class RegistrationControl : Control
     {
         get => (string)GetValue(LastNameProperty);
         set => SetValue(LastNameProperty, value);
-    }
-
-    public string Username
-    {
-        get => (string)GetValue(UsernameProperty);
-        set => SetValue(UsernameProperty, value);
     }
 
     public bool UseEmail
@@ -131,12 +137,6 @@ public class RegistrationControl : Control
     {
         get => (Visibility)GetValue(ErrorVisibilityProperty);
         set => SetValue(ErrorVisibilityProperty, value);
-    }
-
-    public Visibility UsernameVisibility
-    {
-        get => (Visibility)GetValue(UsernameVisibilityProperty);
-        set => SetValue(UsernameVisibilityProperty, value);
     }
 
     public string IdentifierLabel
@@ -179,7 +179,7 @@ public class RegistrationControl : Control
             cancelButton.Click += OnCancel;
         }
 
-        if (GetTemplateChild("PART_SwitchToLoginButton") is Button switchToLoginButton)
+        if (GetTemplateChild("PART_SwitchToLogin") is Button switchToLoginButton)
         {
             switchToLoginButton.Click += OnSwitchToLogin;
         }
@@ -194,7 +194,7 @@ public class RegistrationControl : Control
         // Check with regex if email is correct
         if (ValidateForm())
         {
-            RaiseEvent(new RegistrationRoutedEventArgs(RegisterEvent, this, Identifier, FirstName, LastName, Username, Password));
+            RaiseEvent(new RegistrationRoutedEventArgs(RegisterEvent, this, Identifier, FirstName, LastName, Password, (UsernameVisibility != Visibility.Collapsed ? Username : null)));
         }
     }
 
@@ -225,18 +225,27 @@ public class RegistrationControl : Control
         return true;
     }
 
-    private void OnReset(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(ResetEvent, this));
+    private void OnReset(object sender, RoutedEventArgs e)
+    {
+        Username = string.Empty;
+        Identifier = string.Empty;
+        FirstName = string.Empty;
+        LastName = string.Empty;
+        Password = string.Empty;
+        ErrorVisibility = Visibility.Collapsed;
+        RaiseEvent(new RoutedEventArgs(ResetEvent, this));
+    }
 
     private void OnCancel(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(CancelEvent, this));
 
     private void OnSwitchToLogin(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(SwitchToLoginEvent, this));
 }
 
-public class RegistrationRoutedEventArgs(RoutedEvent routedEvent, object source, string identifier, string firstName, string lastName, string username, string password) : RoutedEventArgs(routedEvent, source)
+public class RegistrationRoutedEventArgs(RoutedEvent routedEvent, object source, string identifier, string firstName, string lastName, string password, string? username) : RoutedEventArgs(routedEvent, source)
 {
     public string Identifier { get; } = identifier;
     public string Password { get; } = password;
     public string FirstName { get; } = firstName;
     public string LastName { get; } = lastName;
-    public string Username { get; } = username;
+    public string? Username { get; } = username;
 }

@@ -16,8 +16,8 @@
         </Grid.ColumnDefinitions>
 
         <Grid
-            Grid.Column="0"
             x:Name="ContentArea"
+            Grid.Column="0"
             Width="Auto"
             Height="Auto"
             Margin="12,12,0,0"
@@ -25,9 +25,18 @@
             VerticalAlignment="Top" />
 
         <StackPanel Grid.Column="1">
-            <TextBlock Text="{Binding StatueNumbers}" Margin="10" />
-            <Slider Margin="10" Minimum="4" Maximum="15" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding StatueNumbers}" />
-            <Button Content="Lösen" Margin="10" Click="Button_Click" />
+            <TextBlock Margin="10" Text="{Binding StatueNumbers}" />
+            <Slider
+                Margin="10"
+                IsSnapToTickEnabled="True"
+                Maximum="30"
+                Minimum="4"
+                TickFrequency="1"
+                Value="{Binding StatueNumbers}" />
+            <Button
+                Margin="10"
+                Click="Button_Click"
+                Content="Lösen" />
         </StackPanel>
     </Grid>
 </Window>

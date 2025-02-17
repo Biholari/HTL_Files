@@ -126,12 +126,12 @@
                             Margin="0,0,0,5"
                             Text="{Binding LastName, RelativeSource={RelativeSource TemplatedParent}}" />
 
-                        <!--  Email  -->
+                        <!--  Identifier  -->
                         <Label
                             Grid.Row="2"
                             Grid.Column="0"
                             Margin="0,0,10,5"
-                            Content="Email:" />
+                            Content="{TemplateBinding IdentifierLabel}" />
                         <TextBox
                             Grid.Row="2"
                             Grid.Column="1"

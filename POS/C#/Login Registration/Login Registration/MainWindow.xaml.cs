@@ -72,7 +72,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         if (e is RegistrationRoutedEventArgs registerArgs)
         {
             MessageBox.Show(
-                $"Registration Details:\nIdentifier: {registerArgs.Identifier}\nFirst Name: {registerArgs.FirstName}\nLast Name: {registerArgs.LastName}\nUsername: {registerArgs.Username}\nPassword: {registerArgs.Password}",
+                $"Registration Details:\nIdentifier: {registerArgs.Identifier}\nFirst Name: {registerArgs.FirstName}\nLast Name: {registerArgs.LastName}{$"{(registerArgs.Username != null ? $"\nUsername: {registerArgs.Username}" : string.Empty)}"}\nPassword: {registerArgs.Password}",
                 "Registration Information",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
