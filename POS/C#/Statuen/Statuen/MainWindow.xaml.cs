@@ -1,10 +1,19 @@
 ﻿using System.ComponentModel;
+using System.DirectoryServices.ActiveDirectory;
+using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics.X86;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Statuen;
+
+public struct State(int col, int[] positions)
+{
+    public int Col { get; set; } = col;
+    public int[] Positions { get; set; } = positions;
+}
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -18,6 +27,118 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         get { return statueNumbers; }
         set { statueNumbers = value; NotifyPropertyChanged(); }
     }
+
+    void SolveNQBitMask()
+    {
+        /*int n = statueNumbers;
+        // Use a 64-bit mask. For n queens, allOnes has the first n bits set.
+        ulong allOnes = (1UL << n) - 1;
+        int[] positions = new int[n];
+        bool solutionFound = false;
+
+        // Recursive function that uses bit masks (as 64-bit unsigned integers) to track attacked positions.
+        void Solve(ulong colMask, ulong leftDiagMask, ulong rightDiagMask, int colIndex)
+        {
+            // If all n queens have been placed, a solution is found.
+            if (colMask == allOnes)
+            {
+                solutionFound = true;
+                return;
+            }
+
+            // Determine all safe positions for the current column.
+            ulong safePositions = allOnes & ~(colMask | leftDiagMask | rightDiagMask);
+            while (safePositions != 0)
+            {
+                // Isolate the right-most 1 bit.
+                ulong bit = safePositions & (ulong)-(long)safePositions;
+                safePositions -= bit;
+                int row = BitOperations.TrailingZeroCount(bit);  // row corresponding to the bit
+
+                positions[colIndex] = row;
+                Solve(colMask | bit, (leftDiagMask | bit) << 1, (rightDiagMask | bit) >> 1, colIndex + 1);
+                if (solutionFound) return;
+            }
+        }
+
+        Solve(0, 0, 0, 0);
+
+        if (!solutionFound)
+        {
+            MessageBox.Show("Solution does not exist");
+            return;
+        }
+
+        // Convert the one-dimensional solution into a 2D board.
+        int[,] board = new int[n, n];
+        for (int col = 0; col < n; col++)
+        {
+            int row = positions[col];
+            board[row, col] = 1;
+        }
+        ColorQueens(board);*/
+        int n = statueNumbers;
+        ulong allOnes = (1UL << n) - 1;
+        int[] positions = new int[n];
+        bool solutionFound = false;
+
+        // Arrays to simulate recursion
+        ulong[] colMasks = new ulong[n + 1];
+        ulong[] leftDiagMasks = new ulong[n + 1];
+        ulong[] rightDiagMasks = new ulong[n + 1];
+        ulong[] safePositions = new ulong[n + 1];
+
+        int colIndex = 0;
+        colMasks[0] = 0;
+        leftDiagMasks[0] = 0;
+        rightDiagMasks[0] = 0;
+        safePositions[0] = allOnes;
+
+        while (colIndex >= 0)
+        {
+            if (safePositions[colIndex] != 0)
+            {
+                // Isolate the rightmost bit.
+                ulong bit = safePositions[colIndex] & (ulong)-(long)safePositions[colIndex];
+                safePositions[colIndex] -= bit;
+                positions[colIndex] = BitOperations.TrailingZeroCount(bit);
+
+                colMasks[colIndex + 1] = colMasks[colIndex] | bit;
+                leftDiagMasks[colIndex + 1] = (leftDiagMasks[colIndex] | bit) << 1;
+                rightDiagMasks[colIndex + 1] = (rightDiagMasks[colIndex] | bit) >> 1;
+
+                // If all queens are placed, finish
+                if (colMasks[colIndex + 1] == allOnes)
+                {
+                    solutionFound = true;
+                    break;
+                }
+                colIndex++;
+                safePositions[colIndex] = allOnes & ~(colMasks[colIndex] | leftDiagMasks[colIndex] | rightDiagMasks[colIndex]);
+            }
+            else
+            {
+                // Backtrack
+                colIndex--;
+            }
+        }
+
+        if (!solutionFound)
+        {
+            MessageBox.Show("Solution does not exist");
+            return;
+        }
+
+        // Convert the one-dimensional solution into a 2D board.
+        int[,] board = new int[n, n];
+        for (int col = 0; col < n; col++)
+        {
+            int row = positions[col];
+            board[row, col] = 1;
+        }
+        ColorQueens(board);
+    }
+
 
     public MainWindow()
     {
@@ -58,52 +179,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 ContentArea.Children.Add(border);
             }
         }
-    }
-
-    bool IsSafe(int[,] board, int row, int col)
-    {
-        int i, j;
-        // Check this row on left side
-        for (i = 0; i < col; i++)
-            if (board[row, i] == 1)
-                return false;
-        // Check upper diagonal on left side
-        for (i = row, j = col; i >= 0 && j >= 0; i--, j--)
-            if (board[i, j] == 1)
-                return false;
-        // Check lower diagonal on left side
-        for (i = row, j = col; j >= 0 && i < statueNumbers; i++, j--)
-            if (board[i, j] == 1)
-                return false;
-        return true;
-    }
-
-    bool SolveNQUtils(ref int[,] board, int col)
-    {
-        if (col >= statueNumbers)
-            return true;
-        for (int i = 0; i < statueNumbers; i++)
-        {
-            if (IsSafe(board, i, col))
-            {
-                board[i, col] = 1;
-                if (SolveNQUtils(ref board, col + 1))
-                    return true;
-                board[i, col] = 0;
-            }
-        }
-        return false;
-    }
-    void SolveNQ()
-    {
-        // The "queen" should color the grid cell in green
-        int[,] board = new int[statueNumbers, statueNumbers];
-        if (SolveNQUtils(ref board, 0) == false)
-        {
-            MessageBox.Show("Solution does not exist");
-            return;
-        }
-        ColorQueens(board);
     }
 
     void ColorQueens(int[,] board)
@@ -179,6 +254,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             }
         }
 
-        SolveNQ();
+        SolveNQBitMask();
     }
 }

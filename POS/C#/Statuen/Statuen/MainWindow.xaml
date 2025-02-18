@@ -29,7 +29,7 @@
             <Slider
                 Margin="10"
                 IsSnapToTickEnabled="True"
-                Maximum="30"
+                Maximum="50"
                 Minimum="4"
                 TickFrequency="1"
                 Value="{Binding StatueNumbers}" />
