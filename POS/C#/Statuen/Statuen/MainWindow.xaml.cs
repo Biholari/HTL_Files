@@ -1,13 +1,188 @@
 ﻿using System.ComponentModel;
-using System.DirectoryServices.ActiveDirectory;
+using System.Diagnostics;
 using System.Numerics;
 using System.Runtime.CompilerServices;
-using System.Runtime.Intrinsics.X86;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Statuen;
+
+public class NQuuensSolverTabu(int size)
+{
+    public int[,] Board { get; set; } = new int[size, size];
+    private readonly int n = size;
+    private static readonly Random random = new();
+
+    public void Solve()
+    {
+        // Initialize with the identity permutation
+        int[] currentState = [.. Enumerable.Range(0, n)];
+        int currentCollisions = CountCollisions(currentState);
+
+        // Copy original values for current state, since there is no other solution currently
+        int[] bestState = (int[])currentState.Clone();
+        int bestCollisions = currentCollisions;
+
+        int tabuSize = 7;
+        Queue<int[]> tabuQueue = new(tabuSize);
+        int iterations = 10000;
+
+        for (int iter = 0; iter < iterations && bestCollisions > 0; iter++)
+        {
+            int[] candidate = GenerateNeighbor(currentState, tabuQueue);
+            int candidateEnergy = CountCollisions(candidate);
+
+            // Update the best solution so far if improved.
+            if (candidateEnergy < bestCollisions)
+            {
+                bestState = (int[])candidate.Clone();
+                bestCollisions = candidateEnergy;
+            }
+
+            // Accept candidate move for diversification
+            currentState = candidate;
+            tabuQueue.Enqueue((int[])candidate.Clone());
+            if (tabuQueue.Count > tabuSize)
+                tabuQueue.Dequeue();
+        }
+        PlaceQueens(bestState);
+    }
+
+    private int[] GenerateNeighbor(int[] current, Queue<int[]> tabuQueue)
+    {
+        int[] neighbor;
+        // Loop until a neighbor is generated that is not in the tabu list.
+        // A maximum iteration count can be set here to prevent an infinite loop.
+        int maxAttempts = 100;
+        int attempts = 0;
+        do
+        {
+            neighbor = (int[])current.Clone();
+            int i = random.Next(n);
+            int j = random.Next(n);
+            while (j == i)
+                j = random.Next(n);
+            (neighbor[i], neighbor[j]) = (neighbor[j], neighbor[i]);
+            attempts++;
+        } while (IsTabu(neighbor, tabuQueue) && attempts < maxAttempts);
+
+        return neighbor;
+    }
+
+    private static bool IsTabu(int[] candidate, Queue<int[]> tabuQueue)
+    {
+        // Check if a slice of the candidate is in the tabu list.
+        foreach (var scandidate in tabuQueue)
+        {
+            if (scandidate.SequenceEqual(candidate))
+                return true;
+        }
+
+        return false;
+    }
+
+    private int CountCollisions(int[] permutation)
+    {
+        int collisions = 0;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i + 1; j < n; j++)
+            {
+                if (Math.Abs(i - j) == Math.Abs(permutation[i] - permutation[j]))
+                    collisions++;
+            }
+        }
+        return collisions;
+    }
+
+    private void PlaceQueens(int[] permutation)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Board[i, j] = (j == permutation[i]) ? 1 : 0;
+            }
+        }
+    }
+}
+
+class NQueensSolverSimulatedAnnealing(int size)
+{
+    public int[,] Board { get; set; } = new int[size, size];
+    private readonly int n = size;
+    private static readonly Random random = new();
+
+    public void Solve()
+    {
+        int[] currentState = [.. Enumerable.Range(0, n)];
+        int currentEnergy = CountCollisions(currentState);
+
+        double temperature = 1.0;
+        double coolingRate = 0.995;
+        int iterations = 10000;
+
+        for (int i = 0; i < iterations && currentEnergy > 0; i++)
+        {
+            int[] newState = GenerateNeighbor(currentState);
+            int newEnergy = CountCollisions(newState);
+
+            if (AcceptanceProbability(currentEnergy, newEnergy, temperature) > random.NextDouble())
+            {
+                currentState = newState;
+                currentEnergy = newEnergy;
+            }
+
+            temperature *= coolingRate;
+        }
+
+        PlaceQueens(currentState);
+    }
+
+    private int[] GenerateNeighbor(int[] current)
+    {
+        int[] neighbor = (int[])current.Clone();
+        int i = random.Next(n);
+        int j = random.Next(n);
+        (neighbor[i], neighbor[j]) = (neighbor[j], neighbor[i]);
+        return neighbor;
+    }
+
+    private static double AcceptanceProbability(int energy, int newEnergy, double temperature)
+    {
+        if (newEnergy < energy)
+            return 1.0;
+        return Math.Exp((energy - newEnergy) / temperature);
+    }
+
+    private int CountCollisions(int[] permutation)
+    {
+        int collisions = 0;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i + 1; j < n; j++)
+            {
+                if (Math.Abs(i - j) == Math.Abs(permutation[i] - permutation[j]))
+                {
+                    collisions++;
+                }
+            }
+        }
+        return collisions;
+    }
+
+    private void PlaceQueens(int[] permutation)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Board[i, j] = (j == permutation[i]) ? 1 : 0;
+            }
+        }
+    }
+}
 
 public struct State(int col, int[] positions)
 {
@@ -21,62 +196,21 @@ public struct State(int col, int[] positions)
 public partial class MainWindow : Window, INotifyPropertyChanged
 {
     private int statueNumbers = 10;
-
     public int StatueNumbers
     {
         get { return statueNumbers; }
         set { statueNumbers = value; NotifyPropertyChanged(); }
     }
 
+    private string performance;
+    public string Performance
+    {
+        get { return performance; }
+        set { performance = value; NotifyPropertyChanged(); }
+    }
+
     void SolveNQBitMask()
     {
-        /*int n = statueNumbers;
-        // Use a 64-bit mask. For n queens, allOnes has the first n bits set.
-        ulong allOnes = (1UL << n) - 1;
-        int[] positions = new int[n];
-        bool solutionFound = false;
-
-        // Recursive function that uses bit masks (as 64-bit unsigned integers) to track attacked positions.
-        void Solve(ulong colMask, ulong leftDiagMask, ulong rightDiagMask, int colIndex)
-        {
-            // If all n queens have been placed, a solution is found.
-            if (colMask == allOnes)
-            {
-                solutionFound = true;
-                return;
-            }
-
-            // Determine all safe positions for the current column.
-            ulong safePositions = allOnes & ~(colMask | leftDiagMask | rightDiagMask);
-            while (safePositions != 0)
-            {
-                // Isolate the right-most 1 bit.
-                ulong bit = safePositions & (ulong)-(long)safePositions;
-                safePositions -= bit;
-                int row = BitOperations.TrailingZeroCount(bit);  // row corresponding to the bit
-
-                positions[colIndex] = row;
-                Solve(colMask | bit, (leftDiagMask | bit) << 1, (rightDiagMask | bit) >> 1, colIndex + 1);
-                if (solutionFound) return;
-            }
-        }
-
-        Solve(0, 0, 0, 0);
-
-        if (!solutionFound)
-        {
-            MessageBox.Show("Solution does not exist");
-            return;
-        }
-
-        // Convert the one-dimensional solution into a 2D board.
-        int[,] board = new int[n, n];
-        for (int col = 0; col < n; col++)
-        {
-            int row = positions[col];
-            board[row, col] = 1;
-        }
-        ColorQueens(board);*/
         int n = statueNumbers;
         ulong allOnes = (1UL << n) - 1;
         int[] positions = new int[n];
@@ -139,7 +273,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         ColorQueens(board);
     }
 
-
     public MainWindow()
     {
         InitializeComponent();
@@ -165,8 +298,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
                 TextBlock textBlock = new()
                 {
-                    Text = "Statue",
-                    FontSize = 20,
                     Width = 50,
                     Height = 50,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -179,6 +310,70 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 ContentArea.Children.Add(border);
             }
         }
+    }
+
+    void SolveBacktracking()
+    {
+        int[,] board = new int[statueNumbers, statueNumbers];
+
+        if (!SolveBacktrackingUtil(board, 0))
+        {
+            MessageBox.Show("Solution does not exist");
+            return;
+        }
+
+        ColorQueens(board);
+    }
+
+    private bool SolveBacktrackingUtil(int[,] board, int col)
+    {
+        // Base case: If all queens are placed, return true
+        if (col >= statueNumbers)
+            return true;
+
+        // Consider this column and try placing this queen in all rows one by one
+        for (int row = 0; row < statueNumbers; row++)
+        {
+            // Check if queen can be placed on board[row][col]
+            if (IsSafe(board, row, col))
+            {
+                // Place this queen in board[row][col]
+                board[row, col] = 1;
+
+                // Recur to place rest of the queens
+                if (SolveBacktrackingUtil(board, col + 1))
+                    return true;
+
+                // If placing queen in board[row][col] doesn't lead to a solution,
+                // then remove queen from board[row][col]
+                board[row, col] = 0;
+            }
+        }
+
+        // If queen can't be placed in any row in this column col, return false
+        return false;
+    }
+
+    private bool IsSafe(int[,] board, int row, int col)
+    {
+        int i, j;
+
+        // Check this row on left side
+        for (i = 0; i < col; i++)
+            if (board[row, i] == 1)
+                return false;
+
+        // Check upper diagonal on left side
+        for (i = row, j = col; i >= 0 && j >= 0; i--, j--)
+            if (board[i, j] == 1)
+                return false;
+
+        // Check lower diagonal on left side
+        for (i = row, j = col; j >= 0 && i < statueNumbers; i++, j--)
+            if (board[i, j] == 1)
+                return false;
+
+        return true;
     }
 
     void ColorQueens(int[,] board)
@@ -197,8 +392,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                     };
                     TextBlock textBlock = new()
                     {
-                        Text = "Statue",
-                        FontSize = 20,
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center
                     };
@@ -212,6 +405,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
+    
     private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -240,8 +434,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 };
                 TextBlock textBlock = new()
                 {
-                    Text = "Statue",
-                    FontSize = 20,
                     Width = 50,
                     Height = 50,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -254,6 +446,18 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             }
         }
 
-        SolveNQBitMask();
+        Stopwatch sw = new();
+        sw.Start();
+        NQuuensSolverTabu solver = new(statueNumbers);
+        solver.Solve();
+        int[,] board = solver.Board;
+        ColorQueens(board);
+        sw.Stop();
+        TimeSpan ts = sw.Elapsed;
+        Performance = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            ts.Hours, ts.Minutes, ts.Seconds,
+            ts.Milliseconds / 10);
+
+        //SolveBacktracking();
     }
 }

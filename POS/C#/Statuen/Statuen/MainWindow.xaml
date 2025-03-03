@@ -29,7 +29,7 @@
             <Slider
                 Margin="10"
                 IsSnapToTickEnabled="True"
-                Maximum="50"
+                Maximum="100"
                 Minimum="4"
                 TickFrequency="1"
                 Value="{Binding StatueNumbers}" />
@@ -37,6 +37,8 @@
                 Margin="10"
                 Click="Button_Click"
                 Content="Lösen" />
+
+            <TextBlock Text="{Binding Performance}" />
         </StackPanel>
     </Grid>
 </Window>
