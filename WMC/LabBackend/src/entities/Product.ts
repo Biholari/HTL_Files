@@ -2,12 +2,15 @@ import {
     Column,
     Entity,
     JoinColumn,
+    JoinTable,
+    OneToMany,
     OneToOne,
     PrimaryGeneratedColumn,
 } from "typeorm";
+import { OrderItem } from "./OrderItem";
 import { Rating } from "./Rating";
 
-@Entity()
+@Entity("products")
 export class Product {
     @PrimaryGeneratedColumn()
     id!: number;
@@ -15,7 +18,7 @@ export class Product {
     @Column()
     title!: string;
 
-    @Column("decimal")
+    @Column("decimal", { precision: 10, scale: 2 })
     price!: number;
 
     @Column("text")
@@ -28,6 +31,13 @@ export class Product {
     image!: string;
 
     @OneToOne(() => Rating)
-    @JoinColumn()
+    @JoinColumn([
+        { name: "rating_rate", referencedColumnName: "rate" },
+        { name: "rating_count", referencedColumnName: "count" },
+    ])
     rating!: Rating;
+
+    // Relations
+    @OneToMany(() => OrderItem, (orderItem) => orderItem.product)
+    orderItems!: OrderItem[];
 }

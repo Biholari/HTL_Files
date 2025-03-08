@@ -1,11 +1,11 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from "./Product";
+import { Entity, PrimaryColumn, Unique } from "typeorm";
 
+@Unique(["rate", "count"])
 @Entity()
 export class Rating {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn("decimal", { precision: 3, scale: 1 })
     rate!: number;
 
-    @Column()
+    @PrimaryColumn({ unique: true })
     count!: number;
 }

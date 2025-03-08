@@ -8,6 +8,7 @@
     Title="MainWindow"
     Width="800"
     Height="450"
+    d:DataContext="{d:DesignInstance Type=local:MainWindow}"
     mc:Ignorable="d">
     <Window.Resources>
         <Style x:Key="MediaButtonStyle" TargetType="Button">
@@ -35,7 +36,7 @@
             </Setter>
         </Style>
 
-        <DataTemplate x:Key="VideoItemTemplate">
+        <DataTemplate x:Key="VideoItemTemplate" DataType="local:VideoItem">
             <Grid Margin="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

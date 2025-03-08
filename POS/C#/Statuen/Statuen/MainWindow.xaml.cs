@@ -1,20 +1,27 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
+using System.DirectoryServices;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Statuen;
 
-public class NQuuensSolverTabu(int size)
+public interface IQueensSolver
+{
+    public int[,] Board { get; set; }
+    public int Solve();
+}
+
+public class NQuuensSolverTabu(int size) : IQueensSolver
 {
     public int[,] Board { get; set; } = new int[size, size];
     private readonly int n = size;
     private static readonly Random random = new();
 
-    public void Solve()
+    public int Solve()
     {
         // Initialize with the identity permutation
         int[] currentState = [.. Enumerable.Range(0, n)];
@@ -26,18 +33,18 @@ public class NQuuensSolverTabu(int size)
 
         int tabuSize = 7;
         Queue<int[]> tabuQueue = new(tabuSize);
-        int iterations = 10000;
+        int iterations = 100000;
 
         for (int iter = 0; iter < iterations && bestCollisions > 0; iter++)
         {
             int[] candidate = GenerateNeighbor(currentState, tabuQueue);
-            int candidateEnergy = CountCollisions(candidate);
+            int candidateCollisions = CountCollisions(candidate);
 
             // Update the best solution so far if improved.
-            if (candidateEnergy < bestCollisions)
+            if (candidateCollisions < bestCollisions)
             {
                 bestState = (int[])candidate.Clone();
-                bestCollisions = candidateEnergy;
+                bestCollisions = candidateCollisions;
             }
 
             // Accept candidate move for diversification
@@ -47,6 +54,7 @@ public class NQuuensSolverTabu(int size)
                 tabuQueue.Dequeue();
         }
         PlaceQueens(bestState);
+        return CountCollisions(bestState);
     }
 
     private int[] GenerateNeighbor(int[] current, Queue<int[]> tabuQueue)
@@ -108,36 +116,37 @@ public class NQuuensSolverTabu(int size)
     }
 }
 
-class NQueensSolverSimulatedAnnealing(int size)
+class NQueensSolverSimulatedAnnealing(int size) : IQueensSolver
 {
     public int[,] Board { get; set; } = new int[size, size];
     private readonly int n = size;
     private static readonly Random random = new();
 
-    public void Solve()
+    public int Solve()
     {
         int[] currentState = [.. Enumerable.Range(0, n)];
-        int currentEnergy = CountCollisions(currentState);
+        int currentCollision = CountCollisions(currentState);
 
         double temperature = 1.0;
         double coolingRate = 0.995;
         int iterations = 10000;
 
-        for (int i = 0; i < iterations && currentEnergy > 0; i++)
+        for (int i = 0; i < iterations && currentCollision > 0; i++)
         {
             int[] newState = GenerateNeighbor(currentState);
-            int newEnergy = CountCollisions(newState);
+            int newCollisions = CountCollisions(newState);
 
-            if (AcceptanceProbability(currentEnergy, newEnergy, temperature) > random.NextDouble())
+            if (AcceptanceProbability(currentCollision, newCollisions, temperature) > random.NextDouble())
             {
                 currentState = newState;
-                currentEnergy = newEnergy;
+                currentCollision = newCollisions;
             }
 
             temperature *= coolingRate;
         }
 
         PlaceQueens(currentState);
+        return CountCollisions(currentState);
     }
 
     private int[] GenerateNeighbor(int[] current)
@@ -149,11 +158,11 @@ class NQueensSolverSimulatedAnnealing(int size)
         return neighbor;
     }
 
-    private static double AcceptanceProbability(int energy, int newEnergy, double temperature)
+    private static double AcceptanceProbability(int oldCollision, int newCollision, double temperature)
     {
-        if (newEnergy < energy)
+        if (newCollision < oldCollision)
             return 1.0;
-        return Math.Exp((energy - newEnergy) / temperature);
+        return Math.Exp((oldCollision - newCollision) / temperature);
     }
 
     private int CountCollisions(int[] permutation)
@@ -344,13 +353,13 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 if (SolveBacktrackingUtil(board, col + 1))
                     return true;
 
-                // If placing queen in board[row][col] doesn't lead to a solution,
+                // If placing queen in board[row][col] doesn'selectedItem lead to a solution,
                 // then remove queen from board[row][col]
                 board[row, col] = 0;
             }
         }
 
-        // If queen can't be placed in any row in this column col, return false
+        // If queen can'selectedItem be placed in any row in this column col, return false
         return false;
     }
 
@@ -422,6 +431,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             ContentArea.ColumnDefinitions.Add(new ColumnDefinition());
             ContentArea.RowDefinitions.Add(new RowDefinition());
         }
+        
         // Fill the whole grid with textblocks
         for (int i = 0; i < statueNumbers; i++)
         {
@@ -446,18 +456,32 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             }
         }
 
-        Stopwatch sw = new();
-        sw.Start();
-        NQuuensSolverTabu solver = new(statueNumbers);
-        solver.Solve();
-        int[,] board = solver.Board;
-        ColorQueens(board);
-        sw.Stop();
-        TimeSpan ts = sw.Elapsed;
-        Performance = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            ts.Hours, ts.Minutes, ts.Seconds,
-            ts.Milliseconds / 10);
+        IQueensSolver solver;
+        ComboBoxItem selectedItem = (ComboBoxItem)(AlgorithmCB.SelectedItem);
 
-        //SolveBacktracking();
+        if (selectedItem.Content.ToString() != "Tabu Search")
+        {
+            solver = new NQueensSolverSimulatedAnnealing(statueNumbers);
+        }
+        else
+        {
+            solver = new NQuuensSolverTabu(statueNumbers);
+        }
+
+        int collisions = 0;
+        StringBuilder sb = new();
+        for (int i = 0; i < 100; i++)
+        {
+            int result = solver.Solve();
+            // Solve N times and count collisions
+            if (result > 0)
+            {
+                collisions += result;
+                sb.AppendLine($"Solution {i + 1} has collisions");
+            }
+
+        }
+        MessageBox.Show(sb.ToString());
+        ColorQueens(solver.Board);
     }
 }

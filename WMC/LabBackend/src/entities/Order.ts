@@ -2,35 +2,38 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
-    ManyToMany,
+    JoinColumn,
+    OneToMany,
+    CreateDateColumn,
+    ManyToOne,
     JoinTable,
 } from "typeorm";
-import { Product } from "./Product";
+import { Customer } from "./Customer";
+import { OrderItem } from "./OrderItem";
 
-@Entity()
+@Entity("orders")
 export class Order {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column()
-    firstName!: string;
+    @CreateDateColumn()
+    orderDate!: Date;
 
-    @Column()
-    lastName!: string;
+    @Column("decimal", { precision: 10, scale: 2 })
+    totalAmount!: number;
 
-    @Column()
-    street!: string;
+    @Column({
+        type: "enum",
+        enum: ["PENDING", "COMPLETED", "CANCELLED"],
+        default: "PENDING",
+    })
+    status!: "PENDING" | "COMPLETED" | "CANCELLED";
 
-    @Column()
-    postalCode!: string;
+    @ManyToOne(() => Customer, (customer) => customer.orders)
+    customer!: Customer;
 
-    @Column()
-    city!: string;
-
-    @Column({ default: "open" })
-    status!: string;
-
-    @ManyToMany(() => Product)
-    @JoinTable()
-    products!: Product[];
+    @OneToMany(() => OrderItem, (orderItem) => orderItem.order, {
+        cascade: true,
+    })
+    items!: OrderItem[];
 }
