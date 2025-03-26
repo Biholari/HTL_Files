@@ -8,6 +8,7 @@ public class VideoItem : INotifyPropertyChanged
     private string? _path;
     private string? _name;
     private string? _duration;
+    private Bitmap? _thumbnail;
 
     public string Path
     {
@@ -43,6 +44,19 @@ public class VideoItem : INotifyPropertyChanged
             if (_duration != value)
             {
                 _duration = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public Bitmap Thumbnail
+    {
+        get => _thumbnail;
+        set
+        {
+            if (_thumbnail != value)
+            {
+                _thumbnail = value;
                 OnPropertyChanged();
             }
         }

@@ -274,7 +274,6 @@ public partial class MainWindow : RibbonWindow
         }
     }
 
-
     private void FontFamilyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (UserTextBox != null)

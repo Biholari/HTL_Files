@@ -36,6 +36,7 @@
             <ComboBox x:Name="AlgorithmCB" SelectedIndex="0">
                 <ComboBoxItem Content="Tabu Search" />
                 <ComboBoxItem Content="Simulated Anealing" />
+                <ComboBoxItem Content="Genetic" />
             </ComboBox>
             <Button
                 Margin="10"

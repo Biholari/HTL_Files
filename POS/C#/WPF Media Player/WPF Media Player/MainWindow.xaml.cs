@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,13 +47,9 @@ public partial class MainWindow : Window
 
             if (HistoryItems.Contains(video))
             {
-                HistoryItems.Remove(video);
-                HistoryItems.Insert(0, video);
+                HistoryItems.Remove(video); 
             }
-            else
-            {
-                HistoryItems.Insert(0, video);
-            }
+            HistoryItems.Insert(0, video);
         }
         catch (Exception ex)
         {
@@ -303,7 +300,7 @@ public partial class MainWindow : Window
         System.Windows.Forms.DialogResult result = dialog.ShowDialog();
         if (result == System.Windows.Forms.DialogResult.OK)
         {
-            string[] videoExtensions = { ".mp4", ".avi", ".mkv", ".wmv", ".mov", ".mpg", ".mpeg" };
+            string[] videoExtensions = [".mp4", ".avi", ".mkv", ".wmv", ".mov", ".mpg", ".mpeg"];
             string[] files = Directory.GetFiles(dialog.SelectedPath);
 
             foreach (string file in files)

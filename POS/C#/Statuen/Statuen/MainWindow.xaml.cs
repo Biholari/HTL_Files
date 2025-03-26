@@ -15,7 +15,211 @@ public interface IQueensSolver
     public int Solve();
 }
 
-public class NQuuensSolverTabu(int size) : IQueensSolver
+public class NQueensSolverGenetic(int size) : IQueensSolver
+{
+    public int[,] Board { get; set; } = new int[size, size];
+
+    public int Solve()
+    {
+        int populationSize = 100;
+        int generationsCount = 1000;
+        float mutationRate = 0.2f;
+        float crossoverRate = 0.7f;
+        int tournamentSize = 5;
+        int eliteCount = 2;
+
+        // Initialize population with random permutations
+        var population = new List<int[]>(populationSize);
+        for (int i = 0; i < populationSize; i++)
+        {
+            population.Add(GenerateRandomPermutation());
+        }
+
+        int[] bestSolution = [];
+        float bestFitness = 0;
+
+        // Main genetic algorithm loop
+        for (int generation = 0; generation < generationsCount; generation++)
+        {
+            // Calculate fitness for each individual
+            List<(int[] chromosome, float fitness)> populationWithFitness = [.. population.Select(p => (p, Fitness(p)))];
+
+            // Find the best solution in this generation
+            var (chromosome, fitness) = populationWithFitness.OrderByDescending(p => p.fitness).First();
+            if (bestSolution == null || fitness > bestFitness)
+            {
+                bestSolution = (int[])chromosome.Clone();
+                bestFitness = fitness;
+
+                // If we found a perfect solution, we can stop
+                if (Math.Abs(bestFitness - 1.0f) < 0.0001f)
+                    break;
+            }
+
+            // Create a new population
+            var newPopulation = new List<int[]>(populationSize);
+
+            // Add elite individuals directly to the new population
+            newPopulation.AddRange(populationWithFitness
+                .OrderByDescending(p => p.fitness)
+                .Take(eliteCount)
+                .Select(p => (int[])p.chromosome.Clone()));
+
+            // Fill the rest of the population with offspring
+            while (newPopulation.Count < populationSize)
+            {
+                // Select parents using tournament selection
+                int[] parent1 = TournamentSelection(populationWithFitness, tournamentSize);
+                int[] parent2 = TournamentSelection(populationWithFitness, tournamentSize);
+
+                // Create offspring through crossover and mutation
+                int[] child;
+                if (random.NextDouble() < crossoverRate)
+                {
+                    child = Crossover(parent1, parent2);
+                }
+                else
+                {
+                    child = (int[])parent1.Clone();
+                }
+
+                if (random.NextDouble() < mutationRate)
+                {
+                    Mutate(child);
+                }
+
+                newPopulation.Add(child);
+            }
+
+            // Replace old population with new one
+            population = newPopulation;
+        }
+
+        // Place the best solution on the board
+        PlaceQueens(bestSolution);
+
+        // Return collisions (0 means a perfect solution)
+        return CountCollisions(bestSolution);
+    }
+
+    private int[] GenerateRandomPermutation()
+    {
+        int[] permutation = Enumerable.Range(0, Board.GetLength(0)).ToArray();
+        // Fisher-Yates shuffle
+        for (int i = permutation.Length - 1; i > 0; i--)
+        {
+            int j = random.Next(i + 1);
+            (permutation[i], permutation[j]) = (permutation[j], permutation[i]);
+        }
+        return permutation;
+    }
+
+    private static int[] TournamentSelection(List<(int[] chromosome, float fitness)> populationWithFitness, int tournamentSize)
+    {
+        // Select random individuals for the tournament
+        var tournament = Enumerable.Range(0, tournamentSize)
+            .Select(_ => populationWithFitness[random.Next(populationWithFitness.Count)])
+            .ToList();
+
+        // Return the fittest individual from the tournament
+        return (int[])tournament.OrderByDescending(p => p.fitness).First().chromosome.Clone();
+    }
+
+    private static int[] Crossover(int[] parent1, int[] parent2)
+    {
+        int n = parent1.Length;
+        int[] child = new int[n];
+        Array.Fill(child, -1);  // Mark all positions as unfilled
+
+        // Select a random segment from parent1
+        int start = random.Next(n);
+        int length = random.Next(1, n);
+        int end = (start + length) % n;
+
+        // Copy segment from parent1 to child
+        if (start < end)
+        {
+            Array.Copy(parent1, start, child, start, length);
+        }
+        else
+        {
+            Array.Copy(parent1, start, child, start, n - start);
+            Array.Copy(parent1, 0, child, 0, end);
+        }
+
+        // Fill remaining positions with values from parent2 in order
+        int currentPos = end;
+        for (int i = 0; i < n; i++)
+        {
+            // If this value from parent2 is not already in the child
+            if (!child.Contains(parent2[i]))
+            {
+                // Find the next unfilled position
+                while (child[currentPos] != -1)
+                {
+                    currentPos = (currentPos + 1) % n;
+                }
+                child[currentPos] = parent2[i];
+            }
+        }
+
+        return child;
+    }
+
+    private static void Mutate(int[] chromosome)
+    {
+        // Swap mutation - swap two random positions
+        int i = random.Next(chromosome.Length);
+        int j = random.Next(chromosome.Length);
+        (chromosome[i], chromosome[j]) = (chromosome[j], chromosome[i]);
+    }
+
+    private static int CountCollisions(int[] permutation)
+    {
+        int collisions = 0;
+        int n = permutation.Length;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i + 1; j < n; j++)
+            {
+                if (Math.Abs(i - j) == Math.Abs(permutation[i] - permutation[j]))
+                    collisions++;
+            }
+        }
+        return collisions;
+    }
+
+    private void PlaceQueens(int[] permutation)
+    {
+        int n = permutation.Length;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Board[i, j] = (j == permutation[i]) ? 1 : 0;
+            }
+        }
+    }
+
+    private static readonly Random random = new();
+
+    private static float Fitness(int[] permutation)
+    {
+        int n = permutation.Length;
+        int collisions = 0;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i + 1; j < n; j++)
+            {
+                if (Math.Abs(i - j) == Math.Abs(permutation[i] - permutation[j]))
+                    collisions++;
+            }
+        }
+        return 1.0f / (1 + collisions);
+    }
+}
+
+public class NQueensSolverTabu(int size) : IQueensSolver
 {
     public int[,] Board { get; set; } = new int[size, size];
     private readonly int n = size;
@@ -211,7 +415,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         set { statueNumbers = value; NotifyPropertyChanged(); }
     }
 
-    private string performance;
+    private string performance = string.Empty;
     public string Performance
     {
         get { return performance; }
@@ -459,13 +663,17 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         IQueensSolver solver;
         ComboBoxItem selectedItem = (ComboBoxItem)(AlgorithmCB.SelectedItem);
 
-        if (selectedItem.Content.ToString() != "Tabu Search")
+        if (selectedItem.Content.ToString() == "Simulated Anealing")
         {
             solver = new NQueensSolverSimulatedAnnealing(statueNumbers);
         }
+        else if (selectedItem.Content.ToString() == "Tabu Search")
+        {
+            solver = new NQueensSolverTabu(statueNumbers);
+        }
         else
         {
-            solver = new NQuuensSolverTabu(statueNumbers);
+            solver = new NQueensSolverGenetic(statueNumbers);
         }
 
         int collisions = 0;
