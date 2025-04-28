@@ -11,18 +11,18 @@ GO
 SELECT * FROM sys.backup_devices;
 
 
--- Aufgabe A4: Vollständige Sicherung durchführen
+-- Aufgabe A4: Vollstï¿½ndige Sicherung durchfï¿½hren
 BACKUP DATABASE Catalog TO BakCatalog WITH NAME = 'Full_MO';
 GO
 
 BACKUP LOG Catalog TO DISK = 'C:\Users\fabia\Documents\Catalog Backup\catalog_log.bak' WITH NORECOVERY;
 GO
 
--- Liste der Sicherungssätze anzeigen
+-- Liste der Sicherungssï¿½tze anzeigen
 RESTORE HEADERONLY FROM BakCatalog;
 GO
 
--- Aufgabe A5: Differenzielle Sicherung nach Dateneinfügung
+-- Aufgabe A5: Differenzielle Sicherung nach Dateneinfï¿½gung
 USE Catalog;
 GO
 INSERT INTO Parts VALUES ('T7', 'Feder', 'lila', 2.00, 'Paris');
@@ -32,18 +32,18 @@ GO
 USE master;
 GO
 
--- Vergleichen der Dateigröße mit der vorherigen Sicherung
+-- Vergleichen der Dateigrï¿½ï¿½e mit der vorherigen Sicherung
 RESTORE HEADERONLY FROM DISK = 'C:\Users\fabia\Documents\Catalog Backup\catalog_diff.bak';
 GO
 
--- Aufgabe A6: Wiederherstellung aus vollständiger und differenzieller Sicherung
+-- Aufgabe A6: Wiederherstellung aus vollstï¿½ndiger und differenzieller Sicherung
 USE Catalog;
 GO
 drop table SupplierParts;
 USE master;
 GO
 
--- Wiederherstellung der vollständigen Sicherung
+-- Wiederherstellung der vollstï¿½ndigen Sicherung
 RESTORE DATABASE Catalog FROM BakCatalog WITH REPLACE, NORECOVERY;
 GO
 
@@ -55,7 +55,7 @@ GO
 RESTORE LOG Catalog FROM DISK = 'C:\Users\fabia\Documents\Catalog Backup\catalog_log.bak' WITH RECOVERY;
 GO
 
--- Überprüfen, ob die Daten vorhanden sind
+-- ï¿½berprï¿½fen, ob die Daten vorhanden sind
 USE Catalog;
 GO
 SELECT * FROM SupplierParts
@@ -63,16 +63,16 @@ USE master;
 GO
 
 
--- Aufgabe A7: Wiederherstellung über SSMS
+-- Aufgabe A7: Wiederherstellung ï¿½ber SSMS
 DROP DATABASE IF EXISTS Catalog;
 GO
 SELECT name FROM sys.databases;
 
--- Datenbank wiederherstellen über SSMS und überprüfen
+-- Datenbank wiederherstellen ï¿½ber SSMS und ï¿½berprï¿½fen
 SELECT * FROM sys.tables;
 
 
--- Aufgabe A8: Tabelleninhalt löschen und wiederherstellen
+-- Aufgabe A8: Tabelleninhalt lï¿½schen und wiederherstellen
 USE Catalog;
 GO
 TRUNCATE TABLE SupplierParts;
@@ -101,7 +101,7 @@ USE master;
 go
 
 
--- Aufgabe A10: Datenaustausch mit Mitschüler
+-- Aufgabe A10: Datenaustausch mit Mitschï¿½ler
 CREATE TABLE Matrikelnummer (Name VARCHAR(50));
 INSERT INTO Matrikelnummer VALUES ('Max Mustermann');
 SELECT * FROM Matrikelnummer;
@@ -110,9 +110,17 @@ SELECT * FROM Matrikelnummer;
 BACKUP DATABASE Catalog TO DISK = 'C:\Users\fabia\Documents\Catalog Backup\exchange.bak' WITH INIT;
 GO
 
--- Wiederherstellen der Mitschüler-Datenbank
-RESTORE DATABASE CatalogCopy FROM DISK = 'C:\Users\fabia\Documents\Catalog Backup\exchange.bak' WITH RECOVERY;
+-- Wiederherstellen der Mitschï¿½ler-Datenbank
+RESTORE FILELISTONLY FROM DISK = 'C:\Users\fabia\Documents\Catalog Backup\exchange.bak';
 GO
+
+-- Then restore with MOVE to specify new file locations
+RESTORE DATABASE CatalogCopy FROM DISK = 'C:\Users\fabia\Documents\Catalog Backup\exchange.bak'
+WITH MOVE 'catalog' TO 'C:\Users\fabia\Documents\Catalog Backup\CatalogCopy.mdf',
+     MOVE 'catalog_log' TO 'C:\Users\fabia\Documents\Catalog Backup\CatalogCopy.ldf',
+     RECOVERY;
+GO
+
 SELECT name FROM sys.databases;
 -- Screenshot erstellen: a10_2.png
 SELECT * FROM Matrikelnummer;
@@ -139,15 +147,31 @@ GO
 RESTORE HEADERONLY FROM DISK = 'C:\sqlbak\testdb.bak';
 -- Screenshot erstellen: b03_1.png
 
--- Füllen der Datenbank mit Testdaten
-INSERT INTO dbo.LogTest (SomeID, SomeInt, SomeLetters2, SomeMoney, SomeDate, SomeHex12)
-SELECT TOP 1000000 IDENTITY(INT, 1, 1), ABS(CHECKSUM(NEWID())) % 50000 + 1,
-CHAR(ABS(CHECKSUM(NEWID())) % 26 + 65) + CHAR(ABS(CHECKSUM(NEWID())) % 26 + 65),
-CAST(ABS(CHECKSUM(NEWID())) % 10000 / 100.0 AS MONEY),
-CAST(RAND(CHECKSUM(NEWID())) * 3653.0 + 36524.0 AS DATETIME),
-RIGHT(NEWID(), 12)
-INTO dbo.LogTest FROM sys.all_columns ac1 CROSS JOIN sys.all_columns ac2;
+-- Fï¿½llen der Datenbank mit Testdaten
+USE testdb;
 GO
+
+CREATE TABLE dbo.LogTest (
+    SomeID INT IDENTITY(1,1) PRIMARY KEY,
+    SomeInt INT,
+    SomeLetters2 CHAR(2),
+    SomeMoney MONEY,
+    SomeDate DATETIME,
+    SomeHex12 CHAR(12)
+);
+GO
+
+-- Then fill it with data
+INSERT INTO dbo.LogTest (SomeInt, SomeLetters2, SomeMoney, SomeDate, SomeHex12)
+SELECT TOP 1000000 
+    ABS(CHECKSUM(NEWID())) % 50000 + 1,
+    CHAR(ABS(CHECKSUM(NEWID())) % 26 + 65) + CHAR(ABS(CHECKSUM(NEWID())) % 26 + 65),
+    CAST(ABS(CHECKSUM(NEWID())) % 10000 / 100.0 AS MONEY),
+    CAST(RAND(CHECKSUM(NEWID())) * 3653.0 + 36524.0 AS DATETIME),
+    RIGHT(NEWID(), 12)
+FROM sys.all_columns ac1 CROSS JOIN sys.all_columns ac2;
+GO
+
 SELECT COUNT(*) FROM dbo.LogTest;
 -- Screenshot erstellen: b04_1.png
 
@@ -155,7 +179,7 @@ BACKUP LOG testdb TO DISK = 'C:\sqlbak\testdb.trn' WITH INIT;
 GO
 -- Screenshot erstellen: b05_1.png
 
--- Aufgabe C1-C8: Vollständiges Backupszenario
+-- Aufgabe C1-C8: Vollstï¿½ndiges Backupszenario
 BACKUP DATABASE Catalog TO DISK = 'C:\backup\catalog_full.bak' WITH INIT, NAME = 'CATALOG_FULL_WE';
 GO
 
@@ -166,9 +190,9 @@ BACKUP LOG Catalog TO DISK = 'C:\backup\catalog_mi_log.bak' WITH INIT, NAME = 'C
 GO
 
 -- Simulierte Wiederherstellung nach Datenverlust
-RESTORE DATABASE Catalog FROM DISK = 'C:\backup\catalog_full.bak' WITH NORECOVERY;
+RESTORE DATABASE Catalog FROM DISK = 'C:\backup\catalog_full.bak' WITH REPLACE, NORECOVERY;
 GO
-RESTORE DATABASE Catalog FROM DISK = 'C:\backup\catalog_diff.bak' WITH FILE=2, NORECOVERY;
+RESTORE DATABASE Catalog FROM DISK = 'C:\backup\catalog_diff.bak' WITH NORECOVERY;
 GO
 RESTORE LOG Catalog FROM DISK = 'C:\backup\catalog_mi_log.bak' WITH RECOVERY;
 GO

@@ -70,6 +70,7 @@
                 <Separator />
                 <MenuItem Command="ApplicationCommands.Open" Header="Öffnen" />
                 <MenuItem Command="ApplicationCommands.Save" Header="Speichern" />
+                <MenuItem Command="ApplicationCommands.Delete" Header="Löschen" />
                 <Separator />
                 <MenuItem Command="ApplicationCommands.Print" Header="Drucken" />
                 <Separator />
@@ -151,7 +152,7 @@
                     Grid.Column="5"
                     Maximum="100"
                     Minimum="1"
-                    Value="1" />
+                    Value="{Binding Amount}" />
                 <Button
                     Grid.Column="6"
                     Click="AddButton_Click"

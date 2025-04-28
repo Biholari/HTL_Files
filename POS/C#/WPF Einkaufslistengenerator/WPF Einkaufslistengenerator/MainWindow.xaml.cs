@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Xml.Serialization;
 using LINQtoCSV;
 using Microsoft.Win32;
@@ -19,13 +20,19 @@ public partial class MainWindow : Window
     public ObservableCollection<ProductGroup> GroupedProducts { get; set; } = [];
     public ObservableCollection<string> Groups { get; set; } = [];
 
+    private int amount = 1;
+    public int Amount
+    {
+        get { return amount; }
+        set { amount = value; }
+    }
+
     public MainWindow()
     {
         InitializeComponent();
         DataContext = this;
         
         LoadProducts();
-        RefreshTreeView();
     }
 
     private void LoadProducts()
@@ -83,7 +90,7 @@ public partial class MainWindow : Window
 
         foreach (var gruppe in gruppenListe)
         {
-            var produktGruppe = new ProductGroup() { Name= gruppe.Key };
+            var produktGruppe = new ProductGroup() { Name = gruppe.Key };
             foreach (var item in gruppe.OrderBy(i => i.Name))
             {
                 produktGruppe.Products.Add(item);
@@ -94,7 +101,7 @@ public partial class MainWindow : Window
         trvEinkaufsliste.ItemsSource = GroupedProducts;
     }
 
-    private void OpenBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    private void OpenBinding_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         OpenFileDialog openFileDialog = new()
         {
@@ -147,7 +154,7 @@ public partial class MainWindow : Window
         RefreshTreeView();
     }
 
-    private void SaveBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    private void SaveBinding_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         var saveFileDialog = new SaveFileDialog
         {
@@ -174,12 +181,12 @@ public partial class MainWindow : Window
         }
     }
 
-    private void CmbProduktgruppe_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    private void CmbProduktgruppe_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         RefreshProducts();
     }
 
-    private void TxtSuche_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    private void TxtSuche_TextChanged(object sender, TextChangedEventArgs e)
     {
         string searchText = txtSuche.Text.ToLower();
 
@@ -229,7 +236,7 @@ public partial class MainWindow : Window
             return;
         }
 
-        int amount = numAnzahl.Value ?? 0;
+        productName = productName.Trim();
 
         var existingProduct = Products.FirstOrDefault(p => p.Name == productName);
 
@@ -239,13 +246,13 @@ public partial class MainWindow : Window
             {
                 Name = productName,
                 Group = productGroup,
-                Amount = amount
+                Amount = Amount
             };
             Products.Insert(0, newProduct);
         }
         else
         {
-            existingProduct.Amount += 1;
+            existingProduct.Amount += Amount;
 
             int index = Products.IndexOf(existingProduct);
             Products.Move(index, 0);
@@ -255,13 +262,13 @@ public partial class MainWindow : Window
         RefreshTreeView();
     }
 
-    private void NewBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    private void NewBinding_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         Products.Clear();
         RefreshTreeView();
     }
 
-    private void PrintBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    private void PrintBinding_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         try
         {
@@ -291,7 +298,7 @@ public partial class MainWindow : Window
                 };
                 document.Blocks.Add(dateParagraph);
 
-                document.Blocks.Add(new Paragraph(new Run(" "))); // Leerzeile
+                document.Blocks.Add(new Paragraph(new Run("\n")));
 
                 // Einkaufsliste nach Gruppen gruppieren
                 var gruppenListe = Products
@@ -316,7 +323,7 @@ public partial class MainWindow : Window
 
                     // Definiere zwei Spalten
                     table.Columns.Add(new TableColumn() { Width = new GridLength(50) });
-                    table.Columns.Add(new TableColumn() { Width = new GridLength(1, GridUnitType.Star) });
+                    table.Columns.Add(new TableColumn() { Width = new GridLength(50, GridUnitType.Auto) });
 
                     // Füge für jedes Produkt eine Zeile hinzu
                     foreach (var item in gruppe.OrderBy(i => i.Name))
@@ -350,13 +357,17 @@ public partial class MainWindow : Window
         }
     }
 
-    private void CloseBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    private void CloseBinding_Executed(object sender, ExecutedRoutedEventArgs e)
     {
         Close();
     }
 
-    private void DeleteBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+    private void DeleteBinding_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-
+        if (lstEinkaufsliste.SelectedItem is Product selectedProduct)
+        {
+            Products.Remove(selectedProduct);
+            RefreshTreeView();
+        }
     }
 }
