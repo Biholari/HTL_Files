@@ -11,10 +11,10 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel
@@ -22,26 +22,39 @@
             Grid.Column="0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
-            <Label Content="Name" />
-            <TextBox Text="{Binding NewWaldwunder.Name}" />
+            <Label Content="Name"/>
+            <TextBox Text="{Binding NewWaldwunder.Name}"/>
 
-            <Label Content="Beschreibung" />
-            <TextBox Text="{Binding NewWaldwunder.Description}" />
+            <Label Content="Beschreibung"/>
+            <TextBox Text="{Binding NewWaldwunder.Description}"/>
 
-            <Label Content="Provinz" />
-            <TextBox Text="{Binding NewWaldwunder.Province}" />
+            <Label Content="Provinz"/>
+            <TextBox Text="{Binding NewWaldwunder.Province}"/>
 
-            <Label Content="Breitengrad" />
-            <TextBox Text="{Binding NewWaldwunder.Latitude}" />
+            <Label Content="Breitengrad"/>
+            <TextBox Text="{Binding NewWaldwunder.Latitude}"/>
 
-            <Label Content="Längengrad" />
-            <TextBox Text="{Binding NewWaldwunder.Longitude}" />
+            <Label Content="Längengrad"/>
+            <TextBox Text="{Binding NewWaldwunder.Longitude}"/>
 
-            <Label Content="Typ" />
-            <TextBox Text="{Binding NewWaldwunder.Type}" />
+            <Label Content="Typ"/>
+            <TextBox Text="{Binding NewWaldwunder.Type}"/>
 
-            <Label Content="Wahlen" />
-            <TextBox Text="{Binding NewWaldwunder.Votes}" />
+            <Label Content="Wahlen"/>
+            <TextBox Text="{Binding NewWaldwunder.Votes}"/>
+
+            <Label Content="Bilder"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Bilder auswählen"
+                        Click="SelectImages_Click"
+                        Margin="0,0,10,0"/>
+                <Button Content="Ausgewähltes Bild entfernen"
+                        Click="RemoveSelectedImage_Click"/>
+            </StackPanel>
+            <ListBox x:Name="ImagesListBox"
+                    Height="100"
+                    Width="300"
+                    Margin="0,5,0,5"/>
 
             <StackPanel
                 Grid.Row="2"
@@ -53,11 +66,11 @@
                     Width="60"
                     Margin="0,0,10,0"
                     Click="OkButton_Click"
-                    Content="OK" />
+                    Content="OK"/>
                 <Button
                     Width="60"
                     Click="CancelButton_Click"
-                    Content="Abbrechen" />
+                    Content="Abbrechen"/>
             </StackPanel>
         </StackPanel>
     </Grid>

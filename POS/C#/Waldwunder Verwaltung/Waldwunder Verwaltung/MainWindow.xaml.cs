@@ -28,18 +28,19 @@ public partial class MainWindow : Window
         }
     }
 
-    private void NewWaldwunder_Click(object sender, RoutedEventArgs e)
+    private async void NewWaldwunder_Click(object sender, RoutedEventArgs e)
     {
         AddWaldwunderDialog dialog = new();
-
         dialog.ShowDialog();
-
         if (dialog.DialogResult == true)
         {
             Waldwunder newWaldwunder = dialog.NewWaldwunder;
+            var bilder = dialog.GetBilderToSave();
             try
             {
-                WaldwunderDataService.AddNewWaldwunder(newWaldwunder);
+                // Waldwunder speichern
+                await WaldwunderDataService.AddNewWaldwunderWithBilderAsync(newWaldwunder, bilder);
+                LoadData();
             }
             catch (Exception error)
             {
@@ -56,5 +57,30 @@ public partial class MainWindow : Window
     private void ExitMenu_Click(object sender, RoutedEventArgs e)
     {
 
+    }
+
+    private Waldwunder? _selectedWaldwunder;
+    public Waldwunder? SelectedWaldwunder
+    {
+        get => _selectedWaldwunder;
+        set
+        {
+            _selectedWaldwunder = value;
+            // Optional: PropertyChanged-Event, falls MVVM genutzt wird
+        }
+    }
+
+    private async void ShowSelectedWaldwunderDetails()
+    {
+        if (SelectedWaldwunder == null)
+            return;
+        var bilder = await WaldwunderDataService.GetBildersForWaldwunderAsync(SelectedWaldwunder.Id);
+        var dialog = new WaldwunderDetailsDialog(SelectedWaldwunder, bilder);
+        dialog.ShowDialog();
+    }
+
+    private void ShowDetailsButton_Click(object sender, RoutedEventArgs e)
+    {
+        ShowSelectedWaldwunderDetails();
     }
 }

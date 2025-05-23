@@ -11,18 +11,18 @@ namespace Waldwunder_Verwaltung.Views;
 /// <summary>
 /// Interaction logic for MapControl.xaml
 /// </summary>
-public partial class MapControl : Window
+public partial class MapControl : UserControl
 {
     private const float MAP_MIN_LONGITUDE = 9.362383f;
     private const float MAP_MAX_LONGITUDE = 17.231941f;
     private const float MAP_MIN_LATITUDE = 46.308597f;
     private const float MAP_MAX_LATITUDE = 49.063175f;
 
-    private readonly Dictionary<Ellipse, int> _markerToWonderId = [];
+    private readonly Dictionary<Ellipse, int> _markerToWonderId = new();
 
-    public event EventHandler<int> MarkerClicked;
+    public event EventHandler<int>? MarkerClicked;
 
-    private ObservableCollection<DataModel.Waldwunder> _wonders;
+    private ObservableCollection<DataModel.Waldwunder> _wonders = new();
 
     public ObservableCollection<DataModel.Waldwunder> Wonders
     {
@@ -34,12 +34,16 @@ public partial class MapControl : Window
         }
     }
 
+    // Add fields for XAML elements
+    // private Canvas mapCanvas => (Canvas)FindName("mapCanvas");
+    // private Image mapImage => (Image)FindName("mapImage");
+
     public MapControl()
     {
         InitializeComponent();
-
-        mapImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/map.png"));
-
+        var img = mapImage;
+        if (img != null)
+            img.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/map.png"));
         DataContextChanged += MapControl_DataContextChanged;
         SizeChanged += MapControl_SizedChanged;
     }
@@ -54,7 +58,6 @@ public partial class MapControl : Window
         if (e.NewValue is MainViewModel viewMode)
         {
             Wonders = viewMode.Wonders;
-
             Wonders.CollectionChanged += (s, args) => UpdateMarkers();
         }
     }

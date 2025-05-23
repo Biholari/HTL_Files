@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "WPF Chat\Server.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{89A38CE8-6BF0-4A0A-988A-A5990EA95FFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkLib", "NetworkLib\NetworkLib.csproj", "{705542B3-73A5-3614-136C-3151DAA709C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{89A38CE8-6BF0-4A0A-988A-A5990EA95FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89A38CE8-6BF0-4A0A-988A-A5990EA95FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89A38CE8-6BF0-4A0A-988A-A5990EA95FFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{705542B3-73A5-3614-136C-3151DAA709C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705542B3-73A5-3614-136C-3151DAA709C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705542B3-73A5-3614-136C-3151DAA709C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705542B3-73A5-3614-136C-3151DAA709C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
