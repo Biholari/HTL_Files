@@ -35,7 +35,13 @@ public partial class WaldwunderDetailsDialog : Window
         var path = Path.Combine(Directory.GetCurrentDirectory(), "Images", fileName);
         if (File.Exists(path))
         {
-            ImagePreview.Source = new BitmapImage(new System.Uri(path));
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.UriSource = new System.Uri(path);
+            bitmap.EndInit();
+            bitmap.Freeze();
+            ImagePreview.Source = bitmap;
         }
         else
         {

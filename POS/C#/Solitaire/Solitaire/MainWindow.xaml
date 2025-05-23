@@ -6,20 +6,7 @@
         xmlns:local="clr-namespace:Solitaire"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid PreviewMouseMove="Grid_PreviewMouseMove" PreviewDragOver="Grid_PreviewDragOver">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Border BorderBrush="Black" Background="Beige" BorderThickness="2" Grid.Column="0" Grid.Row="0" AllowDrop="True" Drop="Border_Drop"/>
-        <Border BorderBrush="Black" Background="LightGray" BorderThickness="2" Grid.Column="1" Grid.Row="0"/>
-        <Border BorderBrush="Black" Background="Beige" BorderThickness="2" Grid.Column="0" Grid.Row="1" AllowDrop="True" Drop="Border_Drop"/>
-        <Border BorderBrush="Black" Background="Beige" BorderThickness="2" Grid.Column="1" Grid.Row="1" AllowDrop="True" Drop="Border_Drop"/>
-        <Ellipse Stroke="Red" StrokeThickness="2" Fill="Red" PreviewMouseLeftButtonDown="Ellipse_MouseLeftButtonDown"></Ellipse>
-
+    <Grid x:Name="MainGrid" PreviewMouseMove="Grid_PreviewMouseMove" PreviewDragOver="Grid_PreviewDragOver">
+        <!-- Das Spielfeld wird dynamisch im Code erzeugt -->
     </Grid>
 </Window>

@@ -34,10 +34,6 @@ public partial class MapControl : UserControl
         }
     }
 
-    // Add fields for XAML elements
-    // private Canvas mapCanvas => (Canvas)FindName("mapCanvas");
-    // private Image mapImage => (Image)FindName("mapImage");
-
     public MapControl()
     {
         InitializeComponent();
@@ -116,5 +112,23 @@ public partial class MapControl : UserControl
         double canvasY = relY * mapCanvas.ActualHeight;
 
         return new Point(canvasX, canvasY);
+    }
+
+    public void SelectMarkerByWonderId(int wonderId)
+    {
+        // Find the marker for the given wonderId and visually highlight it
+        foreach (var kvp in _markerToWonderId)
+        {
+            if (kvp.Value == wonderId)
+            {
+                kvp.Key.Stroke = Brushes.Yellow;
+                kvp.Key.StrokeThickness = 4;
+            }
+            else
+            {
+                kvp.Key.Stroke = Brushes.White;
+                kvp.Key.StrokeThickness = 2;
+            }
+        }
     }
 }

@@ -23,6 +23,60 @@ namespace Solitaire
         public MainWindow()
         {
             InitializeComponent();
+            game = new SolitairGame();
+            CreateBoardUI();
+        }
+
+        private SolitairGame game;
+
+        private void CreateBoardUI()
+        {
+            // Entferne evtl. vorhandene Kinder
+            MainGrid.Children.Clear();
+            MainGrid.RowDefinitions.Clear();
+            MainGrid.ColumnDefinitions.Clear();
+
+            int size = game.Size;
+            for (int i = 0; i < size; i++)
+            {
+                MainGrid.RowDefinitions.Add(new RowDefinition());
+                MainGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    // using Solitaire; ist bereits vorhanden, daher FieldState direkt verwenden
+                    if (game.Board[x, y] == Solitaire.FieldState.None) continue;
+                    Border border = new Border
+                    {
+                        BorderBrush = Brushes.Black,
+                        BorderThickness = new Thickness(1),
+                        Background = Brushes.Beige,
+                        AllowDrop = true
+                    };
+                    border.Drop += Border_Drop;
+                    Grid.SetRow(border, y);
+                    Grid.SetColumn(border, x);
+                    MainGrid.Children.Add(border);
+
+                    if (game.Board[x, y] == Solitaire.FieldState.Peg)
+                    {
+                        Ellipse peg = new Ellipse
+                        {
+                            Stroke = Brushes.Red,
+                            StrokeThickness = 2,
+                            Fill = Brushes.Red,
+                            Tag = new Point(x, y)
+                        };
+                        peg.PreviewMouseLeftButtonDown += Ellipse_MouseLeftButtonDown;
+                        Grid.SetRow(peg, y);
+                        Grid.SetColumn(peg, x);
+                        MainGrid.Children.Add(peg);
+                    }
+                }
+            }
         }
 
         Ellipse moving = null;

@@ -20,16 +20,16 @@
         <Menu Grid.Row="0">
             <MenuItem Header="Datei">
                 <MenuItem Command="{Binding NewWonderCommand}"
-                        Header="Neues Waldwunder"/>
+                          Header="Neues Waldwunder"/>
                 <Separator/>
                 <MenuItem Click="ExitMenu_Click"
-                        Header="Beenden"/>
+                          Header="Beenden"/>
             </MenuItem>
         </Menu>
 
         <!--  Search controls  -->
         <StackPanel Grid.Row="1"
-                Margin="10">
+                    Margin="10">
             <TextBlock
                 Margin="0,0,0,5"
                 FontWeight="Bold"
@@ -109,7 +109,7 @@
 
         <!--  Map and results view  -->
         <Grid Grid.Row="2"
-                Margin="10">
+              Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -145,7 +145,7 @@
                         <DataTemplate>
                             <StackPanel Margin="5">
                                 <TextBlock FontWeight="Bold"
-                                        Text="{Binding Name}"/>
+                                           Text="{Binding Name}"/>
                                 <TextBlock
                                     MaxHeight="60"
                                     Text="{Binding Description}"
@@ -160,7 +160,7 @@
                     Grid.Row="1"
                     Margin="0,5,0,0"
                     Content="Anzeigen"
-                    Click="ShowDetailsButton_Click"/>
+                    Command="{Binding ShowWonderDetailsCommand}"/>
             </Grid>
         </Grid>
     </Grid>

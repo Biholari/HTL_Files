@@ -14,8 +14,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = this;
-        LoadData();
+        DataContext = new MainViewModel();
     }
 
     private async void LoadData()
@@ -82,5 +81,31 @@ public partial class MainWindow : Window
     private void ShowDetailsButton_Click(object sender, RoutedEventArgs e)
     {
         ShowSelectedWaldwunderDetails();
+    }
+
+    protected override void OnContentRendered(EventArgs e)
+    {
+        base.OnContentRendered(e);
+        // Marker-Click-Event verbinden
+        this.mapControl.MarkerClicked += MapControl_MarkerClicked;
+        // ListBox-Auswahl synchronisiert Marker
+        if (DataContext is MainViewModel vm)
+        {
+            vm.PropertyChanged += (s, args) =>
+            {
+                if (args.PropertyName == nameof(vm.SelectedWonder) && vm.SelectedWonder != null)
+                {
+                    this.mapControl.SelectMarkerByWonderId((int)vm.SelectedWonder.Id);
+                }
+            };
+        }
+    }
+
+    private void MapControl_MarkerClicked(object? sender, int wonderId)
+    {
+        if (DataContext is MainViewModel vm)
+        {
+            vm.SelectWonderByIdOnMap(wonderId);
+        }
     }
 }

@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <None Include="Images\**\*.*">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
     <Resource Include="Resources\map.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

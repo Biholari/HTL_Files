@@ -98,7 +98,16 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void ShowNewWonderDialog()
     {
-        // TODO: Dialog-Logik für neues Waldwunder
+        var dialog = new AddWaldwunderDialog();
+        if (dialog.ShowDialog() == true)
+        {
+            var newWaldwunder = dialog.NewWaldwunder;
+            var bilder = dialog.GetBilderToSave();
+            // Save to DB
+            WaldwunderDataService.AddNewWaldwunderWithBilderAsync(newWaldwunder, bilder).Wait();
+            // Refresh Wonders
+            _ = LoadAllWondersAsync();
+        }
     }
 
     private async Task SearchByKeywordAsync()
@@ -130,7 +139,9 @@ public class MainViewModel : INotifyPropertyChanged
     private void ShowWonderDetails()
     {
         if (SelectedWonder == null) return;
-        // TODO: Dialog-Logik für Details
+        var bilder = WaldwunderDataService.GetBildersForWaldwunderAsync(SelectedWonder.Id).Result;
+        var dialog = new WaldwunderDetailsDialog(SelectedWonder, bilder);
+        dialog.ShowDialog();
     }
 
     #region INotifyPropertyChanged

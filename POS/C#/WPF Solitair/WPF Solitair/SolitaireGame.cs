@@ -112,163 +112,71 @@ class SolitaireGame
 
     private void SetupCrossBoard()
     {
-        // Middle
-        for (int r = 3; r < 6; r++)
+        // Classic English cross (standard)
+        for (int r = 0; r < 9; r++)
         {
-            for (int c = 3; c < 6; c++)
+            for (int c = 0; c < 9; c++)
             {
-                _board[r, c] = CellState.Peg;
+                if ((r >= 2 && r <= 6) || (c >= 2 && c <= 6))
+                    _board[r, c] = CellState.Peg;
             }
         }
-
-        // Top
-        for (int r = 0; r < 3; r++)
-        {
-            for (int c = 3; c < 6; c++)
-            {
-                _board[r, c] = CellState.Peg;
-            }
-        }
-
-        // Bottom
-        for (int r = 6; r < 9; r++)
-        {
-            for (int c = 3; c < 6; c++)
-            {
-                _board[r, c] = CellState.Peg;
-            }
-        }
-
-        // Left
-        for (int r = 3; r < 6; r++)
-        {
-            for (int c = 0; c < 3; c++)
-            {
-                _board[r, c] = CellState.Peg;
-            }
-        }
-
-        // Right
-        for (int r = 3; r < 6; r++)
-        {
-            for (int c = 6; c < 9; c++)
-            {
-                _board[r, c] = CellState.Peg;
-            }
-        }
-
-        // Set the center to empty
         _board[4, 4] = CellState.Empty;
     }
 
     private void SetupPlusBoard()
     {
-        // Horizontal line
-        for (int r = 3; r < 6; r++)
+        // Plus: only the central row and column
+        for (int i = 0; i < 9; i++)
         {
-            for (int c = 0; c < 9; c++)
-            {
-                _board[r, c] = CellState.Peg;
-            }
+            _board[4, i] = CellState.Peg;
+            _board[i, 4] = CellState.Peg;
         }
-
-        // Vertical line
-        for (int r = 0; r < 9; r++)
-        {
-            for (int c = 3; c < 6; c++)
-            {
-                _board[r, c] = CellState.Peg;
-            }
-        }
-
-        // Set the center to empty
         _board[4, 4] = CellState.Empty;
     }
 
     private void SetupDiamondBoard()
     {
-        // Central plus shape
+        // Diamond: pegs form a diamond shape
         for (int r = 0; r < 9; r++)
-        {
-            for (int c = 3; c < 6; c++)
-            {
-                _board[r, c] = CellState.Peg;
-            }
-        }
-        for (int r = 3; r < 6; r++)
         {
             for (int c = 0; c < 9; c++)
             {
-                _board[r, c] = CellState.Peg;
+                if (Math.Abs(r - 4) + Math.Abs(c - 4) <= 4)
+                    _board[r, c] = CellState.Peg;
             }
         }
-
-        // Set the center to empty
         _board[4, 4] = CellState.Empty;
     }
 
     private void SetupTriangleBoard()
     {
-        // Same as Diamond board for the plus shape
+        // Triangle: lower left triangle (like French solitaire)
         for (int r = 0; r < 9; r++)
         {
-            for (int c = 3; c < 6; c++)
+            for (int c = 0; c <= r && c < 9; c++)
             {
                 _board[r, c] = CellState.Peg;
             }
         }
-        for (int r = 3; r < 6; r++)
-        {
-            for (int c = 0; c < 9; c++)
-            {
-                _board[r, c] = CellState.Peg;
-            }
-        }
-
-        // Add diagonal upper-left to lower-right
-        for (int i = 0; i < 3; i++)
-        {
-            _board[i, i] = CellState.Peg;
-            _board[i + 6, i + 6] = CellState.Peg;
-        }
-
-        // Set the center to empty
-        _board[4, 4] = CellState.Empty;
+        _board[0, 0] = CellState.Empty;
     }
 
     private void SetupStarBoard()
     {
-        // Same as Triangle but with the other diagonal
+        // Star: a 6-pointed star (hexagram) approximation
+        // Use the diamond as a base, then remove the corners
         for (int r = 0; r < 9; r++)
-        {
-            for (int c = 3; c < 6; c++)
-            {
-                _board[r, c] = CellState.Peg;
-            }
-        }
-        for (int r = 3; r < 6; r++)
         {
             for (int c = 0; c < 9; c++)
             {
-                _board[r, c] = CellState.Peg;
+                if (Math.Abs(r - 4) + Math.Abs(c - 4) <= 4)
+                    _board[r, c] = CellState.Peg;
             }
         }
-
-        // Add diagonal upper-left to lower-right
-        for (int i = 0; i < 3; i++)
-        {
-            _board[i, i] = CellState.Peg;
-            _board[i + 6, i + 6] = CellState.Peg;
-        }
-
-        // Add diagonal upper-right to lower-left
-        for (int i = 0; i < 3; i++)
-        {
-            _board[i, 8 - i] = CellState.Peg;
-            _board[i + 6, 2 - i] = CellState.Peg;
-        }
-
-        // Set the center to empty
+        // Remove the four corners to make a star
+        _board[0, 0] = _board[0, 8] = _board[8, 0] = _board[8, 8] = CellState.OutOfBounds;
+        _board[1, 1] = _board[1, 7] = _board[7, 1] = _board[7, 7] = CellState.OutOfBounds;
         _board[4, 4] = CellState.Empty;
     }
 
